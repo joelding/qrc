@@ -1,0 +1,12 @@
+$ scp username@[IP ADDRESS]:[PATH]/[FILE] [DEST] 由遠端主機複製檔案至本機
+$ scp [FILE] username@[IP ADDRESS]:[PATH] 將檔案由本機複製到遠端主機
+
+Ubuntu 64位元系統執行32位元程式
+$ sudo dpkg --add-architecture i386
+$ sudo apt-get update
+$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386
+$ sudo apt-get install zlib1g-dev:i386 # if necessary
+
+$ du -sh ./folder_path #estimate file space usage in human readable format
+
+$ scp username@[IP ADDRESS]:[PATH]/[FILE] [DEST]
