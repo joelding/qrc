@@ -1,0 +1,7 @@
+A record of installing a new ubuntu system 16.04
+
+Starting with default installation,
+
+$ sudo apt-get install virtualbox
+$ sudo apt-get install git gitk
+$ sudo apt-get install curl
