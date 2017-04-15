@@ -4,4 +4,6 @@ Starting with default installation,
 
 $ sudo apt-get install virtualbox
 $ sudo apt-get install git gitk
+
+Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
 $ sudo apt-get install curl
