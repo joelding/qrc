@@ -69,3 +69,83 @@ $ docker rm CONTAINER
 
 移除電腦上的映像檔：
 $ docker rmi IMAGE
+
+An example of Dokerfile
+
+FROM ubuntu:14.04
+#FROM ubuntu:16.04
+MAINTAINER Joel Ding <joel.ding@avermedia.com>
+
+# replace dash with bash
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
+# add capability to run 32-bit application programs
+RUN dpkg --add-architecture i386
+RUN apt-get update
+RUN apt-get install --fix-missing
+
+# Install necessary packages on Ubuntu
+RUN apt-get install -y pkg-config apt-utils build-essential curl libncurses5-dev autoconf automake
+RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 
+
+# Ubuntu version dependent
+## for 14.04
+#RUN apt-get install uboot-mkimage 
+## for 16.04
+RUN apt-get install u-boot-tools 
+
+#RUN apt-get install -y lib32z1 libelf-dev python libncurses5-dev texinfo dc autoconf libcrypt-ssleay-perl ccache quilt libusb-dev libexpect-perl mono-devel libdbus-glib-1-dev libgtk2.0-dev bison flex
+
+# Specific for IPNC RDK
+#RUN apt-get install -y bison flex libacl1-dev zlib1g-dev liblzo2-dev uuid-dev mtd-utils python lib32z1 
+
+# Specific for EZSDK
+
+
+# Install toolchain
+
+RUN mkdir /opt/codesourcery
+
+RUN echo "Install Codesourcery ARM compiler for TI DM368"
+RUN curl -s -L "https://sourcery.mentor.com/public/gnu_toolchain/arm-none-linux-gnueabi/arm-2009q1-203-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2" | bunzip2 -d --stdout | tar -C /opt/codesourcery -xf -
+RUN curl -s -L "https://sourcery.mentor.com/sgpp/lite/arm/portal/package830/public/arm-none-eabi/arm-2009q1-161-arm-none-eabi-i686-pc-linux-gnu.tar.bz2" | bunzip2 -d --stdout | tar -C /opt/codesourcery -xf -
+ENV PATH $PATH:/opt/codesourcery/arm-2009q1/bin
+
+#RUN echo "Install Codesourcery ARM compiler for Linux/U-boot TI OMAP L138"
+#RUN curl -s -L "https://sourcery.mentor.com/public/gnu_toolchain/arm-none-linux-gnueabi/arm-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2" | bunzip2 -d --stdout | tar -C /opt/codesourcery -xf -
+#RUN echo "Install Codesourcery ARM compiler for bare-metal TI OMAP L138"
+#RUN curl -s -L "https://sourcery.mentor.com/sgpp/lite/arm/portal/package5353/public/arm-none-eabi/arm-2009q3-68-arm-none-eabi-i686-pc-linux-gnu.tar.bz2" | bunzip2 -d --stdout | tar -C /opt/codesourcery -xf -
+#ENV PATH $PATH:/opt/codesourcery/arm-2009q3/bin
+
+#RUN echo "Install CodeSoucery ARM compiler for bare-metal"
+#RUN curl -s -L "https://sourcery.mentor.com/public/gnu_toolchain/arm-none-linux-gnueabi/arm-2011.03-41-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2" | bunzip2 -d --stdout | tar -C /opt/codesourcery -xf -
+#RUN curl -s -L "https://sourcery.mentor.com/GNUToolchain/package8734/public/arm-none-eabi/arm-2011.03-42-arm-none-eabi-i686-pc-linux-gnu.tar.bz2" | bunzip2 -d --stdout | tar -C /opt/codesourcery -xf -
+
+RUN echo "Set common path"
+ENV PATH $PATH:.
+
+# Install DVSDK
+#ADD responses.txt /tmp/
+#RUN curl -s -L "http://software-dl.ti.com/dsps/dsps_public_sw/sdo_sb/targetcontent/dvsdk/DVSDK_4_00/4_02_00_06/exports/dvsdk_dm368-evm_4_02_00_06_setuplinux" > /tmp/dvsdk
+#RUN chmod a+wrx /tmp/dvsdk
+#RUN echo "dash dash/sh boolean false" | debconf-set-selections
+#RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+# Non-interactive doesn't allow us to pass the real location of g++
+#RUN mkdir -p /root/CodeSourcery/Sourcery_G++_Lite
+#RUN ln -s /opt/codesourcery/arm-2009q1/bin /root/CodeSourcery/Sourcery_G++_Lite/bin
+#RUN /tmp/dvsdk --forcehost --response-file /tmp/responses.txt --mode console
+
+# Set USER env var, required for SDK build
+ENV USER root
+
+# Set timezone
+ENV TZ=Asia/Taipei
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Clean up
+RUN apt-get -y clean
+RUN mkdir -p /home/workspace
+RUN echo "docker container need to mount to /home/workspace"
+
+#RUN rm /tmp/dvsdk
