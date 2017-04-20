@@ -148,6 +148,12 @@ ENV PATH $PATH:.
 #RUN ln -s /opt/codesourcery/arm-2009q1/bin /root/CodeSourcery/Sourcery_G++_Lite/bin
 #RUN /tmp/dvsdk --forcehost --response-file /tmp/responses.txt --mode console
 
++++ setup login user +++
 # Set USER env var, required for SDK build
 ENV USER root
 
+# same as host user $UID $USER
+# TODO: how to pass host environment to dockerfile?
+RUN useradd -u 1001 joel2
+
+--- setup login user ---
