@@ -1,3 +1,13 @@
+QUICK REFERENCE CARD for ALTERA GSRD
+
+History:
+	17/04/01	init
+	
+Add a custom application
+$ md5sum * | awk '{print $2 ";md5=" $1}'
+	
+	
+	
 AV CV GSRD 16.1 User manual
 
 	Cyclone V SX SoC Development Board or Arria V SoC Development Board
