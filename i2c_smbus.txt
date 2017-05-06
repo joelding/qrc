@@ -1,8 +1,10 @@
 i2c/smbus
 
+---------------------------------------------------------------------
 history
 	2017/04/17	init
-	
+
+---------------------------------------------------------------------
 The I2C specification
 - inter-IC
 - revision 1.0 in 1992; 2.1 in 2000
@@ -35,3 +37,8 @@ The SMBus specification
 - not all I2C devices support
 
 had enough lately 
+---------------------------------------------------------------------
+https://www.kernel.org/doc/Documentation/i2c/functionality
+https://www.kernel.org/doc/Documentation/i2c/smbus-protocol
+support revisions 1.0, 1.1, 2.0
+support part of protocol features
