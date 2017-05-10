@@ -1,5 +1,12 @@
 A record of installing a new ubuntu system 16.04
 
+
+history
+-------
+	2017/05/06	init
+
+
+
 Starting with default installation,
 
 $ sudo apt-get install virtualbox
