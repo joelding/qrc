@@ -1,8 +1,31 @@
-QUICK REFERENCE CARD for ALTERA GSRD
+# ALTERA GSRD
+Altera Golden Sample Reference Design
 
-History:
-	17/04/01	init
-	
+## History
+	* 17/04/01	init
+
+## SoC Labs	
+[reference](https://rocketboards.org/foswiki/Documentation/ArrowSoCKitEvaluationBoard)
+From [the lab material](https://rocketboards.org/foswiki/pub/Documentation/ArrowSoCKitEvaluationBoard/SoCKIT_Materials_16.0.zip)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Add a custom application
 $ md5sum * | awk '{print $2 ";md5=" $1}'
 	
@@ -37,3 +60,5 @@ kernel
 root filesystem
 
 system integration
+
+ftp://ftp.altera.com/up/pub/Altera_Material/Introduction_to_the_Qsys_Tool.pdf

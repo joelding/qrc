@@ -1,8 +1,19 @@
-i2c/smbus
+# I2C/SMBUS
 
----------------------------------------------------------------------
-history
-	2017/04/17	init
+## History
+	* 2017/04/17	init
+	* 2017/04/26	KM report with this topic
+
+## References
+* Fork of official Debian package https://github.com/ev3dev/i2c-tools.git
+
+
+### cross compile
+* no autotools
+```
+$ CC=arm-linux-gnueabihf-gcc make
+```
+* libi2c.a, libi2c.so.0.1.0
 
 ---------------------------------------------------------------------
 The I2C specification
@@ -42,3 +53,4 @@ https://www.kernel.org/doc/Documentation/i2c/functionality
 https://www.kernel.org/doc/Documentation/i2c/smbus-protocol
 support revisions 1.0, 1.1, 2.0
 support part of protocol features
+
