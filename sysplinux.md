@@ -5,6 +5,10 @@ Notes of system programming on Linux
 * 2017/06/01 init
 
 ## Textbooks
+1. Kerrisk, The Linux Programming Interface: A Linux and UNIX System Programming Handbook, No Starch Press, 2010
+1. Love, Linux System Programming: Talking Directly to the Kernel and C Library, 2/e, O'Reilly, 2013
+1. Buttlar, PThreads Programming: A POSIX Standard for Better Multiprocessing, O'Reilly, 1996
+1. Butenhof, Programming with POSIX Threads, Addison-Wesley, 1997
 
 ## Questions while reading source codes
 
