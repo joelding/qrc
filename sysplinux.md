@@ -9,6 +9,7 @@ Notes of system programming on Linux
 1. Love, Linux System Programming: Talking Directly to the Kernel and C Library, 2/e, O'Reilly, 2013
 1. Buttlar, PThreads Programming: A POSIX Standard for Better Multiprocessing, O'Reilly, 1996
 1. Butenhof, Programming with POSIX Threads, Addison-Wesley, 1997
+1. Robbins, Linux Programming by Example: The Fundamentals, Prentice Hall 2004
 
 ## Questions while reading source codes
 
