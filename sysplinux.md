@@ -10,6 +10,7 @@ Notes of system programming on Linux
 1. Buttlar, PThreads Programming: A POSIX Standard for Better Multiprocessing, O'Reilly, 1996
 1. Butenhof, Programming with POSIX Threads, Addison-Wesley, 1997
 1. Robbins, Linux Programming by Example: The Fundamentals, Prentice Hall 2004
+1. Wall, Linux Programming by Example, Que 1999
 
 ## Questions while reading source codes
 
