@@ -26,8 +26,8 @@ sudo adduser second_user dialout
 sudo apt-get install manpages-dev manpages-posix-dev
 
 ## VirtualBox/Ubuntu Guest 設定 Host Only + NAT 網卡連通內外網路
+* reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
 * VirtualBox 的 Host Only 網卡的預設網段是 192.168.56.0
-* http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
 ```
 $ lspci
 00:03:0 Ethernet controller ... => enp0s3
