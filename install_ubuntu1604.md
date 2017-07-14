@@ -41,7 +41,7 @@ address 192.168.56.88
 netmask 255.255.255.0
 network 192.168.56.0
 ```
-
---- TODO ---
-http://www.webupd8.org/2010/07/7-of-best-ubuntu-terminal-fixed-width.html
-$ sudo apt-get install ttf-inconsolata # Inconsolata
+## Install Inconsolata font
+```
+$ sudo apt-get install fonts-inconsolata
+```
