@@ -3,8 +3,20 @@ A record of installing a new ubuntu system 16.04
 ## history
 	2017/05/06	init
 
-
-
+## Ubuntu 安裝 NFS Serve
+```
+$ sudo apt-get install nfs-kernel-server
+$ mkdir /nfs_share
+$ chmod -R 777 /nfs_share
+$ sudo vim /etc/exports
+```
+目錄可讀寫，同步寫入，用戶進入後即變為root
+```
+/nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
+sudo exportfs -r #更新
+sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
+```
+## 重裝新系統
 Starting with default installation,
 ```
 $ sudo apt-get install virtualbox
