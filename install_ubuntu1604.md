@@ -2,7 +2,13 @@ A record of installing a new ubuntu system 16.04
 
 ## history
 	2017/05/06	init
-
+	
+## sudo 出現 unable to resolve host 錯誤解法
+* https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
+```
+$ sudo vim /etc/hosts
+```
+add 127.0.0.1 <hostname>
 ## Ubuntu 安裝 NFS Serve
 ```
 $ sudo apt-get install nfs-kernel-server
