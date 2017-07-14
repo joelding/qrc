@@ -10,6 +10,7 @@ $ sudo vim /etc/hosts
 ```
 add 127.0.0.1 <hostname>
 ## Ubuntu 安裝 NFS Serve
+
 ```
 $ sudo apt-get install nfs-kernel-server
 $ mkdir /nfs_share
@@ -19,8 +20,8 @@ $ sudo vim /etc/exports
 目錄可讀寫，同步寫入，用戶進入後即變為root
 ```
 /nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
-sudo exportfs -r #更新
-sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
+$ sudo exportfs -r #更新
+$ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
 ```
 客戶端下指令：
 ```
@@ -36,18 +37,23 @@ $ sudo apt-get install vim ctags cscope
 
 $ sudo apt-get install openbox xinit
 $ exec openbox-session; startx
-
 ```
 Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
 ```
 $ sudo apt-get install curl
 ```
-相容x86軟體
+## x64操作系統相容x86軟體
 ```
 $ sudo dpkg --add-architecture i386
 $ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
+```
 
+使用tty裝置
+```
 $ sudo adduser second_user dialout
+```
+## 安裝programming manual
+```
 $ sudo apt-get install manpages-dev manpages-posix-dev
 ```
 ## VirtualBox/Ubuntu Guest 設定 Host Only + NAT 網卡連通內外網路
