@@ -16,6 +16,10 @@ $ sudo vim /etc/exports
 sudo exportfs -r #更新
 sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
 ```
+客戶端下指令：
+```
+$ mount -t nfs 10.1.9.158:/nfs_share /mnt
+```
 ## 重裝新系統
 Starting with default installation,
 ```
