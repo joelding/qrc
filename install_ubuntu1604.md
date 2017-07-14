@@ -33,14 +33,17 @@ $ exec openbox-session; startx
 
 ```
 Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
+```
 $ sudo apt-get install curl
+```
+相容x86軟體
+```
+$ sudo dpkg --add-architecture i386
+$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
 
-sudo dpkg --add-architecture i386
-apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
-
-sudo adduser second_user dialout
-sudo apt-get install manpages-dev manpages-posix-dev
-
+$ sudo adduser second_user dialout
+$ sudo apt-get install manpages-dev manpages-posix-dev
+```
 ## VirtualBox/Ubuntu Guest 設定 Host Only + NAT 網卡連通內外網路
 * reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
 * VirtualBox 的 Host Only 網卡的預設網段是 192.168.56.0
