@@ -2,31 +2,7 @@ A record of installing a new ubuntu system 16.04
 
 ## history
 	2017/05/06	init
-	
-## sudo 出現 unable to resolve host 錯誤解法
-* https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
-```
-$ sudo vim /etc/hosts
-```
-add 127.0.0.1 <hostname>
-## Ubuntu 安裝 NFS Serve
 
-```
-$ sudo apt-get install nfs-kernel-server
-$ mkdir /nfs_share
-$ chmod -R 777 /nfs_share
-$ sudo vim /etc/exports
-```
-目錄可讀寫，同步寫入，用戶進入後即變為root
-```
-/nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
-$ sudo exportfs -r #更新
-$ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
-```
-客戶端下指令：
-```
-$ mount -t nfs 10.1.9.158:/nfs_share /mnt
-```
 ## 重裝新系統
 ```
 $ sudo apt-get install git gitk vim ctags cscope build-essential manpages-dev manpages-posix-dev
@@ -38,26 +14,30 @@ Install GStreamer on Ubuntu or Debian
 ```
 $ apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools
 ```
+
+Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
+```
+$ sudo apt-get install curl
+```
+x64操作系統相容x86軟體
+```
+$ sudo dpkg --add-architecture i386
+$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
+```
+使用tty裝置
+```
+$ sudo adduser second_user dialout
+```
+Install a simple window manager
 ```
 $ sudo apt-get install openbox xinit
 $ exec openbox-session; startx
 $ sudo apt-get install virtualbox
 ```
-Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
+Install Inconsolata font
 ```
-$ sudo apt-get install curl
+$ sudo apt-get install fonts-inconsolata
 ```
-## x64操作系統相容x86軟體
-```
-$ sudo dpkg --add-architecture i386
-$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
-```
-
-使用tty裝置
-```
-$ sudo adduser second_user dialout
-```
-
 ## VirtualBox/Ubuntu Guest 設定 Host Only + NAT 網卡連通內外網路
 * reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
 * VirtualBox 的 Host Only 網卡的預設網段是 192.168.56.0
@@ -74,7 +54,27 @@ address 192.168.56.88
 netmask 255.255.255.0
 network 192.168.56.0
 ```
-## Install Inconsolata font
+## sudo 出現 unable to resolve host 錯誤解法
+* https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
 ```
-$ sudo apt-get install fonts-inconsolata
+$ sudo vim /etc/hosts
+```
+add 127.0.0.1 <hostname>
+
+## Ubuntu 安裝 NFS Serve
+```
+$ sudo apt-get install nfs-kernel-server
+$ mkdir /nfs_share
+$ chmod -R 777 /nfs_share
+$ sudo vim /etc/exports
+```
+目錄可讀寫，同步寫入，用戶進入後即變為root
+```
+/nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
+$ sudo exportfs -r #更新
+$ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
+```
+客戶端下指令：
+```
+$ mount -t nfs 10.1.9.158:/nfs_share /mnt
 ```
