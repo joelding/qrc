@@ -28,15 +28,16 @@ $ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
 $ mount -t nfs 10.1.9.158:/nfs_share /mnt
 ```
 ## 重裝新系統
-Starting with default installation,
 ```
-$ sudo apt-get install virtualbox
-
-$ sudo apt-get install git gitk 
-$ sudo apt-get install vim ctags cscope
-
+$ sudo apt-get install git gitk vim ctags cscope build-essential manpages-dev manpages-posix-dev
+$ sudo vim /etc/default/grub # comment GRUB_CMDLINE_LINUX_DEFAULT
+$ sudo update-grub
+$ sudo adduser a003257
+```
+```
 $ sudo apt-get install openbox xinit
 $ exec openbox-session; startx
+$ sudo apt-get install virtualbox
 ```
 Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
 ```
@@ -52,10 +53,7 @@ $ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386
 ```
 $ sudo adduser second_user dialout
 ```
-## 安裝programming manual
-```
-$ sudo apt-get install manpages-dev manpages-posix-dev
-```
+
 ## VirtualBox/Ubuntu Guest 設定 Host Only + NAT 網卡連通內外網路
 * reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
 * VirtualBox 的 Host Only 網卡的預設網段是 192.168.56.0
