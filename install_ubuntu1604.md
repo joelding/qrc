@@ -14,11 +14,6 @@ Install GStreamer on Ubuntu or Debian
 ```
 $ apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools
 ```
-
-Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
-```
-$ sudo apt-get install curl
-```
 x64操作系統相容x86軟體
 ```
 $ sudo dpkg --add-architecture i386
@@ -28,8 +23,10 @@ $ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386
 ```
 $ sudo adduser second_user dialout
 ```
-Install a simple window manager
+Install a window manager
 ```
+$ sudo apt-get install lubuntu-desktop 
+$ sudo apt-get install lubuntu-core
 $ sudo apt-get install openbox xinit
 $ exec openbox-session; startx
 $ sudo apt-get install virtualbox
@@ -37,6 +34,10 @@ $ sudo apt-get install virtualbox
 Install Inconsolata font
 ```
 $ sudo apt-get install fonts-inconsolata
+```
+Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
+```
+$ sudo apt-get install curl
 ```
 ## VirtualBox/Ubuntu Guest 設定 Host Only + NAT 網卡連通內外網路
 * reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
