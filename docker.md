@@ -117,9 +117,9 @@ RUN apt-get -y clean
 RUN mkdir -p /home/workspace
 RUN echo "docker container need to mount to /home/workspace"
 #RUN rm /tmp/dvsdk
-
+```
 --- An example of Dokerfile ---
-
+```
 # Install necessary packages on Ubuntu
 RUN apt-get install -y pkg-config apt-utils build-essential curl libncurses5-dev autoconf automake
 RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 
