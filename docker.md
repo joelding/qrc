@@ -23,7 +23,21 @@ Docker 是新的虛擬化方式，比傳統的虛擬機啟動快、效能高。�
 
 安裝：
 
-在 Windows 、 macOS 、 Linux 上都可以使用Docker 。但對不同版本的操作系統，有不同的要求。例如在 Linux 上安裝 Docker 的條件，一定要 64 位元 Linux 、核心 3.10 以上。 Ubuntu 版本套件庫中內建 Docker 套件，可以直接安裝
+在 Windows 、 macOS 、 Linux 上都可以使用Docker 。但對不同版本的操作系統，有不同的要求。例如在 Linux 上安裝 Docker 的條件，一定要 64 位元 Linux 、核心 3.10 以上。 Ubuntu 上安裝 Docker CE (Community Edition)
+```
+$ sudo apt-get update
+$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+$ sudo apt-get update
+$ apt-cache madison docker-ce # 列出可下的版本
+$ sudo apt-get install docker-ce # 安裝最新版本
+$ sudo apt-get install docker-ce=<VERSION> # 安裝指定版本
+```
+Ubuntu 版本套件庫中內建 Docker 套件，可以直接安裝
 ```
 $ sudo apt-get install docker.io
 ```
