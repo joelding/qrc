@@ -1,5 +1,3 @@
-本文件針對需要交叉編譯的軟韌體工程師撰寫，收錄常用、實用的指令便於快速查表。
-
 Docker 是新的虛擬化方式，比傳統的虛擬機啟動快、效能高。開發人員使用已經設定好的映像檔，可以節省設定編譯環境的時間。
 
 基本概念：映像檔（ image ）
@@ -107,7 +105,7 @@ $ docker rm CONTAINER
 ```
 $ docker rmi IMAGE
 ```
-+++ An example of Dokerfile +++
+An example of a complete Dokerfile
 ```
 FROM ubuntu:14.04
 #FROM ubuntu:16.04
@@ -121,6 +119,7 @@ RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 RUN dpkg --add-architecture i386
 RUN apt-get update
 RUN apt-get install --fix-missing
+RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 
 
 # Set timezone
 ENV TZ=Asia/Taipei
@@ -132,18 +131,19 @@ RUN mkdir -p /home/workspace
 RUN echo "docker container need to mount to /home/workspace"
 #RUN rm /tmp/dvsdk
 ```
---- An example of Dokerfile ---
+Install necessary packages on Ubuntu
 ```
-# Install necessary packages on Ubuntu
 RUN apt-get install -y pkg-config apt-utils build-essential curl libncurses5-dev autoconf automake
-RUN apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 
-
-# Ubuntu version dependent
+```
+Install u-boot tools
+```
 ## for 14.04
 #RUN apt-get install uboot-mkimage 
 ## for 16.04
 RUN apt-get install u-boot-tools 
-
+```
+For building TI
+```
 #RUN apt-get install -y lib32z1 libelf-dev python libncurses5-dev texinfo dc autoconf libcrypt-ssleay-perl ccache quilt libusb-dev libexpect-perl mono-devel libdbus-glib-1-dev libgtk2.0-dev bison flex
 
 # Specific for IPNC RDK
