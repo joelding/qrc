@@ -83,7 +83,9 @@ $ docker run -t -i REPOSITORY:TAG /bin/bash
 ```
 新建、啟動容器、並掛載源碼目錄：
 ```
-$ docker run -v LOCAL_DIRECTORY:MOUNT_DIRECTORY -u `stat -c "%u:%g" LOCAL_DIRECTORY` -t -i REPOSITORY:TAG /bin/bash
+$ docker run -v LOCAL_DIRECTORY:MOUNT_DIRECTORY \
+   -u `stat -c "%u:%g" LOCAL_DIRECTORY` \
+   -t -i REPOSITORY:TAG /bin/bash
 ```
 在容器中下 exit 命令來退出終端時，所建立的容器立刻終止。
 ```
