@@ -19,7 +19,7 @@ Docker 是新的虛擬化方式，比傳統的虛擬機啟動快、效能高。�
 基本概念：倉庫註冊伺服器 （ Registry ）
 * 存放多個倉庫，每個倉庫中又包含了多個映像檔，每個映像檔有不同的標籤（ tag ）。
 
-安裝：
+Host PC 安裝 Docker：
 
 在 Windows 、 macOS 、 Linux 上都可以使用Docker 。但對不同版本的操作系統，有不同的要求。例如在 Linux 上安裝 Docker 的條件，一定要 64 位元 Linux 、核心 3.10 以上。 Ubuntu 上安裝 Docker CE (Community Edition)
 ```
@@ -105,7 +105,7 @@ $ docker rm CONTAINER
 ```
 $ docker rmi IMAGE
 ```
-An example of a complete Dokerfile
+Dokerfile 範例
 ```
 FROM ubuntu:14.04
 #FROM ubuntu:16.04
@@ -130,6 +130,14 @@ RUN apt-get -y clean
 RUN mkdir -p /home/workspace
 RUN echo "docker container need to mount to /home/workspace"
 #RUN rm /tmp/dvsdk
+```
+Dockerfile copy a directory from host to image
+```
+COPY /path/to/host/src /path/to/image/dest 
+```
+Change directory
+```
+WORKDIR /path/to/workdir
 ```
 Install necessary packages on Ubuntu
 ```
