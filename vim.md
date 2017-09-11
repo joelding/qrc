@@ -33,6 +33,7 @@ set mouse=a
 set nu
 set hlsearch
 set colorcolumn=80
+set tabstop=4
 set cino=(0
 set foldmethod=syntax
 set foldlevel=99
