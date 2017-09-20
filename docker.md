@@ -69,7 +69,11 @@ $ docker pull NAME
 ```
 $ docker images
 ```
-利用 Dockerfile 建立映像檔：
+利用 Dockerfile 全新建立映像檔：
+```
+$ docker build --no-cache -t="REPOSITORY:TAG" .
+```
+利用 Dockerfile 建立映像檔，使用 cache 加速。（注意，套件更新可能會造成問題）：
 ```
 $ docker build -t="REPOSITORY:TAG" .
 ```
