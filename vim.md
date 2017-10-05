@@ -38,6 +38,7 @@ set cino=(0
 set foldmethod=syntax
 set foldlevel=99
 set clipboard=unnamed
+set csre
 colo desert
 
 nmap <F9> :TlistToggle<CR>
