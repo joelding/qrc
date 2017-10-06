@@ -40,6 +40,9 @@ set foldlevel=99
 set clipboard=unnamed
 set csre
 colo desert
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0 noexpandtab
 
 nmap <F9> :TlistToggle<CR>
 nmap <F10> :SrcExplToggle<CR>
