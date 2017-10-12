@@ -10,16 +10,16 @@ $ sudo vim /etc/default/grub # comment GRUB_CMDLINE_LINUX_DEFAULT
 $ sudo update-grub
 $ sudo adduser a003257
 ```
-Install GStreamer on Ubuntu or Debian
+## Install GStreamer on Ubuntu or Debian
 ```
 $ apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools
 ```
-x64操作系統相容x86軟體
+## x64操作系統相容x86軟體
 ```
 $ sudo dpkg --add-architecture i386
 $ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
 ```
-使用tty裝置
+## 使用tty裝置
 ```
 $ sudo adduser second_user dialout
 ```
@@ -30,8 +30,9 @@ $ sudo apt-get install lubuntu-core
 $ sudo apt-get install openbox xinit
 $ exec openbox-session; startx
 $ sudo apt-get install virtualbox
+$ sudo usermod -a -G vboxsf <username> # add an existing user to vbox group
 ```
-Install Inconsolata font
+## Install Inconsolata font
 ```
 $ sudo apt-get install fonts-inconsolata
 ```
@@ -69,13 +70,13 @@ $ mkdir /nfs_share
 $ chmod -R 777 /nfs_share
 $ sudo vim /etc/exports
 ```
-目錄可讀寫，同步寫入，用戶進入後即變為root
+## 目錄可讀寫，同步寫入，用戶進入後即變為root
 ```
 /nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
 $ sudo exportfs -r #更新
 $ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
 ```
-客戶端下指令：
+## 客戶端下指令：
 ```
 $ mount -t nfs 10.1.9.158:/nfs_share /mnt
 ```
