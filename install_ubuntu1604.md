@@ -56,6 +56,9 @@ address 192.168.56.88
 network 192.168.56.0
 netmask 255.255.255.0
 ```
+```
+$ sudo apt-get install openssh-server
+```
 ## sudo 出現 unable to resolve host 錯誤解法
 * https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
 ```
