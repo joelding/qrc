@@ -81,4 +81,4 @@ $ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
 $ mount -t nfs 10.1.9.158:/nfs_share /mnt
 ```
 ## show all boot process
-Modify /etc/default/grub. Change GRUB\_CMDLINE\_LINUX\_DEFAULT="splash quiet" to "".
+Modify /etc/default/grub. Change GRUB\_CMDLINE\_LINUX\_DEFAULT="splash quiet" to "". Then, run update-grub.
