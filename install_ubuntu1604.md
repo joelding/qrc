@@ -53,8 +53,8 @@ Add the following lines to /etc/network/interfaces
 auto enp0s8
 iface enp0s8 inet static
 address 192.168.56.88
-netmask 255.255.255.0
 network 192.168.56.0
+netmask 255.255.255.0
 ```
 ## sudo 出現 unable to resolve host 錯誤解法
 * https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
