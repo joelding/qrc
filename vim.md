@@ -36,7 +36,7 @@ set colorcolumn=80
 set tabstop=4
 set cino=(0
 set foldmethod=syntax
-set foldlevel=99
+set foldlevel=1
 set clipboard=unnamed
 set csre
 colo desert
