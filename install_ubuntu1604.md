@@ -85,3 +85,7 @@ $ mount -t nfs 10.1.9.158:/nfs_share /mnt
 ```
 ## show all boot process
 Modify /etc/default/grub. Change GRUB\_CMDLINE\_LINUX\_DEFAULT="splash quiet" to "". Then, run update-grub.
+## Openbox
+To add an entry to openbox menu: edit /etc/xdg/openbox/menu.xml
+ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
+
