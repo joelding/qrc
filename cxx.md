@@ -10,3 +10,24 @@ This document collects summaries of C computer language and C++, CObject.
 
 C style pass-by-reference
 C++ style pass-by-reference
+
+## GNU C features: attributes
+* not found in ISO standard
+* An attribute specifier is of the form as following. An attribute list is a possibly empty comma-separated sequence of attributes.
+```
+__attribute__ ((attribute-list))
+```
+* defined for functions, variables, types
+* attributes of types
+  * total 7: aligned, packed, transparent_union, unused, deprecated, visibility, and may_alias
+  * examples for aligned: specifying a minimum alignment in bytes, increasing the alignment only
+```
+struct S { short f[3]; } __attribute__ ((aligned (8)));
+typedef int more_aligned_int __attribute__ ((aligned (8)));
+```
+  * examples for packed: minimizing the required memory, decreasing the alignment only
+
+TODO: functions, variables 
+
+references:
+* GCC online manual [link](https://gcc.gnu.org/onlinedocs)
