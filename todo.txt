@@ -1,1 +1,56 @@
+object檔修改工具 - objcopy
 
+
+-------------------------------------------------------------------------------
+
+## 亂序執行
+* out-of-order execution
+* aka: OoOE, OOE
+
+ref
+* Out-of-order execution [link](https://en.wikipedia.org/wiki/Out-of-order_execution)
+* 乱序执行 [link](https://zh.wikipedia.org/wiki/%E4%B9%B1%E5%BA%8F%E6%89%A7%E8%A1%8C)
+
+-------------------------------------------------------------------------------
+
+ref
+* http://capricorn-liver.blogspot.tw/2010/11/cbmp.html
+
+-------------------------------------------------------------------------------
+## GUID Partition Table
+* aka GPT
+* a part of the Unified Extensible Firmware Interface (UEFI) standard, as a replacement for the PC BIOS
+* MBR (Master boot record) partitioning scheme
+  * The original version of the MBR was written by David Litton of IBM in June 1982
+  * introduced with IBM PC DOS 2.0 in March 1983 in order to support the 10 MB hard disk of the then-new IBM Personal Computer XT, still using the FAT12 file system
+  * use 32 bits for storing block addresses
+  * limit: 512 bytes/sector * (2 ^ 32) = 2 ^ 41 = 2 Tbytes maximum
+
+* advantages over the MBR: 
+  * use 64 bits for storing block addresses
+  * limit: 512 bytes/sector * (2 ^ 64) = 2 ^ 73 = 8 Zbytes maximum
+  * more partitions is possible, depending on operating system supports
+  * TODO
+    
+* Major Linux distros support GPT: Fedora above 8, Ubuntu above 8.04+ with tools such as gdisk, GNU Parted, util-linux v2.23+ fdisk, SYSLINUX, GRUB 0.96 + patches and GRUB 2 have been GPT-enabled.
+  * kernel config CONFIG_EFI_PARTITION option enables GPT support in the kernel
+    
+  * command "blkid"
+  * command "gdisk"
+  * command "lsblk"
+  
+* ref
+  * wiki MBR [link](https://en.wikipedia.org/wiki/Master_boot_record)
+  * wiki GPT [link](https://en.wikipedia.org/wiki/GUID_Partition_Table)
+  * k-M-G-T-P-E-Z-Y [link](http://ioanaspune.ro/wp-content/uploads/2015/03/tabel-1014x1024.jpg)
+  * GPT kernel support [link](https://wiki.archlinux.org/index.php/partitioning#GPT_Kernel_Support)
+  * TI Linux Core U-Boot User's Guide talking about how to use u-boot to make a GPT eMMC and boot from it [link](http://processors.wiki.ti.com/index.php/Linux_Core_U-Boot_User%27s_Guide)
+  
+## File System
+  
+  
+  
+* ref
+  * Kernel NTFS driver vs NTFS-3G [link](https://superuser.com/questions/139452/kernel-ntfs-driver-vs-ntfs-3g)
+  * 筆記 linux-support-ntfs-by-ntfs-3g [link](http://paul.pixnet.net/blog/post/11120651-%5B%E7%AD%86%E8%A8%98%5Dlinux-support-ntfs-by-ntfs-3g)
+  
