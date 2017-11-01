@@ -1,3 +1,76 @@
+
+
+
+========== 11/01 ==========
+
+How to write an i2c-controlled video decoder/encoder driver?
+
+## V4L2 driver
+* tend to be complex
+* example: v4l2-pci-skeleton.c
+* structure of a driver must have
+  * the device state: one for each device instance
+  * a way to init and command sub-devices
+  * create v4l2 device nodes and k
+references:
+1. Overview of the V4L2 driver framework [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-framework.txt)
+2. [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-controls.txt)
+3. [link](https://archive.fosdem.org/2014/schedule/event/v4l_intro/attachments/slides/448/export/events/attachments/v4l_intro/slides/448/v4l2_frameworks.pdf)
+
+
+
+
+struct xxx_state {
+	struct v4l2_subdev sd;
+	struct v4l2_ctrl_handler ctrl_handler;
+	...
+};
+
+
+#include <v4l2/v4l2-common.h>
+
+/* fill in all the fields of v4l2_subdev;
+   ensure the v4l2_subdev and i2c_client both point to one another */
+v4l2_i2c_subdev_init(&state->sd, client, subdev_ops); 
+
+v4l2_ctrl_handler_init(&state->ctrl_handler, nr_of_controls);
+
+static inline struct xxx_state *to_state(struct v4l2_subdev *sd)
+{
+	return container_of(sd, struct xxx_state, sd);
+}
+
+struct i2c_client *client = v4l2_get_subdevdata(sd);
+struct v4l2_subdev *sd = i2c_get_clientdata(client);
+
+
+v4l2_device_unregister_subdev(sd);
+
+
+TODO:
+v4l2_i2c_new_subdev(v4l2_dev, adapter, "module_foo", "chipid", 0x36, NULL);
+
+
+
+---------------------------------------------------------------------------------------
+
+sample_tde shows a quarter sized backgroud with some pictures moving around.
+
+
+
+---------------------------------------------------------------------------------------
+Good resoures: http://free-electrons.com/doc/legacy/
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 object檔修改工具 - objcopy
 
 
