@@ -1,17 +1,52 @@
 
+///////////////////////////////////////////////////////////////////////////////
+11/02
 
+Q: v4l2-framework.txt does not talk about video buffer. What else talks about it?
 
-========== 11/01 ==========
+Q: How to use I2S of Si3519V101 and make HDMI out with stereo audio? (Dave)
+
+On the chip, pins relating to I2S input and output are:
+AB23: JTAG_EN
+
+AB24: I2S_BCLK_TX
+AC23: I2S_WS_TX
+AD23: I2S_SD_TX
+
+AC24: I2S_MCLK
+
+AC22: I2S_BCLK_RX
+AB21: I2S_WS_RX
+AD22: I2S_SD_RX
+
+1. Remove R74 to disable JTAG function
+2. Connect to SD0/1/2/3/MCLK/SCK/WS_DR0
+
+Q: How to select pin functions of Si3519V101 (setup pin multiplexing)?
+
+Q: hisi-hi3519v101-demb.dts and hisi-hi3519v101-hmp-demb.dts - which is in use?
+
+Q: How does a bootloader bring dtb to kernel?
+bootm <address> - <>
+
+///////////////////////////////////////////////////////////////////////////////
+11/01
 
 How to write an i2c-controlled video decoder/encoder driver?
 
-## V4L2 driver
-* tend to be complex
-* example: v4l2-pci-skeleton.c
+* V4L2 driver tends to be complex. 
+  => V4L2 framework, providing basic building blocks
+* V4L2 drivers apple to audio/video muxing/encoding/decoding ICs, "sub-devices",
+  * connected to the main bridge driver through I2C busses
+  * bus or host controller is called a parent device
+* example: v4l2-pci-skeleton.c, a skeleton driver for a PCI capture card
 * structure of a driver must have
   * the device state: one for each device instance
   * a way to init and command sub-devices
-  * create v4l2 device nodes and k
+  * create v4l2 device nodes and device-node specific data
+  * Filehandle-specific structs and per-filehandle data
+  * video buffer handling
+
 references:
 1. Overview of the V4L2 driver framework [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-framework.txt)
 2. [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-controls.txt)
