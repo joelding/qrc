@@ -29,6 +29,31 @@ Q: hisi-hi3519v101-demb.dts and hisi-hi3519v101-hmp-demb.dts - which is in use?
 Q: How does a bootloader bring dtb to kernel?
 bootm <address> - <>
 
+
+
+
+* Device Tree
+  * ARM Linux 2.6，arch/arm/plat-xxx和arch/arm/mach-xxx中充斥着描述板级细节的代码
+  * 板上的platform设备、resource、i2c_board_info、spi_board_info以及各种硬件的platform_data。
+  * 结点（node）和属性（property）组成
+    * 结点本身可包含子结点
+    * 属性是成对出现的name和value
+    * 画一棵电路板上CPU、总线、设备组成的树
+  * DTS (device tree source) -> DTC (device tree compiler) -> Device Tree Blob (.dtb) 
+  * 是一种描述硬件的数据结构
+  * bootloader将这棵树传递给内核在引导kernel的过程中，会先读取该.dtb到内存。
+  * .dtsi: 提炼SoC公用的部分或者多个machine共同的部分
+
+
+
+references:
+[1] ARM Linux 3.x的设备树（Device Tree）宋宝华 http://blog.csdn.net/21cnbao/article/details/8457546
+[2] The Devicetree Specification https://www.devicetree.org/
+[3] Thomas Petazzoni, Device Tree for Dummies for Embedded Linux Conference Europe https://youtu.be/m_NyYEBxfn8 https://events.linuxfoundation.org/sites/events/files/slides/petazzoni-device-tree-dummies.pdf
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 11/01
 
