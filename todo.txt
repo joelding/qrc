@@ -49,8 +49,8 @@ bootm <address> - <>
 references:
 [1] ARM Linux 3.x的设备树（Device Tree）宋宝华 http://blog.csdn.net/21cnbao/article/details/8457546
 [2] The Devicetree Specification https://www.devicetree.org/
-[3] Thomas Petazzoni, Device Tree for Dummies for Embedded Linux Conference Europe https://youtu.be/m_NyYEBxfn8 https://events.linuxfoundation.org/sites/events/files/slides/petazzoni-device-tree-dummies.pdf
-
+[3] Thomas Petazzoni, Device Tree for Dummies for Embedded Linux Conference Europe https://youtu.be/m_NyYEBxfn8 
+[4] Thomas Petazzoni, http://free-electrons.com/pub/conferences/2013/elce/petazzoni-device-tree-dummies/petazzoni-device-tree-dummies.pdf
 
 
 
