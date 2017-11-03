@@ -1,3 +1,41 @@
+///////////////////////////////////////////////////////////////////////////////
+11/03
+
+Q: How to compile a dts file?
+
+
+Q: Where Kocha code is?
+  ap.git/dm365/interface/avm/kocha_*
+
+Hi3519V101 SDK setup the SoC in u-boot:
+1. from osdrv/tools/pc/uboot_tools/mkboot.sh 
+original u-boot is split into two 
+[first 64 byte][reg_info data up to 5120 bytes, padded with 0][the rest of u-boot]
+
+
+Q: How to show a binary file?
+  hexdump -C <file>
+  dhex <file>
+Q: How to compare two binary files?
+  cmp -l <file 1> <file 2>
+Q: How to use visual tool to compare two binary files
+  vbindiff <file 1> <file 2>
+
+
+
+
+
+Q: How to copy to the clipboard in OpenBox?
+  Ctrl+Shift+C to copy; mouse mid-button to paste
+
+
+Q: why u-boot shows "dirty" on the title?
+Q: What make a u-boot image "dirty"?
+  The tree contains uncommitted modifications.
+
+references:
+  [1] https://lists.denx.de/pipermail/u-boot/2008-May/034702.html
+
 
 ///////////////////////////////////////////////////////////////////////////////
 11/02
@@ -29,18 +67,17 @@ Q: hisi-hi3519v101-demb.dts and hisi-hi3519v101-hmp-demb.dts - which is in use?
 Q: How does a bootloader bring dtb to kernel?
 bootm <address> - <>
 
-
-
+Q: Must dtb explicitly load via u-boot bootm? This article said dtb can be integrated into uboot or separately loaded [link](http://blog.csdn.net/ooonebook/article/details/53206623)
 
 * Device Tree
   * ARM Linux 2.6，arch/arm/plat-xxx和arch/arm/mach-xxx中充斥着描述板级细节的代码
-  * 板上的platform设备、resource、i2c_board_info、spi_board_info以及各种硬件的platform_data。
+    * 板上的platform设备、resource、i2c_board_info、spi_board_info以及各种硬件的platform_data。
+  * 是一种描述硬件的数据结构
+  * 画一棵电路板上CPU、总线、设备组成的树
   * 结点（node）和属性（property）组成
     * 结点本身可包含子结点
     * 属性是成对出现的name和value
-    * 画一棵电路板上CPU、总线、设备组成的树
   * DTS (device tree source) -> DTC (device tree compiler) -> Device Tree Blob (.dtb) 
-  * 是一种描述硬件的数据结构
   * bootloader将这棵树传递给内核在引导kernel的过程中，会先读取该.dtb到内存。
   * .dtsi: 提炼SoC公用的部分或者多个machine共同的部分
 
@@ -49,10 +86,10 @@ bootm <address> - <>
 references:
 [1] ARM Linux 3.x的设备树（Device Tree）宋宝华 http://blog.csdn.net/21cnbao/article/details/8457546
 [2] The Devicetree Specification https://www.devicetree.org/
-[3] Thomas Petazzoni, Device Tree for Dummies for Embedded Linux Conference Europe https://youtu.be/m_NyYEBxfn8 
-[4] Thomas Petazzoni, http://free-electrons.com/pub/conferences/2013/elce/petazzoni-device-tree-dummies/petazzoni-device-tree-dummies.pdf
-
-
+[3] Thomas Petazzoni, Device Tree for Dummies. Presentation [link](http://free-electrons.com/pub/conferences/2013/elce/petazzoni-device-tree-dummies/petazzoni-device-tree-dummies.pdf); talk for Embedded Linux Conference Europe [link](https://youtu.be/m_NyYEBxfn8)
+[4] Device Tree Usage [link](https://elinux.org/Device_Tree_Usage) 
+  targeting at how to write a device tree for a new machine
+[5] Kernel documentation [link](Documentation/devicetree)
 
 ///////////////////////////////////////////////////////////////////////////////
 11/01
@@ -187,3 +224,252 @@ ref
   * Kernel NTFS driver vs NTFS-3G [link](https://superuser.com/questions/139452/kernel-ntfs-driver-vs-ntfs-3g)
   * 筆記 linux-support-ntfs-by-ntfs-3g [link](http://paul.pixnet.net/blog/post/11120651-%5B%E7%AD%86%E8%A8%98%5Dlinux-support-ntfs-by-ntfs-3g)
   
+
+
+## Build GStreamer with cerbero
+
+```
+$ git clone git://anongit.freedesktop.org/gstreamer/cerbero
+$ ./cerbero-uninstalled -c config/xxx.cbc bootstrap
+```
+wipe : Wipes everything to restore the build system
+bootstrap : 下载并安装当前环境下编译时所需工具
+build : 编译某个recipe，包括其依赖项
+buildone : 编译某个recipe，不包括其依赖项
+cleanone : 清理某个recipe
+
+```
+$ ./cerbero-uninstalled -c config/xxx.cbc package gstreamer-1.0
+```
+
+reference:
+* Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
+* GStreamer SDK 1.0 Build Via Cerbero [link](http://www.jianshu.com/p/7863404c1909)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------
+
+
+
+WARNING: No specific packager available for the distro version none_uclibc, using generic packager for distro none
+-----> Creating package for gstreamer-1.0
+WARNING: Some libraries weren't found while searching!
+libgstgl-1.0
+WARNING: Some libraries weren't found while searching!
+libwebrtc_audio_processing
+WARNING: Some libraries weren't found while searching!
+libgstvalidate-preload-1.0
+***** Error running 'package' command:
+The following files required by this package are missing:
+ lib/gstreamer-1.0/libgstopengl.so
+lib/gstreamer-1.0/libgstaudiovisualizers.so
+
+
+
+---------------------------------------------------------------------------------------
+
+How to modify git site
+
+
+
+
+---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+Download the source
+    https://gstreamer.freedesktop.org/download/
+
+./configure CC=arm-linux-gnueabi-gcc CXX=arm-linux-gnurabi-g++ --host=arm-linux --build=i686-linux --prefix=/home/kclin/workspace/cross_result/pkg_config/ RANLIB=arm-linux-gnueabi-ranlib LD=arm-linux-gnueabi-ld --cache-file=arm-linux.cache LIBS="-L/home/kclin/workspace/cross_result/pkg_config/lib -lffi" CFLAGS="-I/home/kclin/workspace/cross_result/pkg_config/lib/libffi-3.0.13/include -I/home/kclin/workspace/cross_result/pkg_config/include"
+
+make && make install
+
+
+
+make OSDRV_CROSS=arm-hisiv500-linux CHIP=hi3519v101 FLASH_TYPE=spi all
+
+
+a003257@ubuntu:~/avm/T533C$ ./sdk.unpack 
+Unpacking SDK
+WARN: Be sure you have installed the cross-compiler. if not, install it first!
+WARN: ALL THE SOUCE FILES WILL BE OVERWRITED, FILES YOU MOTIFIED WILL BE LOST !!!
+
+OS_TYPE  =linux
+SDK_CHIP =hi3519v101
+CUSTOMER_VERSION =
+unpacking osal
+run_command_progress_float: 'tar -xvzf package/osal.tgz'
+[100%]##################################################|
+unpacking osdrv
+run_command_progress_float: 'tar -xvzf package/osdrv.tgz'
+[100%]##################################################|
+unpacking linux kernel
+run_command_progress_float: 'tar -xvzf osdrv/opensource/kernel/linux-3.18.y.tgz -C osdrv/opensource/kernel/'
+[100%]##################################################|
+unpacking mpp_big-little
+mkdir: created directory 'mpp_big-little'
+run_command_progress_float: 'tar -xvzf package/mpp_big-little.tgz'
+[100%]##################################################|
+unpacking drv
+mkdir: created directory 'drv'
+run_command_progress_float: 'tar -xvzf package/drv.tgz'
+[100%]##################################################|
+
+
+
+
+hisilicon # printenv
+bootdelay=1
+baudrate=115200
+bootfile="uImage"
+filesize=4B9D7C
+fileaddr=82000000
+netmask=255.255.255.0
+bootargs=mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs)
+bootcmd=sf probe 0;sf read 0x82000000 0x100000 0x300000;bootm 0x82000000
+
+serverip=10.1.9.108
+nfshost=10.1.9.108
+ipaddr=10.1.9.124
+gatewayip=10.1.9.254
+ethaddr=00:00:23:34:45:66
+
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+ver=U-Boot 2010.06 (Nov 30 2016 - 19:59:33)
+
+
+
+
+setenv bootargs mem=64M console=ttyAMA0,115200 
+
+
+setenv bootargs mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs) ip=dhcp
+
+setenv bootargs mem=32M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs) ip=dhcp
+
+
+set bootcmd 'sf probe 0;sf read 0x82000000 0x100000 0x300000;bootm 0x82000000'
+set bootargs 'mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs) ip=dhcp'
+set ipaddr 192.168.0.50
+set serverip 192.168.0.100
+
+
+
+---------------------------------------------------------------------------------------
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- 
+---------------------------------------------------------------------------------------
+
+
+hisilicon # printenv
+bootdelay=1
+baudrate=115200
+bootfile="uImage"
+filesize=4B9D7C
+fileaddr=82000000
+netmask=255.255.255.0
+bootargs=mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs)
+bootcmd=sf probe 0;sf read 0x82000000 0x100000 0x300000;bootm 0x82000000
+serverip=10.1.9.108
+nfshost=10.1.9.108
+ipaddr=10.1.9.124
+gatewayip=10.1.9.254
+ethaddr=00:00:23:34:45:66
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+ver=U-Boot 2010.06 (Nov 30 2016 - 19:59:33)
+
+
+
+
+setenv bootargs mem=64M console=ttyAMA0,115200 
+
+
+setenv bootargs mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs) ip=dhcp
+
+setenv bootargs mem=32M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs) ip=dhcp
+
+
+
+
+
+
+sample/vio/sample_vio.c
+
+__HuaweiLite__ is NOT used.
+
+VO_INTF g_enVoIntfType video output interafce type
+
+SAMPLE_VI_CONFIG_S video input configuration type
+
+SENSOR_TYPE is defined in sample/Makefile.param
+
+struct is typedefined as _S.
+
+
+(gst-inspect-1.0:148): GStreamer-WARNING **: External plugin loader failed. This most likely means that the plugin loader helper binary was not found or could no.
+
+(gst-inspect-1.0:148): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstlibav.so': File not found
+
+./gst-inspect-1.0: symbol '_ZN2cv3Mat10deallocateEv': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvCreateImageHeader': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvReleaseImage': can't resolve symbol
+
+./gst-inspect-1.0: symbol '_ZN9_IplImageC1ERKN2cv3MatE': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvCopy': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvCreateImage': can't resolve symbol
+
+./gst-inspect-1.0: symbol '_ZN2cv8fastFreeEPv': can't resolve symbol
+
+(gst-inspect-1.0:148): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstavtremovebgsink.so': unknown dl-error
+
+(gst-inspect-1.0:148): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstmatroska.so': File not found
+/mnt/linux_armv7/bin # ./gst-inspect-1.0 | tee 2>&1 /mnt/inspect.log
+
+(gst-inspect-1.0:150): GStreamer-WARNING **: External plugin loader failed. This most likely means that the plugin loader helper binary was not found or could no.
+
+(gst-inspect-1.0:150): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstlibav.so': File not found
+
+./gst-inspect-1.0: symbol '_ZN2cv3Mat10deallocateEv': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvCreateImageHeader': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvReleaseImage': can't resolve symbol
+
+./gst-inspect-1.0: symbol '_ZN9_IplImageC1ERKN2cv3MatE': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvCopy': can't resolve symbol
+
+./gst-inspect-1.0: symbol 'cvCreateImage': can't resolve symbol
+
+./gst-inspect-1.0: symbol '_ZN2cv8fastFreeEPv': can't resolve symbol
+
+(gst-inspect-1.0:150): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstavtremovebgsink.so': unknown dl-error
+
+(gst-inspect-1.0:150): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstmatroska.so': File not found
