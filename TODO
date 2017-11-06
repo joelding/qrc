@@ -1,4 +1,41 @@
 ///////////////////////////////////////////////////////////////////////////////
+
+11/06
+
+arm-hisiv500-linux-objcopy --gap-fill=0xff -O binary u-boot u-boot.bin
+osdrv/tools/pc_tools/uboot_tools/
+mkboot.sh reg_info.bin u-boot-hi3519v101.bin
+# mw.b 0x82000000 ff 0x100000
+# tftp 0x82000000 u-boot.bin
+# sf probe 0
+# sf erase 0x0 0x100000
+# sf write 0x82000000 0x0 0x100000
+
+
+Q: How can GNU toolchain relocate u-boot binary image when linking archive files?
+
+Q: How do I know the address where u-boot stores environment parameters?
+
+BOOT_SEL0
+
+HiTool: using usb-to-serial is better than using on-mainboard uart port.
+
+SW1.3 ->1 bootrom; ->0 
+
+Q: What is the difference between PCM and I2S?
+I2S:
+  * 4-wire interface: bit clocke (BCLK), left/right clock (LRC), Tx, Rx lines
+  * 3 operating modes: I2S, left justfied, right justfied
+PCM:
+  * 4-wire interface: bit clocke (BCLK), sync (SYNC), Tx, Rx lines
+  * 2 operating modes: A and B
+
+references:
+1. kernel documentation on Digital Audio Interface [link](Documentation/sound/alsa/soc/DAI.txt)
+2. [link](http://blog.csdn.net/azloong/article/details/6536855)
+
+
+///////////////////////////////////////////////////////////////////////////////
 11/03
 
 Q: How to compile a dts file?
@@ -22,16 +59,14 @@ Q: How to use visual tool to compare two binary files
   vbindiff <file 1> <file 2>
 
 
-
+Hi3519V101-uboot-DDR3_1866M_32bit_1GB-A7_792M-A17_930M-BUS_200M.xls
 
 
 Q: How to copy to the clipboard in OpenBox?
   Ctrl+Shift+C to copy; mouse mid-button to paste
 
 
-Q: why u-boot shows "dirty" on the title?
-Q: What make a u-boot image "dirty"?
-  The tree contains uncommitted modifications.
+
 
 references:
   [1] https://lists.denx.de/pipermail/u-boot/2008-May/034702.html
