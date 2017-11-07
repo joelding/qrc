@@ -1,5 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////
 
+11/07
+
+TODO:
+0.5 Trace sample_audio.c
+1. Feed PCM file to memory, DMA to AIO, and then DA to output
+2. Feed PCM file to memory, DMA to AIO, and I2S to HDMI TX 
+
+* Trace option 2: read audio stream from file, decode and send to AO
+* SAMPELE_AUDIO_AdecAo();
+* SAMPLE_COMM_AUDIO_CfgAcodec();
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
 11/06
 
 arm-hisiv500-linux-objcopy --gap-fill=0xff -O binary u-boot u-boot.bin
