@@ -1,3 +1,35 @@
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+11/08
+
+According to [2], data in a wave file are arranged by channels. For NumChannels = 2; BitsPerSample = 16 - see [1] for the definition of BitsPerSample, the data are arranged as [left channel][right channel][L][R]...
+00 00 00 00 
+24 17 1e f3 
+3c 13 3c 14 
+16 f9 18 f9 
+34 e7 23 a6 
+3c f2 24 f2 
+11 ce 1a 0d
+
+In wave file, no such an idea as "frames". 
+
+References:
+[1] WAVE PCM soundfile format [link](http://soundfile.sapp.org/doc/WaveFormat/)
+(http://stenlyho.blogspot.tw/2015/12/audio-wave-format-specification.html)
+[2] Multiple channel audio data and WAVE files [link](https://msdn.microsoft.com/en-us/library/windows/hardware/dn653308(v=vs.85).aspx)
+[3] Audio File Format Specifications [link](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html)
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 
 11/07
