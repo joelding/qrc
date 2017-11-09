@@ -1,4 +1,181 @@
 
+///////////////////////////////////////////////////////////////////////////////
+11/09
+
+# ALSA
+  * Advanced Linux Sound Architecture
+  * a software framework of the Linux kernel
+  * provides an application programming interface (API) 
+  * for sound card device drivers
+  * bundles a user-space library for application developers
+
+  * cross compile
+    ./configure --host=arm-hisiv500-linux --disable-python --prefix=/mnt/alsa_install
+    make; make install DESTDIR=/nfsshare
+
+references:
+1. Advanced Linux Sound Architecture (ALSA) project homepage 
+  [link](https://www.alsa-project.org/)
+2. alsa-lib及alsa-utils成功移植
+  [link](http://blog.sina.com.cn/s/blog_7d7e9d0f0101lqlp.html)
+3. arm cross compile issue 
+  [link](https://stackoverflow.com/questions/36195926/alsa-util-1-1-0-arm-cross-compile-issue)
+
+ALSA_CONFIG_PATH
+
+
+
+/mnt # usb 2-1: new SuperSpeed USB device number 7 using xhci-hcd
+usb 2-1: LPM exit latency is zeroed, disabling LPM.
+usb 2-1: Int endpoint with wBytesPerInterval of 1024 in config 1 interface 2 altsetting 0 ep 133: setting to 64
+uvcvideo: Found UVC 1.00 device 1E04-INOGENI 4K2USB3 (2997:0004)
+hid-generic 0003:2997:0004.0002: device has no listeners, quitting
+
+
+uvcvideo: Found UVC 1.00 device AVerMedia USB Device (07ca:0110)
+uvcvideo: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
+
+
+
+Burn images to the SPI flash.
+
+a 16 MB SPI flash is used as an example.
+
+    1) Address space
+        |      1 MB     |      4 MB     |     11 MB     |
+        |---------------|---------------|---------------|
+        |     boot      |     kernel    |     rootfs    |
+
+1) Burn the U-boot.
+	mw.b 82000000 ff 100000
+	tftp 82000000 u-boot-hi3519v101.bin
+	sf probe 0
+	sf erase 0 100000
+	sf write 82000000 0 100000	
+	reset    
+
+	Note that the network parameters need to be reconfigured after the reset.
+
+2) Burn the kernel.
+	mw.b 82000000 ff 400000
+	tftp 82000000 uImage_hi3519v101
+	sf probe 0;sf erase 100000 400000;sf write 82000000 100000 400000
+
+3) Burn the file system.
+	mw.b 82000000 ff B00000;
+	tftp 82000000 rootfs_hi3519v101_64k.jffs2
+	sf probe 0;sf erase 500000 B00000;sf write 82000000 500000 B00000
+
+4) Set boot parameters. 
+(Note that the file system is read-only by default for the linux-3.18.y kernel. 
+Therefore, the rw option needs to be added to bootargs so that the file system can be read and written.)
+		
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+set ethaddr 00:00:23:34:45:66
+set bootdelay 1; set baudrate 115200; 
+
+set bootfile uImage; 
+set fileaddr 82000000
+set filesize 4B1D34 
+ 
+set ipaddr 192.168.0.50;set serverip 192.168.0.100;set netmask 255.255.255.0
+
+set bootargs 'mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),4M(kernel),11M(rootfs) ip=dhcp'
+
+set bootcmd 'sf probe 0;sf read 0x82000000 0x100000 0x400000;bootm 0x82000000'
+
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+一般在以下情況, 我們會進行移植 Linux Kernel 的動作.
+1. 將新版 Linux Kernel 移植到全新 SoC 上
+  開發人員為 SoC 廠商(e.g. MTK, TI, Allwinner) R&D engineer.
+  在此階段的移植, 需要寫 dtsi, low-level code (位於 arch// 底下) 以及 SoC 相關的底層驅動程式. 並且須確保 SoC 功能運行正常.
+2. 將新版 Linux Kernel 移植到全新平台上
+  開發人員為硬體廠的軟體 R&D engineer, 開發板 (e.g. beagleboard, RPi) 上游開發人員或者是一些 software consultant.
+  在此階段的移植, 需要建立 dts 來描述硬體資訊, 並適度修改 dtsi. 此外也需要根據硬體/ 週邊/ 平台資訊來建立屬於板子的 Kernel  config. 檔. 並且須確保硬體/ 週邊/ 平台功能運行正常.
+3. 將新版 Linux Kernel 移植到舊有平台上進行 Kernel 版本升級
+  開發人員為任何有興趣的 Maker. 只要有開發版即可進行 (e.g. beagleboard, RPi). 一般來說, Linux Kernel 移植大多屬於此範疇.
+  在此階段的移植, 需要根據 dtsi 的版本差異來微調 dts 格式. 此外也需要根據 Kernel 版本差異資訊來微調板子的 Kernel  config. 檔.
+  此外也須參照舊有 Kernel source 上的 in-house patch 來修改新版 Kernel source.
+  *  另外還有像將 Linux Kernel 移植到全新 CPU architecture 上面這種較罕見的情況.
+
+在移植 Linux Kernel 時, 最重要的第一步就是讓機器可以 ” 開機 “. Kernel 能正常開機往下執行, 我們才能進行後續移植動作.
+在無法開機的情況下 (請見下圖), 由於沒有任何錯誤訊息, 所以除錯上會比較困難.
+一旦可以開機, 畫面有訊息列印出來, 即便有其他問題, 相對起來也比較好解.
+
+最常遇到開不了機的現象就是 hang 在 “Starting Kernel” 這邊.
+在這個階段 bootloader 把 Linux Kernel 載入 Memory 位址 0x80008000, 並將 CPU 控制權交給 Linux Kernel. 此時理因跳轉到 Linux Kernel 第一條指令 [1], 接著 Kernel 開始自解壓縮進行後續開機流程 [2].
+如果在這個階段卡住, 代表 Linux Kernel 沒有正確運行, 原因可分成下列幾點
+
+無法開機根因 	可能發生時機 	解決方法
+SoC low-level code 有問題 	將 Linux 移植到新 SoC 上 	
+
+修改 low-level code, 並確保 SoC 裡功能可正常運行. 有可能需要在 driver 中以 work-around 手法避掉問題.
+舊有 DTS 與 新板 DTSI不相容 	
+
+將新 Linux Kernel 移植到舊有平台上進行Kernel 升級
+	閱讀 dtsi git 修改歷程, 並詳細閱讀 “Documentation/devicetree/bindings/” 相關文件.
+硬體設計有問題 	
+
+    將 Linux 移植到新 SoC上
+    將新 Linux Kernel 移植到全新平台上
+
+	和 Hardware/ Bootloader 部門 R&D 工程師協同合作, 一起看硬體線路除蟲
+Console port 設定錯誤 	
+
+    將 Linux 移植到新 SoC上
+    將新 Linux Kernel 移植到全新平台上
+    將新 Linux Kernel 移植到舊有平台上進行Kernel 升級
+
+	
+
+每一塊板子的 Console port device node 都需根據硬體設計以及 driver 設計來進行設定. 如果設定錯誤, 會導致訊息出不來
+
+一般情況下 console device node 為 ttyS0, baud: 115200
+Boot code program (包含bootloader) 與 Kernel 不相容 	
+
+    將 Linux 移植到新 SoC上
+    將新 Linux Kernel 移植到全新平台上
+    將新 Linux Kernel 移植到舊有平台上進行Kernel 升級
+
+	
+
+需確認 boot code program 版本與 Kernel 版本是相對應的. 尤其有些 SoC 的設計會有多個 boot code program.
+DTB 跟 Kernel memory 位址衝突 	
+
+    將 Linux 移植到新 SoC上
+    將新 Linux Kernel 移植到全新平台上
+    將新 Linux Kernel 移植到舊有平台上進行Kernel 升級
+
+	boot code program 需要注意避免將兩者 memory 位址設太近導致衝突.
+DTB 檔跟 Kernel 並不相容 	
+
+    將 Linux 移植到新 SoC上
+    將新 Linux Kernel 移植到全新平台上
+    將新 Linux Kernel 移植到舊有平台上進行Kernel 升級
+
+	記得重新編譯 Kernel 時, 也要一併重新編譯 DTB. 並確保兩者是成對的.
+Kernel config 檔中的 ARCH 相關資訊設定錯誤 	
+
+    將 Linux 移植到新 SoC上
+    將新 Linux Kernel 移植到全新平台上
+    將新 Linux Kernel 移植到舊有平台上進行Kernel 升級
+
+	確定 SoC 種類, 並到Kernel 選單 –  System Type 中選取對應的選項
+
+reference:
+[1] 移植 Linux Kernel 造成無法開機之解決方案以及除錯工具[link](http://szlin.me/2017/05/17/unable-to-boot-with-linux-kernel)
+
 
 
 
