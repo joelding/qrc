@@ -31,3 +31,14 @@ TODO: functions, variables
 
 references:
 * GCC online manual [link](https://gcc.gnu.org/onlinedocs)
+
+///////////////////////////////////////////////////////////////////////////
+# Debug Macros
+
+* strip absolute path: make use of the last occurrence of '/' 
+```
+#define __FILENAME__ \
+	(strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+```
+
+///////////////////////////////////////////////////////////////////////////

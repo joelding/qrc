@@ -1,6 +1,19 @@
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- 
 
 
+///////////////////////////////////////////////////////////////////////////
+11/13
+
+Q: How to revert files in a git to a certain commit?
+
+	mpp_big-little/sample/common/sample_comm.h
+	mpp_big-little/sample/common/sample_comm_audio.c
+	need to be recovered
+
+	TODO: compare with original common codes
+
+
+
 
 
 
