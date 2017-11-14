@@ -1,5 +1,39 @@
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- 
 
+///////////////////////////////////////////////////////////////////////////
+11/14
+
+google search: up/qup6/d9/z8/103/
+found WM8731 dev board
+
+Q: SII9136 no driver source code?
+	HDMI TX example drivers/media/i2c/adv7511.c //ADV7511 HDMI TX
+
+
+Device Drivers
+	-> Multimedia support (MEDIA_SUPPORT [=y]) 
+		-> Encoders, decoders, sensors and other helper chips
+
+
+Q: How do I build a single in-tree kernel module?
+	ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make M=`pwd`/drivers/media/i2c/it6604 
+
+
+Hi3519V101 i2c2 to tlv320aic3101
+	disable JTAG: R72:4.7K; R74:NC 
+	jump wire: R82/I2C2_SCL; R83/I2C2_SDA
+	
+	J15.5: I2S_MCLK (original JTAG_TCK)  R53:NC
+	J15.6: I2S_SD_TX (original JTAG_TDO)  R71:NC
+	J15.4: I2S_BCLK_TX (original JTAG_TMS)  R70:NC
+	J15.2: I2S_WS (original JTAG_TRSTN)  R95:NC R56:NC
+	J15.9: GNC
+	J15.10: GND
+
+I2S_SD_RX JTAG_TDI J15.3 R57:NC  
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 11/13
