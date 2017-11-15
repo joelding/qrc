@@ -1,5 +1,25 @@
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- 
 
+make modules M=`pwd`/driver/media/i2c/it6604
+
+///////////////////////////////////////////////////////////////////////////
+11/15
+
+commit 67f05ca102686256bdcf30081621427cda577819
+Author: Joel Ding <joel.ding@avermedia.com>
+Date:   Wed Nov 15 17:07:36 2017 +0800
+
+        modified:   avt_gstreamer_sdk_uclibc.tgz
+
+Q: How are multiple audio channels arranged in I2S[0:3]?
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 11/14
 
@@ -477,51 +497,101 @@ references:
 ///////////////////////////////////////////////////////////////////////////////
 11/01
 
-How to write an i2c-controlled video decoder/encoder driver?
+Q: How to write an i2c-controlled video decoder/encoder driver?
 
-* V4L2 driver tends to be complex. 
-  => V4L2 framework, providing basic building blocks
-* V4L2 drivers apple to audio/video muxing/encoding/decoding ICs, "sub-devices",
-  * connected to the main bridge driver through I2C busses
-  * bus or host controller is called a parent device
-* example: v4l2-pci-skeleton.c, a skeleton driver for a PCI capture card
-* structure of a driver must have
-  * the device state: one for each device instance
-  * a way to init and command sub-devices
-  * create v4l2 device nodes and device-node specific data
-  * Filehandle-specific structs and per-filehandle data
-  * video buffer handling
+# V4L2 drivers
+	* tend to be complex
+		=> V4L2 framework: to provide basic building blocks
+	* setup "sub-devices"
+  		* audio/video muxing/encoding/decoding ICs
+  		* connected to the main bridge driver through I2C busses
+		* bus or host controller is called a parent device
+	* example: v4l2-pci-skeleton.c, a skeleton driver for a PCI capture card
+
+# V4L2 drivers must
+	* have the device state: one for each device instance
+	* be able to init and command sub-devices
+	* be able to create v4l2 device nodes and manage device-node specific data
+	* Filehandle-specific structs and per-filehandle data
+	* video buffer handling
+
+	device instances: struct v4l2_device, better if named v4l2_root
+    	|
+		+-sub-device instances: struct v4l2_subdev
+		|
+		\-V4L2 device nodes: struct video_device 
+			|
+			\-filehandle instances: struct v4l2_fh 
+
+	* optionally integrates with the media framework
+		* by setting the mdev field of struct v4l2_device
+		* sub-devices and video nodes will automatically appear 
+		  in the media framework as entities
+
+```
+#include <media/v4l2-device.h>
+
+v4l2_device_register(struct device *dev, struct v4l2_device *v4l2_dev);
+If the dev->driver_data field is NULL, it will be linked to v4l2_dev.
+
+v4l2_device_unregister(struct v4l2_device *v4l2_dev);
+
+!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!
+```
 
 references:
-1. Overview of the V4L2 driver framework [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-framework.txt)
+1. Overview of the V4L2 driver framework: explaining the various structures 
+provided by the V4L2 framework and their relationships. 
+[link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-framework.txt)
 2. [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-controls.txt)
-3. [link](https://archive.fosdem.org/2014/schedule/event/v4l_intro/attachments/slides/448/export/events/attachments/v4l_intro/slides/448/v4l2_frameworks.pdf)
+3. An Introduction to the Video4Linux Framework by Verkuil [link](https://archive.fosdem.org/2014/schedule/event/v4l_intro/attachments/slides/448/export/events/attachments/v4l_intro/slides/448/v4l2_frameworks.pdf)
+4. Linux Media Subsystem Documentation [link](https://linuxtv.org/downloads/v4l-dvb-apis/)
+
+Each sub-device driver must have a v4l2_subdev struct. This struct can be
+stand-alone for simple sub-devices or it might be embedded in a larger struct
+if more state information needs to be stored.
+
+Usually there is a low-level
+device struct (e.g. i2c_client) that contains the device data as setup
+by the kernel. It is recommended to store that pointer in the private
+data of v4l2_subdev using v4l2_set_subdevdata().
+
+```
+#include <media/v4l2-subdev.h>
+
+	struct chipname_state {
+		struct v4l2_subdev sd;
+		struct i2c_client client;
+		struct v4l2_ctrl_handler ctrl_handler;
+		
+	};
+
+	struct chipname_state *state;
+
+	v4l2_set_subdevdata(state->sd, void *p);
+
+```
 
 
-
-
-struct xxx_state {
-	struct v4l2_subdev sd;
-	struct v4l2_ctrl_handler ctrl_handler;
-	...
-};
 
 
 #include <v4l2/v4l2-common.h>
 
-/* fill in all the fields of v4l2_subdev;
-   ensure the v4l2_subdev and i2c_client both point to one another */
-v4l2_i2c_subdev_init(&state->sd, client, subdev_ops); 
+	/* fill in all the fields of v4l2_subdev;
+	 * the v4l2_subdev and i2c_client point to one another 
+	 */
+	v4l2_i2c_subdev_init(&state->sd, client, subdev_ops); 
 
-v4l2_ctrl_handler_init(&state->ctrl_handler, nr_of_controls);
+	v4l2_ctrl_handler_init(&state->ctrl_handler, nr_of_controls);
 
-static inline struct xxx_state *to_state(struct v4l2_subdev *sd)
+static inline struct chipname_state *to_state(struct v4l2_subdev *sd)
 {
 	return container_of(sd, struct xxx_state, sd);
 }
 
-struct i2c_client *client = v4l2_get_subdevdata(sd);
-struct v4l2_subdev *sd = i2c_get_clientdata(client);
+	/* Go from v4l2_subdev to i2c_client, and back forth */
+	struct i2c_client *client = v4l2_get_subdevdata(sd);
+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 
 
 v4l2_device_unregister_subdev(sd);
@@ -530,8 +600,10 @@ v4l2_device_unregister_subdev(sd);
 TODO:
 v4l2_i2c_new_subdev(v4l2_dev, adapter, "module_foo", "chipid", 0x36, NULL);
 
+CEA-861-E timings: v4l2-dv-timings.h
 
-
+Kernel Recipes 2017 - HDMI CEC: Status Report - Hans Verkuil [link](https://youtu.be/4D8Om3NPikU)
+HDMI CEC: What? Why? How? by Hans Verkuil [link](https://youtu.be/sk4oit_wykM)
 ---------------------------------------------------------------------------------------
 
 sample_tde shows a quarter sized backgroud with some pictures moving around.

@@ -49,6 +49,8 @@ nmap <F10> :SrcExplToggle<CR>
 let g:NERDTreeWinPos="right"
 nmap <F11> :NERDTreeToggle<CR>
 ```
+zm/zr: foldlevel-1/foldleve+1
+zM/zR: close all/open all
 
 ## references
 1. https://github.com/scrooloose/nerdtree
