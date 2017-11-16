@@ -33,6 +33,7 @@ set mouse=a
 set nu
 set hlsearch
 set colorcolumn=80
+set textwidth=76
 set tabstop=4
 set cino=(0
 set foldmethod=syntax
@@ -54,3 +55,10 @@ zM/zR: close all/open all
 
 ## references
 1. https://github.com/scrooloose/nerdtree
+
+gqG: formating the text from the current position to the end of the file
+
+
+
+
+

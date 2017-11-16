@@ -1,6 +1,55 @@
-ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- 
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
 
-make modules M=`pwd`/driver/media/i2c/it6604
+
+///////////////////////////////////////////////////////////////////////////
+11/16
+
+NEW: Allwinner H6 
+
+
+
+
+
+avm/AVerCasterHDDuet/RT288x_SDK/source/linux-2.6.21.x/drivers/media/avermedia/f239_fmb_driver/ITE6604/hdmirx.c
+
+
+
+
+http://free-electrons.com/pub/conferences/2016/elce/belloni-alsa-asoc/
+
+
+
+
+
+
+https://youtu.be/kb1yAt9d2k8
+
+
+
+1. Discoverable: for example PCI, USB
+2. Non-discoverable: for example I2C, SPI
+
+Platform devices are inherently not discoverable, i.e. the hardware cannot say “Hey! I’m present!” to the software. Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level (at run time). Instead, the software must know (at compile time) which devices are connected on each I2C bus segment. So USB and PCI are not platform devices.
+
+[link](https://kerneltweaks.wordpress.com/tag/platform-data/) Platform Device and Platform Driver @ Linux. Written in 2014, saying about drivers before device tree was invented.
+
+The platform device API by Corbet [link](https://lwn.net/Articles/448499/)
+"Platform devices and device trees" by Corbet [link](https://lwn.net/Articles/448502/)
+
+
+./arch/arm/boot/dts/hisi-hi3519v101-hmp-demb.dts
+./arch/arm/boot/dts/hisi-hi3519v101-demb.dts
+./arch/arm/boot/dts/hisi-hi3519v101-hmp-demb.dtb
+./arch/arm/boot/dts/hisi-hi3519v101.dtsi
+
+Q: hisi-hi3519v101-demb.dts and hisi-hi3519v101-hmp-demb.dts - which is in use? [solved]
+Q: Which device tree is the Hi3519V101 demo board using? [solved]
+	./arch/arm/boot/dts/hisi-hi3519v101-hmp-demb.dts
+
+Q: How is DTS compiled?
+	It is compiled along with the kernel source code.
+	arch/arm/boot/dts/Makefile:97 dtb-$(CONFIG_ARCH_HI3519V101) += hisi-hi3519-hmp-demb.dtb:
+	CONFIG_ARCH_HI3519V101
 
 ///////////////////////////////////////////////////////////////////////////
 11/15
@@ -465,7 +514,9 @@ AD22: I2S_SD_RX
 
 Q: How to select pin functions of Si3519V101 (setup pin multiplexing)?
 
-Q: hisi-hi3519v101-demb.dts and hisi-hi3519v101-hmp-demb.dts - which is in use?
+///////////////////////////////////////////////////////////////////////////////
+
+
 
 Q: How does a bootloader bring dtb to kernel?
 bootm <address> - <>
@@ -482,7 +533,7 @@ Q: Must dtb explicitly load via u-boot bootm? This article said dtb can be integ
     * 属性是成对出现的name和value
   * DTS (device tree source) -> DTC (device tree compiler) -> Device Tree Blob (.dtb) 
   * bootloader将这棵树传递给内核在引导kernel的过程中，会先读取该.dtb到内存。
-  * .dtsi: 提炼SoC公用的部分或者多个machine共同的部分
+  * .dtsi: 提炼SoC公用的部分或者多个machine/SoC共同的部分，i代表include
 
 
 
@@ -493,117 +544,18 @@ references:
 [4] Device Tree Usage [link](https://elinux.org/Device_Tree_Usage) 
   targeting at how to write a device tree for a new machine
 [5] Kernel documentation [link](Documentation/devicetree)
-
+[6] DeviceTree基础 [link](https://lonzoc.gitbooks.io/device-tree-guide/content/devicetree_basic.html)
 ///////////////////////////////////////////////////////////////////////////////
-11/01
-
-Q: How to write an i2c-controlled video decoder/encoder driver?
-
-# V4L2 drivers
-	* tend to be complex
-		=> V4L2 framework: to provide basic building blocks
-	* setup "sub-devices"
-  		* audio/video muxing/encoding/decoding ICs
-  		* connected to the main bridge driver through I2C busses
-		* bus or host controller is called a parent device
-	* example: v4l2-pci-skeleton.c, a skeleton driver for a PCI capture card
-
-# V4L2 drivers must
-	* have the device state: one for each device instance
-	* be able to init and command sub-devices
-	* be able to create v4l2 device nodes and manage device-node specific data
-	* Filehandle-specific structs and per-filehandle data
-	* video buffer handling
-
-	device instances: struct v4l2_device, better if named v4l2_root
-    	|
-		+-sub-device instances: struct v4l2_subdev
-		|
-		\-V4L2 device nodes: struct video_device 
-			|
-			\-filehandle instances: struct v4l2_fh 
-
-	* optionally integrates with the media framework
-		* by setting the mdev field of struct v4l2_device
-		* sub-devices and video nodes will automatically appear 
-		  in the media framework as entities
-
-```
-#include <media/v4l2-device.h>
-
-v4l2_device_register(struct device *dev, struct v4l2_device *v4l2_dev);
-If the dev->driver_data field is NULL, it will be linked to v4l2_dev.
-
-v4l2_device_unregister(struct v4l2_device *v4l2_dev);
-
-!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!
-```
-
-references:
-1. Overview of the V4L2 driver framework: explaining the various structures 
-provided by the V4L2 framework and their relationships. 
-[link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-framework.txt)
-2. [link](http://elixir.free-electrons.com/linux/v3.18.20/source/Documentation/video4linux/v4l2-controls.txt)
-3. An Introduction to the Video4Linux Framework by Verkuil [link](https://archive.fosdem.org/2014/schedule/event/v4l_intro/attachments/slides/448/export/events/attachments/v4l_intro/slides/448/v4l2_frameworks.pdf)
-4. Linux Media Subsystem Documentation [link](https://linuxtv.org/downloads/v4l-dvb-apis/)
-
-Each sub-device driver must have a v4l2_subdev struct. This struct can be
-stand-alone for simple sub-devices or it might be embedded in a larger struct
-if more state information needs to be stored.
-
-Usually there is a low-level
-device struct (e.g. i2c_client) that contains the device data as setup
-by the kernel. It is recommended to store that pointer in the private
-data of v4l2_subdev using v4l2_set_subdevdata().
-
-```
-#include <media/v4l2-subdev.h>
-
-	struct chipname_state {
-		struct v4l2_subdev sd;
-		struct i2c_client client;
-		struct v4l2_ctrl_handler ctrl_handler;
-		
-	};
-
-	struct chipname_state *state;
-
-	v4l2_set_subdevdata(state->sd, void *p);
-
-```
 
 
 
 
-#include <v4l2/v4l2-common.h>
-
-	/* fill in all the fields of v4l2_subdev;
-	 * the v4l2_subdev and i2c_client point to one another 
-	 */
-	v4l2_i2c_subdev_init(&state->sd, client, subdev_ops); 
-
-	v4l2_ctrl_handler_init(&state->ctrl_handler, nr_of_controls);
-
-static inline struct chipname_state *to_state(struct v4l2_subdev *sd)
-{
-	return container_of(sd, struct xxx_state, sd);
-}
-
-	/* Go from v4l2_subdev to i2c_client, and back forth */
-	struct i2c_client *client = v4l2_get_subdevdata(sd);
-	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 
 
-v4l2_device_unregister_subdev(sd);
 
 
-TODO:
-v4l2_i2c_new_subdev(v4l2_dev, adapter, "module_foo", "chipid", 0x36, NULL);
 
-CEA-861-E timings: v4l2-dv-timings.h
 
-Kernel Recipes 2017 - HDMI CEC: Status Report - Hans Verkuil [link](https://youtu.be/4D8Om3NPikU)
-HDMI CEC: What? Why? How? by Hans Verkuil [link](https://youtu.be/sk4oit_wykM)
 ---------------------------------------------------------------------------------------
 
 sample_tde shows a quarter sized backgroud with some pictures moving around.
