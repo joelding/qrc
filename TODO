@@ -26,16 +26,39 @@ reference:
 * GStreamer SDK 1.0 Build Via Cerbero [link](http://www.jianshu.com/p/7863404c1909)
 
 
-WORKDING DIRECTORY: ~/avm/t533c/AVT_gstreamer_SDK
+WORKDING DIRECTORY: ~/avm/AVT_gstreamer_SDK
+BRANCH: uclibc
 
-cross-lin-hisiv500.cbc
+# config/cross-lin-hisiv500.cbc
+
+import os
+from cerbero.config import Platform, Architecture, Distro, DistroVersion
+
+target_platform = Platform.LINUX
+#target_distro = Distro.DEBIAN
+target_distro = Distro.NONE
+target_distro_version = DistroVersion.NONE_UCLIBC
+target_arch = Architecture.ARM
+variants = ['noalsa', 'nox11', 'nopulse', 'nocdparanoia', 'nosdl',
+            'nov4l2', 'notestspackage', 'nopython']
+host = 'arm-hisiv500-linux'
+tool_prefix = '%s-' % host
 
 
 
 
-
-
-
+diff --git a/gstreamer_src/cerbero/recipes/glib.recipe b/gstreamer_src/cerbero/recipes/glib.recipe
+index f231d6d..f87359a 100644
+--- a/gstreamer_src/cerbero/recipes/glib.recipe
++++ b/gstreamer_src/cerbero/recipes/glib.recipe
+@@ -138,6 +138,7 @@ class Recipe(recipe.Recipe):
+             path2 = None
+             use_old_uri_scheme = False
+             self.configure_options += ' --disable-selinux'
++            self.configure_options += ' --with-libiconv=gnu'
+             # Old Debian/Ubuntu
+             if self.config.target_distro_version in [DistroVersion.DEBIAN_SQUEEZE,
+                                                      DistroVersion.UBUNTU_LUCID,
 
 
 
@@ -843,15 +866,5 @@ struct is typedefined as _S.
 
 
 
-import os
-from cerbero.config import Platform, Architecture, Distro, DistroVersion
 
-target_platform = Platform.LINUX
-#target_distro = Distro.DEBIAN
-target_distro = Distro.NONE
-target_distro_version = DistroVersion.NONE_UCLIBC
-target_arch = Architecture.ARM
-variants = ['noalsa', 'nox11', 'nopulse', 'nocdparanoia', 'nosdl',
-            'nov4l2', 'notestspackage', 'nopython']
-host = 'arm-hisiv500-linux'
-tool_prefix = '%s-' % host
+
