@@ -43,7 +43,7 @@ variants = ['noalsa', 'nox11', 'nopulse', 'nocdparanoia', 'nosdl',
             'nov4l2', 'notestspackage', 'nopython']
 host = 'arm-hisiv500-linux'
 tool_prefix = '%s-' % host
-
+allow_parallel_build = True
 
 
 
@@ -64,7 +64,8 @@ index f231d6d..f87359a 100644
 
 
 
-
+1930: build to 30/37 ctrl-c break
+todo: continue to compile to end; add base package
 
 
 
