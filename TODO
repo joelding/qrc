@@ -67,7 +67,45 @@ index f231d6d..f87359a 100644
 1930: build to 30/37 ctrl-c break
 todo: continue to compile to end; add base package
 
-
+[(33/37) librtmp -> compile ]
+[(33/37) librtmp -> install ]
+[(33/37) librtmp -> post_install ]
+[(34/37) curl -> fetch ]
+-----> Fetching tarball https://curl.haxx.se/download/curl-7.55.1.tar.gz to /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/local/curl-7.55.1/curl-7.55.1.tar.gz
+[(34/37) curl -> extract ]
+-----> Extracting tarball to /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/curl-7.55.1
+Unpacking /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/local/curl-7.55.1/curl-7.55.1.tar.gz in /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm
+[(34/37) curl -> configure ]
+[(34/37) curl -> compile ]
+[(34/37) curl -> install ]
+[(34/37) curl -> post_install ]
+[(35/37) libhls -> fetch ]
+[(35/37) libhls -> extract ]
+[(35/37) libhls -> configure ]
+[(35/37) libhls -> compile ]
+[(35/37) libhls -> install ]
+[(35/37) libhls -> post_install ]
+[(36/37) avt-plugin -> fetch ]
+[(36/37) avt-plugin -> extract ]
+[(36/37) avt-plugin -> configure ]
+-----> copying /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/data/autotools/config.guess to /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/avt-plugin-None/config.guess
+-----> copying /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/data/autotools/config.sub to /home/a003257/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/avt-plugin-None/config.sub
+[(36/37) avt-plugin -> compile ]
+[(36/37) avt-plugin -> install ]
+[(36/37) avt-plugin -> post_install ]
+WARNING: No specific packager available for the distro version none_uclibc, using generic packager for distro none
+-----> Creating package for gstreamer-1.0
+WARNING: Some libraries weren't found while searching!
+libgstgl-1.0
+WARNING: Some libraries weren't found while searching!
+libwebrtc_audio_processing
+WARNING: Some libraries weren't found while searching!
+libgstvalidate-preload-1.0
+***** Error running 'package' command:
+The following files required by this package are missing:
+ lib/gstreamer-1.0/libgstopengl.so
+lib/gstreamer-1.0/libgstaudiovisualizers.so
+a003257@ubuntu:~/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero$ 
 
 
 ///////////////////////////////////////////////////////////////////////////
