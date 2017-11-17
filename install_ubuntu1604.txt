@@ -16,8 +16,9 @@ $ apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugi
 ```
 ## x64操作系統相容x86軟體
 ```
-$ sudo dpkg --add-architecture i386
-$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
+$ sudo apt-get install multiarch-support
+#$ sudo dpkg --add-architecture i386
+#$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
 ```
 ## 使用tty裝置
 ```
