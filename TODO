@@ -1,5 +1,50 @@
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
 
+///////////////////////////////////////////////////////////////////////////
+
+11/17
+
+
+# Build GStreamer with cerbero
+
+
+$ git clone git://anongit.freedesktop.org/gstreamer/cerbero
+$ ./cerbero-uninstalled -c config/xxx.cbc bootstrap
+
+wipe : Wipes everything to restore the build system
+bootstrap : 下载并安装当前环境下编译时所需工具
+build : 编译某个recipe，包括其依赖项
+buildone : 编译某个recipe，不包括其依赖项
+cleanone : 清理某个recipe
+
+
+$ ./cerbero-uninstalled -c config/xxx.cbc package gstreamer-1.0
+
+
+reference:
+* Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
+* GStreamer SDK 1.0 Build Via Cerbero [link](http://www.jianshu.com/p/7863404c1909)
+
+
+WORKDING DIRECTORY: ~/avm/t533c/AVT_gstreamer_SDK
+
+cross-lin-hisiv500.cbc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 11/16
@@ -605,8 +650,7 @@ ref
 
 * advantages over the MBR: 
   * use 64 bits for storing block addresses
-  * limit: 512 bytes/sector * (2 ^ 64) = 2 ^ 73 = 8 Zbytes maximum
-  * more partitions is possible, depending on operating system supports
+  * limit: 512 bytes/sector * (2 ^ 64)ons is possible, depending on operating system supports
   * TODO
     
 * Major Linux distros support GPT: Fedora above 8, Ubuntu above 8.04+ with tools such as gdisk, GNU Parted, util-linux v2.23+ fdisk, SYSLINUX, GRUB 0.96 + patches and GRUB 2 have been GPT-enabled.
@@ -623,35 +667,22 @@ ref
   * GPT kernel support [link](https://wiki.archlinux.org/index.php/partitioning#GPT_Kernel_Support)
   * TI Linux Core U-Boot User's Guide talking about how to use u-boot to make a GPT eMMC and boot from it [link](http://processors.wiki.ti.com/index.php/Linux_Core_U-Boot_User%27s_Guide)
   
+///////////////////////////////////////////////////////////////////////////
 ## File System
   
-  
-  
+There are currently two NTFS drivers available for Linux. The NTFS driver included in the kernel, and the userspace NTFS-3G driver that makes use of FUSE.
+
+由 Tuxera 公司開發並維護的開源項目
+為 Linux 提供 NTFS 分區的的驅動程式
+2007年2月21日宣布NTFS-3G 1.0 釋出
+
 * ref
   * Kernel NTFS driver vs NTFS-3G [link](https://superuser.com/questions/139452/kernel-ntfs-driver-vs-ntfs-3g)
   * 筆記 linux-support-ntfs-by-ntfs-3g [link](http://paul.pixnet.net/blog/post/11120651-%5B%E7%AD%86%E8%A8%98%5Dlinux-support-ntfs-by-ntfs-3g)
   
+http://felix-lin.com/linux/kernel-ntfs-driver-and-ntfs-3g/
 
-
-## Build GStreamer with cerbero
-
-```
-$ git clone git://anongit.freedesktop.org/gstreamer/cerbero
-$ ./cerbero-uninstalled -c config/xxx.cbc bootstrap
-```
-wipe : Wipes everything to restore the build system
-bootstrap : 下载并安装当前环境下编译时所需工具
-build : 编译某个recipe，包括其依赖项
-buildone : 编译某个recipe，不包括其依赖项
-cleanone : 清理某个recipe
-
-```
-$ ./cerbero-uninstalled -c config/xxx.cbc package gstreamer-1.0
-```
-
-reference:
-* Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
-* GStreamer SDK 1.0 Build Via Cerbero [link](http://www.jianshu.com/p/7863404c1909)
+///////////////////////////////////////////////////////////////////////////
 
 
 
@@ -661,28 +692,6 @@ reference:
 
 
 
-
-
-
-
-
-
----------------------------------------------------------------------------------------
-
-
-
-WARNING: No specific packager available for the distro version none_uclibc, using generic packager for distro none
------> Creating package for gstreamer-1.0
-WARNING: Some libraries weren't found while searching!
-libgstgl-1.0
-WARNING: Some libraries weren't found while searching!
-libwebrtc_audio_processing
-WARNING: Some libraries weren't found while searching!
-libgstvalidate-preload-1.0
-***** Error running 'package' command:
-The following files required by this package are missing:
- lib/gstreamer-1.0/libgstopengl.so
-lib/gstreamer-1.0/libgstaudiovisualizers.so
 
 
 
@@ -833,47 +842,16 @@ SENSOR_TYPE is defined in sample/Makefile.param
 struct is typedefined as _S.
 
 
-(gst-inspect-1.0:148): GStreamer-WARNING **: External plugin loader failed. This most likely means that the plugin loader helper binary was not found or could no.
 
-(gst-inspect-1.0:148): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstlibav.so': File not found
+import os
+from cerbero.config import Platform, Architecture, Distro, DistroVersion
 
-./gst-inspect-1.0: symbol '_ZN2cv3Mat10deallocateEv': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvCreateImageHeader': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvReleaseImage': can't resolve symbol
-
-./gst-inspect-1.0: symbol '_ZN9_IplImageC1ERKN2cv3MatE': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvCopy': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvCreateImage': can't resolve symbol
-
-./gst-inspect-1.0: symbol '_ZN2cv8fastFreeEPv': can't resolve symbol
-
-(gst-inspect-1.0:148): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstavtremovebgsink.so': unknown dl-error
-
-(gst-inspect-1.0:148): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstmatroska.so': File not found
-/mnt/linux_armv7/bin # ./gst-inspect-1.0 | tee 2>&1 /mnt/inspect.log
-
-(gst-inspect-1.0:150): GStreamer-WARNING **: External plugin loader failed. This most likely means that the plugin loader helper binary was not found or could no.
-
-(gst-inspect-1.0:150): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstlibav.so': File not found
-
-./gst-inspect-1.0: symbol '_ZN2cv3Mat10deallocateEv': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvCreateImageHeader': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvReleaseImage': can't resolve symbol
-
-./gst-inspect-1.0: symbol '_ZN9_IplImageC1ERKN2cv3MatE': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvCopy': can't resolve symbol
-
-./gst-inspect-1.0: symbol 'cvCreateImage': can't resolve symbol
-
-./gst-inspect-1.0: symbol '_ZN2cv8fastFreeEPv': can't resolve symbol
-
-(gst-inspect-1.0:150): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstavtremovebgsink.so': unknown dl-error
-
-(gst-inspect-1.0:150): GStreamer-WARNING **: Failed to load plugin '/mnt/linux_armv7/lib/gstreamer-1.0/libgstmatroska.so': File not found
+target_platform = Platform.LINUX
+#target_distro = Distro.DEBIAN
+target_distro = Distro.NONE
+target_distro_version = DistroVersion.NONE_UCLIBC
+target_arch = Architecture.ARM
+variants = ['noalsa', 'nox11', 'nopulse', 'nocdparanoia', 'nosdl',
+            'nov4l2', 'notestspackage', 'nopython']
+host = 'arm-hisiv500-linux'
+tool_prefix = '%s-' % host
