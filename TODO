@@ -2,7 +2,132 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2
 
 ///////////////////////////////////////////////////////////////////////////
 
-11/17
+11/20 MON
+
+Official cerbero of gstreamer for test build: ~/avm/t533c/tmp
+
+https://github.com/GStreamer/gstreamer.git
+https://github.com/GStreamer/cerbero.git
+
+working directory: tmp/freedesktop/cerbero
+
+https://github.com/flexVDI/cerbero
+https://github.com/EricssonResearch/cerbero
+
+cerbero is a build system written by GStreamer developers to build all GStreamer dependencies, GStreamer itself and package it up into nice platform-specific SDK-like binary files.
+
+
+https://github.com/GStreamer/cerbero
+
+
+
+
+cerbero is a multi-platform build system for Open Source projects that builds
+and creates native packages for different platforms, architectures and distributions.
+
+Projects are defined using recipes files (.recipe), which provides a description
+of the project being built such as name, version, licenses, sources and the way
+it's built. It also provide listing of files, which is later used for the packaging.
+
+Packages are defined using packages files (.package), describing the package name,
+version, license, maintainer and other fields used to create the packages. A
+package wraps a list of recipes, from which the list of files belonging to the
+package will be extracted.
+
+
+HISILICON HAS ITS OWN GIT !!!
+https://github.com/hisilicon
+
+---------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "./cerbero-uninstalled", line 8, in <module>
+    from cerbero.main import main
+  File "./cerbero/main.py", line 34, in <module>
+    from cerbero import config, commands
+  File "./cerbero/config.py", line 25, in <module>
+    from cerbero.utils import _, system_info, validate_packager, to_unixpath,\
+  File "./cerbero/utils/shell.py", line 41, in <module>
+    PLATFORM = system_info()[0]
+  File "./cerbero/utils/__init__.py", line 154, in system_info
+    raise FatalError("Distribution '%s' not supported" % str(d))
+cerbero.errors.FatalError: Fatal Error: Distribution '('Ubuntu', '16.04', 'xenial')' not supported
+---------------------------------------------------------------------------
+16.04 is not a proper os for building gstreaemr !!!
+
+
+HP 6200 setup VT-x
+	F10 enter BIOS
+	Security->System Security
+	Enable Virtualization Technology
+	Save and restart
+	
+	
+	
+	
+
+
+5.0.40_Ubuntu r115130
+File->Preferences->Network->Host-only Networks
+Add "vboxnet0"
+
+
+
+Recompile in 14.04
+
+Patch uclibc for compiling glib
+target/usr/include/stdlib.h:621:#define mkostemp(x,y) mkstemp(x)
+
+GIT checkout tag and then form a branch
+git checkout <tag_name>
+git checkout -b <branch_name>
+
+cerbero's README file
+
+How do I check gstreamer version?
+gst-launch-1.0 --version
+
+libtool: Version mismatch error.  This is libtool 2.4.6, but the
+libtool: definition of this LT_INIT comes from libtool 2.4.2.
+libtool: You should recreate aclocal.m4 with macros from libtool 2.4.6
+libtool: and run autoconf again.
+make[3]: *** [libgstavthlssink_la-gstavthlssink.lo] Error 63
+
+In the root directory of where the issue happens:
+autoreconf --force --install
+./configure
+make
+
+GstAppSrc — Easy way for applications to inject buffers into a pipeline
+
+$ grep -n 'gst_app_src' *
+Binary file libgstapp-1.0.a matches
+Binary file libgstapp-1.0.so matches
+Binary file libgstapp-1.0.so.0 matches
+Binary file libgstapp-1.0.so.0.1202.0 matches
+Binary file libgstbasecamerabinsrc-1.0.so matches
+Binary file libgstbasecamerabinsrc-1.0.so.0 matches
+Binary file libgstbasecamerabinsrc-1.0.so.0.1202.0 matches
+
+export GST_PLUGIN_PATH=XXX/lib/gstreamer-1.0
+export LD_LIBRARY_PATH=XXX/lib
+
+Cross-compilation of GStreamer
+https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html
+
+1700 use armv7 to compile again
+
+
+gst-inspect-1.0 [OPTION] [PLUGIN|ELEMENT]
+-a, --print-all
+
+Print all plugins and elements
+
+compiling libremovebg:export CROSS_COMPILE=
+compiling librtmp avt_plugin: export RTMP_LIBS RTMP_CFLAGS
+
+///////////////////////////////////////////////////////////////////////////
+
+11/17 FRI
 
 
 # Build GStreamer with cerbero
@@ -11,11 +136,13 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2
 $ git clone git://anongit.freedesktop.org/gstreamer/cerbero
 $ ./cerbero-uninstalled -c config/xxx.cbc bootstrap
 
-wipe : Wipes everything to restore the build system
-bootstrap : 下载并安装当前环境下编译时所需工具
-build : 编译某个recipe，包括其依赖项
-buildone : 编译某个recipe，不包括其依赖项
-cleanone : 清理某个recipe
+$ ./cerbero-uninstalled list # list available recipes
+$ ./cerbero-uninstalled list-packages # list available packages
+$ ./cerbero-uninstalled wipe # Wipes everything to restore the build system
+$ ./cerbero-uninstalled bootstrap : 下载并安装当前环境下编译时所需工具
+$ ./cerbero-uninstalled build <recipe> : 编译某个recipe，包括其依赖项
+$ ./cerbero-uninstalled buildone <recipe> : 编译某个recipe，不包括其依赖项
+$ ./cerbero-uninstalled cleanone <recipe> : 清理某个recipe
 
 
 $ ./cerbero-uninstalled -c config/xxx.cbc package gstreamer-1.0
@@ -105,7 +232,7 @@ libgstvalidate-preload-1.0
 The following files required by this package are missing:
  lib/gstreamer-1.0/libgstopengl.so
 lib/gstreamer-1.0/libgstaudiovisualizers.so
-a003257@ubuntu:~/avm/AVT_gstreamer_SDK/gstreamer_src/cerbero$ 
+
 
 
 ///////////////////////////////////////////////////////////////////////////
