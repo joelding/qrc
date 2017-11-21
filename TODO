@@ -2,6 +2,141 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2
 
 ///////////////////////////////////////////////////////////////////////////
 
+11/21 TUE
+
+
+[(21/37) libunwind -> fetch ]
+-----> Step done
+[(21/37) libunwind -> extract ]
+-----> Step done
+[(21/37) libunwind -> configure ]
+-----> Step done
+[(21/37) libunwind -> compile ]
+Running command 'make'
+Making all in src
+make[1]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
+make  all-am
+make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
+make[2]: Nothing to be done for `all-am'.
+make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
+make[1]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
+Making all in tests
+make[1]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/tests'
+depbase=`echo test-coredump-unwind.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+	arm-hisiv500-linux-gcc -DHAVE_CONFIG_H -I. -I../include  -I../include -D_GNU_SOURCE -DNDEBUG  -Wall -g -O2 -Wl,-rpath-link=/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/dist/linux_arm/lib  -Wall -g -O2 -Wl,-rpath-link=/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/dist/linux_arm/lib  -fexceptions -Wall -Wsign-compare -MT test-coredump-unwind.o -MD -MP -MF $depbase.Tpo -c -o test-coredump-unwind.o test-coredump-unwind.c &&\
+	mv -f $depbase.Tpo $depbase.Po
+test-coredump-unwind.c:60:22: fatal error: execinfo.h: No such file or directory
+ #include <execinfo.h>
+                      ^
+compilation terminated.
+make[1]: *** [test-coredump-unwind.o] Error 1
+make[1]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/tests'
+make: *** [all-recursive] Error 1
+
+Recipe 'libunwind' failed at the build step 'compile'
+Select an action to proceed:
+[0] Enter the shell
+[1] Rebuild the recipe from scratch
+[2] Rebuild starting from the failed step
+[3] Skip recipe
+[4] Abort
+
+
+[(27/37) webrtc-audio-processing -> fetch ]
+-----> Step done
+[(27/37) webrtc-audio-processing -> extract ]
+-----> Step done
+[(27/37) webrtc-audio-processing -> configure ]
+-----> Step done
+[(27/37) webrtc-audio-processing -> compile ]
+Running command 'make'
+Making all in webrtc
+make[1]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
+Making all in .
+make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
+make[2]: Nothing to be done for `all-am'.
+make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
+Making all in base
+make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/base'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/base'
+Making all in common_audio
+make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/common_audio'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/common_audio'
+Making all in system_wrappers
+make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/system_wrappers'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/system_wrappers'
+Making all in modules
+make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules'
+Making all in audio_coding
+make[3]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_coding'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_coding'
+Making all in audio_processing
+make[3]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_processing'
+/bin/bash ../../../libtool  --tag=CXX   --mode=compile arm-hisiv500-linux-g++ -DPACKAGE_NAME=\"webrtc-audio-processing\" -DPACKAGE_TARNAME=\"webrtc-audio-processing\" -DPACKAGE_VERSION=\"0.2\" -DPACKAGE_STRING=\"webrtc-audio-processing\ 0.2\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"webrtc-audio-processing\" -DVERSION=\"0.2\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -I.     -std=c++11 -DWEBRTC_AUDIO_PROCESSING_ONLY_BUILD -DWEBRTC_POSIX -DWEBRTC_LINUX -DWEBRTC_THREAD_RR -DWEBRTC_ARCH_ARM  -DNDEBUG -I../../..  -DWEBRTC_NS_FLOAT=1 -Wall -g -O2 -Wall -g -O2 -MT beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo -MD -MP -MF beamformer/.deps/libwebrtc_audio_processing_la-covariance_matrix_generator.Tpo -c -o beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo `test -f 'beamformer/covariance_matrix_generator.cc' || echo './'`beamformer/covariance_matrix_generator.cc
+libtool: compile:  arm-hisiv500-linux-g++ -DPACKAGE_NAME=\"webrtc-audio-processing\" -DPACKAGE_TARNAME=\"webrtc-audio-processing\" -DPACKAGE_VERSION=\"0.2\" "-DPACKAGE_STRING=\"webrtc-audio-processing 0.2\"" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"webrtc-audio-processing\" -DVERSION=\"0.2\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -I. -std=c++11 -DWEBRTC_AUDIO_PROCESSING_ONLY_BUILD -DWEBRTC_POSIX -DWEBRTC_LINUX -DWEBRTC_THREAD_RR -DWEBRTC_ARCH_ARM -DNDEBUG -I../../.. -DWEBRTC_NS_FLOAT=1 -Wall -g -O2 -Wall -g -O2 -MT beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo -MD -MP -MF beamformer/.deps/libwebrtc_audio_processing_la-covariance_matrix_generator.Tpo -c beamformer/covariance_matrix_generator.cc  -fPIC -DPIC -o beamformer/.libs/libwebrtc_audio_processing_la-covariance_matrix_generator.o
+beamformer/covariance_matrix_generator.cc: In function ‘float webrtc::{anonymous}::BesselJ0(float)’:
+beamformer/covariance_matrix_generator.cc:24:14: error: ‘j0’ was not declared in this scope
+   return j0(x);
+              ^
+beamformer/covariance_matrix_generator.cc:26:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make[3]: *** [beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo] Error 1
+make[3]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_processing'
+make[2]: *** [all-recursive] Error 1
+make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
+make: *** [all-recursive] Error 1
+
+Recipe 'webrtc-audio-processing' failed at the build step 'compile'
+Select an action to proceed:
+[0] Enter the shell
+[1] Rebuild the recipe from scratch
+[2] Rebuild starting from the failed step
+[3] Skip recipe
+[4] Abort
+
+
+
+[(35/37) avt-plugin -> fetch ]
+-----> Step done
+[(35/37) avt-plugin -> extract ]
+-----> Step done
+[(35/37) avt-plugin -> configure ]
+-----> Step done
+[(35/37) avt-plugin -> compile ]
+[(35/37) avt-plugin -> install ]
+[(35/37) avt-plugin -> post_install ]
+WARNING: No specific packager available for the distro version none_uclibc, using generic packager for distro none
+-----> Creating package for gstreamer-1.0
+WARNING: Some libraries weren't found while searching!
+libunwind
+WARNING: Some libraries weren't found while searching!
+libgstgl-1.0
+WARNING: Some libraries weren't found while searching!
+libwebrtc_audio_processing
+WARNING: Some libraries weren't found while searching!
+libgstvalidate-preload-1.0
+***** Error running 'package' command:
+The following files required by this package are missing:
+ lib/gstreamer-1.0/libgstopengl.so
+lib/gstreamer-1.0/libgstaudiovisualizers.so
+
+
+linux_arm_20171121_1100.tar.bz2
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 11/20 MON
 
 Official cerbero of gstreamer for test build: ~/avm/t533c/tmp
@@ -93,7 +228,9 @@ libtool: and run autoconf again.
 make[3]: *** [libgstavthlssink_la-gstavthlssink.lo] Error 63
 
 In the root directory of where the issue happens:
-autoreconf --force --install
+~/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/avt-plugin-None$ autoreconf --force --install
+
+$autoreconf --force --install
 ./configure
 make
 
