@@ -13,12 +13,27 @@ History
 
 References
 
+1. EZ-USB FX3 Software Development Kit [link](http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit)
 
+///////////////////////////////////////////////////////////////////////////
+
+Reminders
+
+1. USB(1TB) in folder TODO/devbrd/cyusb3kit-003
 
 ///////////////////////////////////////////////////////////////////////////
 
 
+Cypress USBSuite Application Development - Quick Start Guide Version 1.2.3.10
+This doc talks about how to use dll to develope windows programs.
+
+Cypress CyUsb3.sys Programmer's Reference
+
+basic examples: C:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\doc\firmware
+[X] Copy projects into workspace
+
+boot_fw: BootLedBlink
 
 
-///////////////////////////////////////////////////////////////////////////
+
 

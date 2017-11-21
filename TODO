@@ -4,6 +4,21 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2
 
 11/21 TUE
 
+Q (17:30)
+How to enable an embedded linux board mount a remote shared folder on windows system?
+for NAS
+- Linux PC need to install samba-client samba-common cifs-utils to mount
+q: is there a cifs.ko? Yes. 
+https://www.kernel.org/doc/readme/Documentation-filesystems-cifs-README
+
+
+Q (14:25)
+How to build gstreamer so that the libraries can search dependencies with relative path instead of absolute path?
+
+
+
+
+http://www.jianshu.com/p/7863404c1909
 
 [(21/37) libunwind -> fetch ]
 -----> Step done
@@ -260,7 +275,9 @@ gst-inspect-1.0 [OPTION] [PLUGIN|ELEMENT]
 Print all plugins and elements
 
 compiling libremovebg:export CROSS_COMPILE=
-compiling librtmp avt_plugin: export RTMP_LIBS RTMP_CFLAGS
+compiling librtmp avt_plugin: 
+export RTMP_LIBS=-L$(libdir} -lrtmp -lz 
+export RTMP_CFLAGS=-I${incdir}
 
 ///////////////////////////////////////////////////////////////////////////
 
