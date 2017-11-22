@@ -1,4 +1,4 @@
-CYPRESS FX3
+CYPRESS FX2/FX3
 
 Having longed to learn how to program USB MIDI devices. 2017/11/21 due to a
 call to debug GC550, here comes a chance to.
@@ -13,8 +13,12 @@ History
 
 References
 
-1. EZ-USB FX3 Software Development Kit [link](http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit)
+1. EZ-USB FX3 Software Development Kit 
+	[link](http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit)
 
+2. EZ-USB FX3™ SuperSpeed USB 3.0 peripheral controller
+	[link](http://www.cypress.com/fx3)
+	
 ///////////////////////////////////////////////////////////////////////////
 
 Reminders
@@ -23,17 +27,47 @@ Reminders
 
 ///////////////////////////////////////////////////////////////////////////
 
+11/22 WED
 
 Cypress USBSuite Application Development - Quick Start Guide Version 1.2.3.10
 This doc talks about how to use dll to develope windows programs.
 
 Cypress CyUsb3.sys Programmer's Reference
 
+
+AN75705 [link](http://www.cypress.com/file/139296/download)
+Getting Started with EZ-USB FX3
+
 basic examples: C:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\doc\firmware
 [X] Copy projects into workspace
 
 boot_fw: BootLedBlink
 
+Video on EZ-USB FX3 Architecture Overview
+[link](http://www.cypress.com/modules/training/Presentation/player.html)
+
+
+///////////////////////////////////////////////////////////////////////////
+
+[link](http://www.cypress.com/documentation/development-kitsboards/cyusb3kit-003-ez-usb-fx3-superspeed-explorer-kit)
+CYUSB3KIT-003 EZ-USB® FX3™ SuperSpeed Explorer Kit 
 
 
 
+
+
+
+TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
+
+
+
+USB Suite Zip - A zip archive containing windows host driver, C++ & C# API libraries, and the control center, bulkloop and streamer applications for 32 bit platforms (Windows XP, Vista, Windows 7, Windows 8 and Windows 8.1) and 64 bit platforms (Windows Vista, Windows 7, Windows 8 and Windows 8.1)
+
+Documentation
+
+    FX3 Programmer's Manual
+    FX3 API guide
+    FX3 SDK Release Notes
+    FX3 SDK Trouble shooting guide
+    UsbSuite Release Notes
+    UsbSuite Quick Start Guide
