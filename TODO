@@ -1,4 +1,168 @@
+
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
+
+
+///////////////////////////////////////////////////////////////////////////
+
+11/22 WED
+
+0910 
+{
+git clone ssh://a003315@CodeReview-New.avermedia.com:29418/Cross_Platform/SDK/AVT_gstreamer_sdk
+
+arm-hisiv500-linux-uclibcgnueabi-gcc
+
+WORKING DIRCTORY: ~/avm/other_rds/AVT_gstreamer_sdk/
+
+./recipes/avt-plugin.recipe:8:    remotes = {'origin': 'ssh://a000000@CodeReview-New.avermedia.com:29418/Cross_Platform/SDK/avt-plugin'}
+
+./recipes/libftl.recipe:9:    remotes = {'origin': 'ssh://a000000@CodeReview-New.avermedia.com:29418/Cross_Platform/SDK/ftl-sdk'}
+
+./recipes/libhls.recipe:8:    remotes = {'origin': 'ssh://a000000@CodeReview-New.avermedia.com:29418/Cross_Platform/SDK/libhls'}
+
+./recipes/libremovebg.recipe:8:    remotes = {'origin': 'ssh://a000000@CodeReview-New.avermedia.com:29418/Cross_Platform/SDK/libremovebg'}
+grep: ./recipes/librsvg: Is a directory
+
+./recipes/librtmp.recipe:9:    remotes = {'origin': 'ssh://a000000@CodeReview-New.avermedia.com:29418/Cross_Platform/SDK/librtmp'}
+
+
+
+Build GStreamer with cerbero
+
+$ git clone git://anongit.freedesktop.org/gstreamer/cerbero
+$ ./cerbero-uninstalled -c config/xxx.cbc bootstrap
+
+$ ./cerbero-uninstalled list # list available recipes
+$ ./cerbero-uninstalled list-packages # list available packages
+$ ./cerbero-uninstalled wipe # Wipes everything to restore the build system
+$ ./cerbero-uninstalled bootstrap : 下载并安装当前环境下编译时所需工具
+$ ./cerbero-uninstalled build <recipe> : 编译某个recipe，包括其依赖项
+$ ./cerbero-uninstalled buildone <recipe> : 编译某个recipe，不包括其依赖项
+$ ./cerbero-uninstalled cleanone <recipe> : 清理某个recipe
+
+
+$ ./cerbero-uninstalled -c config/xxx.cbc package gstreamer-1.0
+
+
+reference:
+* Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
+* GStreamer SDK 1.0 Build Via Cerbero [link](http://www.jianshu.com/p/7863404c1909)
+
+import os
+from cerbero.config import Platform, Architecture, Distro, DistroVersion
+
+target_platform = Platform.LINUX
+target_distro = Distro.NONE
+target_distro_version = DistroVersion.NONE_UCLIBC
+target_arch = Architecture.ARM
+variants = ['noalsa', 'nox11', 'nopulse', 'nocdparanoia', 'nosdl',
+            'nov4l2', 'notestspackage', 'nopython']
+host = 'arm-hisiv500-linux'
+tool_prefix = '%s-' % host
+allow_parallel_build = True
+
+
+
+diff --git a/gstreamer_src/cerbero/recipes/glib.recipe b/gstreamer_src/cerbero/recipes/glib.recipe
+index f231d6d..f87359a 100644
+--- a/gstreamer_src/cerbero/recipes/glib.recipe
++++ b/gstreamer_src/cerbero/recipes/glib.recipe
+@@ -138,6 +138,7 @@ class Recipe(recipe.Recipe):
+             path2 = None
+             use_old_uri_scheme = False
+             self.configure_options += ' --disable-selinux'
++            self.configure_options += ' --with-libiconv=gnu'
+             # Old Debian/Ubuntu
+             if self.config.target_distro_version in [DistroVersion.DEBIAN_SQUEEZE,
+                                                      DistroVersion.UBUNTU_LUCID,
+
+
+Recipe 'gdk-pixbuf' failed at the build step 'compile'
+Select an action to proceed:
+[0] Enter the shell
+[1] Rebuild the recipe from scratch
+[2] Rebuild starting from the failed step
+[3] Skip recipe
+[4] Abort
+
+
+--- test-coredump-unwind.c	2017-10-13 11:13:45.740446355 +0800
++++ build/sources/linux_arm/libunwind-1.1/tests/test-coredump-unwind.c	2017-10-13 11:16:53.104935412 +0800
+@@ -57,7 +57,9 @@
+ #include <grp.h>
+ 
+ /* For SIGSEGV handler code */
++#ifndef __UCLIBC__
+ #include <execinfo.h>
++#endif
+ #include <sys/ucontext.h>
+ 
+ #include <libunwind-coredump.h>
+@@ -238,6 +240,7 @@
+ 			ip);
+ 
+   {
++#ifndef __UCLIBC__
+     /* glibc extension */
+     void *array[50];
+     int size;
+@@ -245,6 +248,7 @@
+ #ifdef __linux__
+     backtrace_symbols_fd(array, size, 2);
+ #endif
++#endif
+   }
+ 
+   _exit(1);
+
+
+Recipe 'webrtc-audio-processing' failed at the build step 'compile'
+Select an action to proceed:
+[0] Enter the shell
+[1] Rebuild the recipe from scratch
+[2] Rebuild starting from the failed step
+[3] Skip recipe
+[4] Abort
+
+
+Configuring included Libav instance with args --prefix=/home/a003257/avm/other_rds/AVT_gstreamer_sdk/gstreamer_src/cerbero/build/dist/linux_arm         --enable-static --enable-pic         --disable-avdevice --disable-postproc         --disable-programs --disable-ffserver --disable-ffplay --disable-ffprobe --disable-ffmpeg         --disable-encoder=flac --disable-protocols --disable-devices         --disable-network --disable-hwaccels --disable-dxva2 --disable-vdpau         --disable-filters --enable-filter=yadif --disable-doc --disable-vda --disable-d3d11va --disable-dxva2         --disable-audiotoolbox --disable-videotoolbox --disable-vaapi --disable-crystalhd         --disable-mediacodec --disable-nvenc --disable-mmal --disable-omx         --disable-omx-rpi --disable-cuda --disable-cuvid --disable-libmfx         --disable-libnpp --disable-iconv --disable-jni --enable-optimizations --enable-cross-compile         --target-os=linux-uclibcgnueabi --arch=arm --cross-prefix=arm-hisiv500-linux-uclibcgnueabi- --ar="$AR" --as="$CC" --cc="$CC" --ld="$CC" --nm="$NM" --disable-ffmpeg 
+Unknown OS 'linux-uclibcgnueabi'.
+
+If you think configure made a mistake, make sure you are using the latest
+version from Git.  If the latest version fails, report the problem to the
+ffmpeg-user@ffmpeg.org mailing list or IRC #ffmpeg on irc.freenode.net.
+Include the log file "config.log" produced by configure as this will help
+solve the problem.
+config.status: error: Failed to configure embedded Libav tree
+
+Recipe 'gst-libav-1.0' failed at the build step 'configure'
+
+export OS=linux
+
+./build/sources/linux_arm/gst-libav-1.0-1.12.2/ChangeLog:2990:	  configure: Chose right target-os for iOS
+./build/sources/linux_arm/gst-libav-1.0-1.12.2/ChangeLog:6528:	  to parameters like --with-ffmpeg-extra-configure=" --target-os=linux
+./build/sources/linux_arm/gst-libav-1.0-1.12.2/configure:18250:        --target-os=$target_os --arch=$host_cpu --cross-prefix=$host_alias-"
+
+
+export GST_PLUGIN_PATH=XXX/lib/gstreamer-1.0
+export LD_LIBRARY_PATH=XXX/lib
+
+
+ ./bin/gst-inspect-1.0 --version
+ 
+ gst-inspect-1.0 [OPTION] [PLUGIN|ELEMENT]
+ 
+-a, --print-all
+
+avthlssink-> segmentation fault
+
+PACKED FILE: linux_arm_7112214.tar.bz2
+
+}
+
+
+Q: linux kernel module md5.ko. Can't build in 3516A?
+
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -20,127 +184,7 @@ How to build gstreamer so that the libraries can search dependencies with relati
 
 http://www.jianshu.com/p/7863404c1909
 
-[(21/37) libunwind -> fetch ]
------> Step done
-[(21/37) libunwind -> extract ]
------> Step done
-[(21/37) libunwind -> configure ]
------> Step done
-[(21/37) libunwind -> compile ]
-Running command 'make'
-Making all in src
-make[1]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
-make  all-am
-make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
-make[2]: Nothing to be done for `all-am'.
-make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
-make[1]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/src'
-Making all in tests
-make[1]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/tests'
-depbase=`echo test-coredump-unwind.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
-	arm-hisiv500-linux-gcc -DHAVE_CONFIG_H -I. -I../include  -I../include -D_GNU_SOURCE -DNDEBUG  -Wall -g -O2 -Wl,-rpath-link=/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/dist/linux_arm/lib  -Wall -g -O2 -Wl,-rpath-link=/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/dist/linux_arm/lib  -fexceptions -Wall -Wsign-compare -MT test-coredump-unwind.o -MD -MP -MF $depbase.Tpo -c -o test-coredump-unwind.o test-coredump-unwind.c &&\
-	mv -f $depbase.Tpo $depbase.Po
-test-coredump-unwind.c:60:22: fatal error: execinfo.h: No such file or directory
- #include <execinfo.h>
-                      ^
-compilation terminated.
-make[1]: *** [test-coredump-unwind.o] Error 1
-make[1]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/libunwind-1.1/tests'
-make: *** [all-recursive] Error 1
 
-Recipe 'libunwind' failed at the build step 'compile'
-Select an action to proceed:
-[0] Enter the shell
-[1] Rebuild the recipe from scratch
-[2] Rebuild starting from the failed step
-[3] Skip recipe
-[4] Abort
-
-
-[(27/37) webrtc-audio-processing -> fetch ]
------> Step done
-[(27/37) webrtc-audio-processing -> extract ]
------> Step done
-[(27/37) webrtc-audio-processing -> configure ]
------> Step done
-[(27/37) webrtc-audio-processing -> compile ]
-Running command 'make'
-Making all in webrtc
-make[1]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
-Making all in .
-make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
-make[2]: Nothing to be done for `all-am'.
-make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
-Making all in base
-make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/base'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/base'
-Making all in common_audio
-make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/common_audio'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/common_audio'
-Making all in system_wrappers
-make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/system_wrappers'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/system_wrappers'
-Making all in modules
-make[2]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules'
-Making all in audio_coding
-make[3]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_coding'
-make[3]: Nothing to be done for `all'.
-make[3]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_coding'
-Making all in audio_processing
-make[3]: Entering directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_processing'
-/bin/bash ../../../libtool  --tag=CXX   --mode=compile arm-hisiv500-linux-g++ -DPACKAGE_NAME=\"webrtc-audio-processing\" -DPACKAGE_TARNAME=\"webrtc-audio-processing\" -DPACKAGE_VERSION=\"0.2\" -DPACKAGE_STRING=\"webrtc-audio-processing\ 0.2\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"webrtc-audio-processing\" -DVERSION=\"0.2\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -I.     -std=c++11 -DWEBRTC_AUDIO_PROCESSING_ONLY_BUILD -DWEBRTC_POSIX -DWEBRTC_LINUX -DWEBRTC_THREAD_RR -DWEBRTC_ARCH_ARM  -DNDEBUG -I../../..  -DWEBRTC_NS_FLOAT=1 -Wall -g -O2 -Wall -g -O2 -MT beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo -MD -MP -MF beamformer/.deps/libwebrtc_audio_processing_la-covariance_matrix_generator.Tpo -c -o beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo `test -f 'beamformer/covariance_matrix_generator.cc' || echo './'`beamformer/covariance_matrix_generator.cc
-libtool: compile:  arm-hisiv500-linux-g++ -DPACKAGE_NAME=\"webrtc-audio-processing\" -DPACKAGE_TARNAME=\"webrtc-audio-processing\" -DPACKAGE_VERSION=\"0.2\" "-DPACKAGE_STRING=\"webrtc-audio-processing 0.2\"" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"webrtc-audio-processing\" -DVERSION=\"0.2\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -I. -std=c++11 -DWEBRTC_AUDIO_PROCESSING_ONLY_BUILD -DWEBRTC_POSIX -DWEBRTC_LINUX -DWEBRTC_THREAD_RR -DWEBRTC_ARCH_ARM -DNDEBUG -I../../.. -DWEBRTC_NS_FLOAT=1 -Wall -g -O2 -Wall -g -O2 -MT beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo -MD -MP -MF beamformer/.deps/libwebrtc_audio_processing_la-covariance_matrix_generator.Tpo -c beamformer/covariance_matrix_generator.cc  -fPIC -DPIC -o beamformer/.libs/libwebrtc_audio_processing_la-covariance_matrix_generator.o
-beamformer/covariance_matrix_generator.cc: In function ‘float webrtc::{anonymous}::BesselJ0(float)’:
-beamformer/covariance_matrix_generator.cc:24:14: error: ‘j0’ was not declared in this scope
-   return j0(x);
-              ^
-beamformer/covariance_matrix_generator.cc:26:1: warning: control reaches end of non-void function [-Wreturn-type]
- }
- ^
-make[3]: *** [beamformer/libwebrtc_audio_processing_la-covariance_matrix_generator.lo] Error 1
-make[3]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules/audio_processing'
-make[2]: *** [all-recursive] Error 1
-make[2]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc/modules'
-make[1]: *** [all-recursive] Error 1
-make[1]: Leaving directory `/home/a003257/AVT_gstreamer_SDK/gstreamer_src/cerbero/build/sources/linux_arm/webrtc-audio-processing-0.2/webrtc'
-make: *** [all-recursive] Error 1
-
-Recipe 'webrtc-audio-processing' failed at the build step 'compile'
-Select an action to proceed:
-[0] Enter the shell
-[1] Rebuild the recipe from scratch
-[2] Rebuild starting from the failed step
-[3] Skip recipe
-[4] Abort
-
-
-
-[(35/37) avt-plugin -> fetch ]
------> Step done
-[(35/37) avt-plugin -> extract ]
------> Step done
-[(35/37) avt-plugin -> configure ]
------> Step done
-[(35/37) avt-plugin -> compile ]
-[(35/37) avt-plugin -> install ]
-[(35/37) avt-plugin -> post_install ]
-WARNING: No specific packager available for the distro version none_uclibc, using generic packager for distro none
------> Creating package for gstreamer-1.0
-WARNING: Some libraries weren't found while searching!
-libunwind
-WARNING: Some libraries weren't found while searching!
-libgstgl-1.0
-WARNING: Some libraries weren't found while searching!
-libwebrtc_audio_processing
-WARNING: Some libraries weren't found while searching!
-libgstvalidate-preload-1.0
-***** Error running 'package' command:
-The following files required by this package are missing:
- lib/gstreamer-1.0/libgstopengl.so
-lib/gstreamer-1.0/libgstaudiovisualizers.so
 
 
 linux_arm_20171121_1100.tar.bz2
@@ -260,8 +304,7 @@ Binary file libgstbasecamerabinsrc-1.0.so matches
 Binary file libgstbasecamerabinsrc-1.0.so.0 matches
 Binary file libgstbasecamerabinsrc-1.0.so.0.1202.0 matches
 
-export GST_PLUGIN_PATH=XXX/lib/gstreamer-1.0
-export LD_LIBRARY_PATH=XXX/lib
+
 
 Cross-compilation of GStreamer
 https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html
@@ -284,62 +327,13 @@ export RTMP_CFLAGS=-I${incdir}
 11/17 FRI
 
 
-# Build GStreamer with cerbero
-
-
-$ git clone git://anongit.freedesktop.org/gstreamer/cerbero
-$ ./cerbero-uninstalled -c config/xxx.cbc bootstrap
-
-$ ./cerbero-uninstalled list # list available recipes
-$ ./cerbero-uninstalled list-packages # list available packages
-$ ./cerbero-uninstalled wipe # Wipes everything to restore the build system
-$ ./cerbero-uninstalled bootstrap : 下载并安装当前环境下编译时所需工具
-$ ./cerbero-uninstalled build <recipe> : 编译某个recipe，包括其依赖项
-$ ./cerbero-uninstalled buildone <recipe> : 编译某个recipe，不包括其依赖项
-$ ./cerbero-uninstalled cleanone <recipe> : 清理某个recipe
-
-
-$ ./cerbero-uninstalled -c config/xxx.cbc package gstreamer-1.0
-
-
-reference:
-* Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
-* GStreamer SDK 1.0 Build Via Cerbero [link](http://www.jianshu.com/p/7863404c1909)
-
 
 WORKDING DIRECTORY: ~/avm/AVT_gstreamer_SDK
 BRANCH: uclibc
 
 # config/cross-lin-hisiv500.cbc
 
-import os
-from cerbero.config import Platform, Architecture, Distro, DistroVersion
 
-target_platform = Platform.LINUX
-#target_distro = Distro.DEBIAN
-target_distro = Distro.NONE
-target_distro_version = DistroVersion.NONE_UCLIBC
-target_arch = Architecture.ARM
-variants = ['noalsa', 'nox11', 'nopulse', 'nocdparanoia', 'nosdl',
-            'nov4l2', 'notestspackage', 'nopython']
-host = 'arm-hisiv500-linux'
-tool_prefix = '%s-' % host
-allow_parallel_build = True
-
-
-
-diff --git a/gstreamer_src/cerbero/recipes/glib.recipe b/gstreamer_src/cerbero/recipes/glib.recipe
-index f231d6d..f87359a 100644
---- a/gstreamer_src/cerbero/recipes/glib.recipe
-+++ b/gstreamer_src/cerbero/recipes/glib.recipe
-@@ -138,6 +138,7 @@ class Recipe(recipe.Recipe):
-             path2 = None
-             use_old_uri_scheme = False
-             self.configure_options += ' --disable-selinux'
-+            self.configure_options += ' --with-libiconv=gnu'
-             # Old Debian/Ubuntu
-             if self.config.target_distro_version in [DistroVersion.DEBIAN_SQUEEZE,
-                                                      DistroVersion.UBUNTU_LUCID,
 
 
 
