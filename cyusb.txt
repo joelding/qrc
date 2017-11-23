@@ -14,16 +14,81 @@ History
 References
 
 1. EZ-USB FX3 Software Development Kit 
-	[link](http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit)
+[link](http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit)
 
 2. EZ-USB FX3™ SuperSpeed USB 3.0 peripheral controller
-	[link](http://www.cypress.com/fx3)
-	
+[link](http://www.cypress.com/fx3)
+
+3. John Hyde, SuperSpeed Device Design by Example - USB Design by Example, 2014
+[link](https://www.amazon.com/SuperSpeed-Device-Design-Example-John-ebook/dp/B00N823NO2/ref=sr_1_1?ie=UTF8&qid=1511402242&sr=8-1&keywords=usb+john+hyde)
+SuperSpeed Design Examples v1.2
+[link](http://www.cypress.com/file/200861)
+In incremental aspects, this book describes what is needed to know rather than everything that FX3 can do. Basic in
+
+4. EZ-USB FX2LP™  (CY7C68013A/14/15/16A) 
+[link](http://www.cypress.com/products/ez-usb-fx2lp)
+
 ///////////////////////////////////////////////////////////////////////////
 
 Reminders
 
 1. USB(1TB) in folder TODO/devbrd/cyusb3kit-003
+
+///////////////////////////////////////////////////////////////////////////
+
+11/23 THU
+
+GC550 code: SlaveFifoSync project can only be built as RELEASE. DEBUG build size too large.
+final image: SlaveFifoSync.elf; size ~                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       1,209 kbytes
+
+Read AVM_DMA_MANUAL to see code
+
+TODO: read manual DMA sample code and see what is required to do.
+
+Manual DMA channel requires firmware intervention for the forwarding of each data buffer. Firmware is notified when a complete buffer of data is made available by the PRODUCER socket, and is responsible for sending this to the CONSUMER with or without modification.
+
+
+7.3.2.1
+UartLpDmaMode
+This example uses a MANUAL DMA channel to loop any data received through the UART receiver
+back to the UART transmitter.
+Location: firmware/serial_examples/cyfxuartlpdmamode
+
+CyFxUartLpDmaCallback
+status = CyU3PDmaChannelCommitBuffer();
+if (status != CY_U3P_SUCCESS)
+{
+	CyFxAppErrorHandler(status);
+}
+
+7.8.3
+BootGpifDemo
+This example shows how the boot APIs can be used to implement a GPIF-II to USB data path. As
+the boot library does not support DMA channel-level operation, this application shows how to create
+and manage AUTO and MANUAL DMA channels using low-level constructs. The scope of the appli-
+cation is similar to the cyfxgpiftousb application, and the example requires the use of devices that
+support 32-bit wide GPIF-II data.
+Location: firmware/boot_fw/gpiftousb
+
+
+Q: read "P2U" in the source code "SlaveFifoSync". What is that?
+Q: producer/consumer? who? How are they counted as such roles?
+
+CYUSB3KIT-003 SuperSpeed Explorer Kit User Guide
+[link](http://www.cypress.com/file/133836/download)
+
+2.6.3 Automatically Saving Your Edits
+It is recommended that you change one of the Eclipse default settings. To automatically save your edits before building the project, navigate to Windows > Preferences > General > Workspace and select Save automatically before build. Click OK.
+
+CyU3PDebugPrint()
+
+USB Control Center
+	- a host application
+	- an element of FX3 development environment
+
+
+CyU3PDmaMultiChannelDiscardBuffer()
+CyU3PDmaMultiChannelCommitBuffer()
 
 ///////////////////////////////////////////////////////////////////////////
 
