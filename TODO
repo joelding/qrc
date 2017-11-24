@@ -2,6 +2,32 @@
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
 
 
+
+///////////////////////////////////////////////////////////////////////////
+
+11/24 FRI
+
+build for x64 to cross-reference {
+
+	~/avm/AVT_gstreamer_SDK_x64
+
+}
+
+./bin/gst-launch-1.0 -v filesrc location=./128_720_2M_long.ts ! avthlssink
+init 
+
+
+** (gst-launch-1.0:25465): CRITICAL **: gst_base_sink_init: assertion 'pad_template != NULL' failed
+WARNING: erroneous pipeline: could not link filesrc0 to averhlssink0
+
+$ ./bin/gst-inspect-1.0 avthlssink
+init 
+
+
+** (gst-inspect-1.0:25315): CRITICAL **: gst_base_sink_init: assertion 'pad_template != NULL' failed
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 11/22 WED
