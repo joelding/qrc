@@ -2,8 +2,55 @@
 
 target: this document collects summaries of learning USB
 
+///////////////////////////////////////////////////////////////////////////
 ## history:
 	2017/05/02	init
+
+///////////////////////////////////////////////////////////////////////////
+
+Descriptors of USB 1.1
+
+device +- configuration
+       +- ......
+       +- configuration +- interface
+                        +- ......
+                        +- interface +- endpoint
+                                     +- ......
+                                     +- endpoint +- string
+
+1. get device descriptor
+2. get configuration descriptor
+3. get interface, ..., endpoint descriptors
+4. get string descriptor
+
+A device can have many configurations. But at a moment, only one
+configuration take effect.
+
+Configurations and interfaces are abstract ideas to better manage endpoints.
+
+///////////////////////////////////////////////////////////////////////////
+
+packet: collection of fields
+
+PID[7:4] = ~PID[3:0]
+PID[1:0] 01 token; 11 data; 10 handshake; 00 special packet
+
+01 token packet: init a transaction
+
+01 SOF
+[sync][8-bit PID/packet identifier][11-bit frame number][5-bit CRC][EOP/end of packet]
+
+00 OUT
+10 IN
+11 SETUP
+
+[sync][8-bit PID/packet identifier][7-bit address][4-bit endpoint][5-bit CRC][EOP/end of packet]
+
+10 handshake
+[sync][8-bit PID][EOP]
+
+
+///////////////////////////////////////////////////////////////////////////
 
 http://wiki.csie.ncku.edu.tw/embedded/USB
 

@@ -1,7 +1,40 @@
 
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make menuconfig
+
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
 
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make uImage
 
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make clean
+
+
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) modules
+
+///////////////////////////////////////////////////////////////////////////
+
+11/30 THU
+
+Allwinner H6 vs. RK3288/3399 vs Amlogic S905X
+
+
+
+HOW TO VERIFY HDMI INPUT TO HDMI OUTPUT?
+-> BT1120 port is not verified yet!
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+11/29 WED
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+11/27 MON
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -412,7 +445,7 @@ lib/gstreamer-1.0/libgstaudiovisualizers.so
 ///////////////////////////////////////////////////////////////////////////
 11/16
 
-NEW: Allwinner H6 
+
 
 
 

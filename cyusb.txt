@@ -23,10 +23,28 @@ References
 [link](https://www.amazon.com/SuperSpeed-Device-Design-Example-John-ebook/dp/B00N823NO2/ref=sr_1_1?ie=UTF8&qid=1511402242&sr=8-1&keywords=usb+john+hyde)
 SuperSpeed Design Examples v1.2
 [link](http://www.cypress.com/file/200861)
-In incremental aspects, this book describes what is needed to know rather than everything that FX3 can do. Basic in
+In incremental aspects, this book describes what is needed to know rather than everything that FX3 can do.
 
 4. EZ-USB FX2LP™  (CY7C68013A/14/15/16A) 
 [link](http://www.cypress.com/products/ez-usb-fx2lp)
+
+
+///////////////////////////////////////////////////////////////////////////
+
+SuperSpeed Explorer Kit User Guide
+
+
+On-board CY7C65215, USB-serial dual channel uart/i2c/spi bridge, serves as uart and jtag debug.
+out-of-factory EEPROM firmware: USBBulkSourceSinkLED firmware
+
+
+"Cypress FX3 USB BootLoader Device"
+"Cypress USB BootProgrammer"
+
+EZ-USB FX3 SDK\1.3\firmware
+
+"Cypress USB StreamerExample" -> out-of-box firmware
+
 
 ///////////////////////////////////////////////////////////////////////////
 
