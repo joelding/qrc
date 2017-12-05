@@ -12,6 +12,27 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) module
 
 ///////////////////////////////////////////////////////////////////////////
 
+12/04 MON
+
+Q: from the camera driver on the DMB, can I collect knowledge of V4L2 driver?
+
+Q: How come HiSilicon is not using anything from V4L2?
+in hi3519v101_big_little_defconfig
+CONFIG_MEDIA_SUPPORT=m
+#
+# Multimedia core support
+#
+CONFIG_MEDIA_CAMERA_SUPPORT=y
+CONFIG_VIDEO_DEV=m
+CONFIG_VIDEO_V4L2=m
+CONFIG_VIDEOBUF2_CORE=m
+CONFIG_VIDEOBUF2_MEMOPS=m
+CONFIG_VIDEOBUF2_VMALLOC=m
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 11/30 THU
 
 Allwinner H6 vs. RK3288/3399 vs Amlogic S905X
