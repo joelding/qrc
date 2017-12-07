@@ -1,34 +1,4 @@
 
-ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make menuconfig
-
-ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
-
-ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make uImage
-
-ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make clean
-
-ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) modules
-
-
-U-boot
-mw.b 82000000 ff 100000
-tftp 82000000 u-boot-hi3519v101.bin
-sf probe 0
-sf erase 0 100000
-sf write 82000000 0 100000
-reset
-
-mw.b 82000000 ff 300000
-tftp 82000000 uImage_hi3519v101
-sf probe 0
-sf erase 100000 300000
-sf write 82000000 100000 300000
-
-mw.b 82000000 ff c00000
-tftp 82000000 rootfs_hi3519v101_64k.jffs2
-sf probe 0
-sf erase 400000 c00000
-sf write 82000000 400000 c00000
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -851,62 +821,6 @@ uvcvideo: Found UVC 1.00 device AVerMedia USB Device (07ca:0110)
 uvcvideo: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
 
 
-
-Burn images to the SPI flash.
-
-a 16 MB SPI flash is used as an example.
-
-    1) Address space
-        |      1 MB     |      4 MB     |     11 MB     |
-        |---------------|---------------|---------------|
-        |     boot      |     kernel    |     rootfs    |
-
-1) Burn the U-boot.
-	mw.b 82000000 ff 100000
-	tftp 82000000 u-boot-hi3519v101.bin
-	sf probe 0
-	sf erase 0 100000
-	sf write 82000000 0 100000	
-	reset    
-
-	Note that the network parameters need to be reconfigured after the reset.
-
-2) Burn the kernel.
-	mw.b 82000000 ff 400000
-	tftp 82000000 uImage_hi3519v101
-	sf probe 0;sf erase 100000 400000;sf write 82000000 100000 400000
-
-3) Burn the file system.
-	mw.b 82000000 ff B00000;
-	tftp 82000000 rootfs_hi3519v101_64k.jffs2
-	sf probe 0;sf erase 500000 B00000;sf write 82000000 500000 B00000
-
-4) Set boot parameters. 
-(Note that the file system is read-only by default for the linux-3.18.y kernel. 
-Therefore, the rw option needs to be added to bootargs so that the file system can be read and written.)
-		
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-set ethaddr 00:00:23:34:45:66
-set bootdelay 1; set baudrate 115200; 
-
-set bootfile uImage; 
-set fileaddr 82000000
-set filesize 4B1D34 
- 
-set ipaddr 192.168.0.50;set serverip 192.168.0.100;set netmask 255.255.255.0
-
-set bootargs 'mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),4M(kernel),11M(rootfs) ip=dhcp'
-
-set bootcmd 'sf probe 0;sf read 0x82000000 0x100000 0x400000;bootm 0x82000000'
-
-stdin=serial
-stdout=serial
-stderr=serial
-verify=n
-
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -1090,30 +1004,13 @@ Q: How to compile a dts file?
 Q: Where Kocha code is?
   ap.git/dm365/interface/avm/kocha_*
 
-Hi3519V101 SDK setup the SoC in u-boot:
-1. from osdrv/tools/pc/uboot_tools/mkboot.sh 
-original u-boot is split into two 
-[first 64 byte][reg_info data up to 5120 bytes, padded with 0][the rest of u-boot]
-
-
-Q: How to show a binary file?
-  hexdump -C <file>
-  dhex <file>
-Q: How to compare two binary files?
-  cmp -l <file 1> <file 2>
-Q: How to use visual tool to compare two binary files
-  vbindiff <file 1> <file 2>
-
-
-Hi3519V101-uboot-DDR3_1866M_32bit_1GB-A7_792M-A17_930M-BUS_200M.xls
-
 
 Q: How to copy to the clipboard in OpenBox?
   Ctrl+Shift+C to copy; mouse mid-button to paste
 
 
 
-
+What causes a 'dirty' revision?
 references:
   [1] https://lists.denx.de/pipermail/u-boot/2008-May/034702.html
 
