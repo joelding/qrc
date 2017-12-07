@@ -9,6 +9,50 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make clean
 
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) modules
 
+
+U-boot
+mw.b 82000000 ff 100000
+tftp 82000000 u-boot-hi3519v101.bin
+sf probe 0
+sf erase 0 100000
+sf write 82000000 0 100000
+reset
+
+mw.b 82000000 ff 300000
+tftp 82000000 uImage_hi3519v101
+sf probe 0
+sf erase 100000 300000
+sf write 82000000 100000 300000
+
+mw.b 82000000 ff c00000
+tftp 82000000 rootfs_hi3519v101_64k.jffs2
+sf probe 0
+sf erase 400000 c00000
+sf write 82000000 400000 c00000
+
+///////////////////////////////////////////////////////////////////////////
+
+12/07 THU
+
+Q: How is ADI source code organized? How to re-write into kernel modules?
+
+Q: Why the configure I made last night does not have a help such as the following statement?
+--build=BUILD           configure for building on BUILD [BUILD=HOST]
+--host=HOST             configure for HOST [guessed]
+--target=TARGET         configure for TARGET [TARGET=HOST]
+
+Autotools Tutorial, https://www.lrde.epita.fr/~adl/autotools.html
+使用 GNU Libtool 创建库 by 吴小虎, https://www.ibm.com/developerworks/cn/aix/library/1007_wuxh_libtool/index.html << This article is very well written. "结合 Autoconf 和 Automake 使用 Libtool"
+
+Library Versioning, https://autotools.io/libtool/version.html
+lib_LTLIBRARIES = libtest-1.0.la
+libtest_1_0_la_LDFLAGS = -version-info 0:0:0
+The three numbers stand for CURRENT:REVISION:AGE
+The formula for calculating the file numbers on Linux and Solaris is (C - A).(A).(R)
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 12/06 WED
@@ -52,6 +96,8 @@ Cross-Compilation
 
 	$ ./configure --host=arm-hisiv500-linux
 
+
+
     The build machine, where the toolchain is built.
     The host machine, where the toolchain will be executed.
     The target machine, where the binaries created by the toolchain are executed.
@@ -69,6 +115,10 @@ Four common build types are possible for toolchains are:
 
     Canadian toolchain i.e. BUILD!=HOST!=TARGET
     Used to build ARCHITECTURE A a toolchain runs on B and generates binary for architecture C. e.g.BUILD==x86 HOST==mac TARGET==arm
+    
+    You will find above so depending on what you want to do, you need to set it for cross compiling. If all options are available, then you want to execute on arm target then set --host={your toolchain triplet} --target={your toolchain triplet}.
+
+For example, if you are using arm-none-linux-gnueabi-gcc, set --host=arm-none-linux-gnueabi --target=arm-none-linux-gnueabi. This will write to your makefile. Finally, generated executable will run on target. For --build this will be automatically set, no need to worry.
 
 How to determine host value for configure when using cross compiler, https://stackoverflow.com/questions/21990021/how-to-determine-host-value-for-configure-when-using-cross-compiler
 
