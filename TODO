@@ -7,8 +7,125 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make uImage
 
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make clean
 
-
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) modules
+
+///////////////////////////////////////////////////////////////////////////
+
+12/06 WED
+
+Q: How to compile ADI source code? 
+
+
+REFERENCES:
+	[1] GNU AUTOCONF, AUTOMAKE, AND LIBTOOL, by Gary V. Vaughan, Ben Elliston, Tom Tromey and Ian Lance Taylor, New Riders publishing, 2000, http://www.sourceware.org/autobook/
+	[2] GNU Make, Autotools, CMake 簡介 by Wen Liao, https://www.slideshare.net/zzz00072/gnu-make-autotools-cmake
+	[3] GNU Build System, https://en.wikipedia.org/wiki/GNU_Build_System
+	[4] GNU Autoconf - Creating Automatic Configuration Scripts, https://www.gnu.org/software/autoconf/manual/autoconf.html
+	[5] Automake manual, https://www.gnu.org/software/autoconf/manual/automake.html
+	[6] Libtool manual, https://www.gnu.org/software/libtool/manual/libtool.html
+	
+	
+SOP: see https://upload.wikimedia.org/wikipedia/commons/8/84/Autoconf-automake-process.svg
+oval: tool/command
+square: generated file 
+Require modification: configure.ac, Makefile.am
+
+$ autoscan
+$ cp configure.scan configure.ac
+$ # EDIT configure.ac
+$ aclocal
+$ autoheader
+$ touch Makefile.am # in all nodes of the tree
+$ automake # keep running 'automake' until all errors are fixed
+$ autoconf # generate configure
+
+Makefile.am
+
+	SUBDIRS = ...
+
+
+Cross-Compilation
+
+	--build=build: The system on which the package is built. (No need to specify)
+	--host=host: The system where built programs and libraries will run. 
+	--target=target: When building compiler tools: the system for which the tools will create output. 
+
+	$ ./configure --host=arm-hisiv500-linux
+
+    The build machine, where the toolchain is built.
+    The host machine, where the toolchain will be executed.
+    The target machine, where the binaries created by the toolchain are executed.
+
+Four common build types are possible for toolchains are:
+
+    Native build i.e. BUILD==HOST==TARGET
+    Used to build normal gcc for workstation. e.g. BUILD==HOST==TARGET==x86
+
+    Cross-build i.e. BUILD==HOST!=TARGET
+    Used to build toolchain that works on your workstation but generates binary for target. e.g. BUILD==HOST==x86 TARGET==arm
+
+    Cross-native build i.e. BUILD!=HOST==TARGET
+    Used to toolchain that works on your target and generates binary for target. e.g BUILD==x86 HOST==TARGET==ARM
+
+    Canadian toolchain i.e. BUILD!=HOST!=TARGET
+    Used to build ARCHITECTURE A a toolchain runs on B and generates binary for architecture C. e.g.BUILD==x86 HOST==mac TARGET==arm
+
+How to determine host value for configure when using cross compiler, https://stackoverflow.com/questions/21990021/how-to-determine-host-value-for-configure-when-using-cross-compiler
+
+///////////////////////////////////////////////////////////////////////////
+
+12/05 TUE
+
+Q: Is it possble to compile ADI software package with autotools?
+
+
+
+*** CFLAGS was changed in "/home/a003257/avm/t533c/T533C_40/drv/extdrv/adv7842/Makefile". Fix it to use ccflags-y.  Stop.
+
+CFLAGS should be changed into EXTRA_CFLAGS.
+ccflags-y += $(EXTRA_CFLAGS) $(CFLAGS)
+
+export KBUILD_NOPEDANTIC=1
+
+
+TODO: Documentation/kbuild/makefiles.txt
+
+$ sudo echo 7 > /proc/sys/kernel/printk
+bash: /proc/sys/kernel/printk: Permission denied
+bash权限不够
+$ sudo sh -c "echo 7 > /proc/sys/kernel/printk"
+
+REFERENCES:
+	避免’sudo echo x >’ 时’Permission denied’
+	[link] http://blog.csdn.net/hejinjing_tom_com/article/details/7767127
+	
+source insight 3.50.0083	
+SI3US-205035-36448
+SI3US-466908-65897
+SI3US-368932-59383
+SI3US-065458-30661
+SI3US-759512-70207 
+
+$ find . -name "*" -type f -exec dos2unix {} \;
+
+
+
+Autotools Tutorial for Beginners 
+[link] http://markuskimius.wikidot.com/programming:tut:autotools/
+
+
+https://www.slideshare.net/zzz00072/gnu-make-autotools-cmake?ref=https://blog.wu-boy.com/2014/09/introduction-to-gnu-make-autotools-cmake/
+
+https://www.slideshare.net/antonywcl/gnu-build-system-52742400?qid=9f2bb907-c5d9-4e6e-8995-3d3aab1e4786&v=&b=&from_search=6
+
+configure.ac: write on your own or auto-generate with autoscan
+Makefile.am: one each subdir:w
+
+step 1. autoscan
+step 2. mv configure.scan configure.ac
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 
