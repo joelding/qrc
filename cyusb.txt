@@ -28,6 +28,18 @@ In incremental aspects, this book describes what is needed to know rather than e
 4. EZ-USB FX2LP™  (CY7C68013A/14/15/16A) 
 [link](http://www.cypress.com/products/ez-usb-fx2lp)
 
+///////////////////////////////////////////////////////////////////////////////
+
+TODO
+
+
+http://www.colecovision.eu/mcs51/CY7C68013A%20EZ-USB%20FX2LP%20USB2.0%20Development%20Board%20Serial.shtml
+http://allmybrain.com/2008/10/24/a-few-open-source-tips-for-the-cypress-fx2lp-ez-usb-cy7c68013a/
+https://www.amobbs.com/forum.php?mod=viewthread&tid=3371261
+
+WinDriver USB v8.11 User's Manual by Jungo Ltd
+http://www.jungo.com/st/support/documentation/windriver/811/wdusb_man_mhtml/html_wdusb_man.html
+Quite amazing that the author put all together drivers for windows and linux for usb devices.
 
 ///////////////////////////////////////////////////////////////////////////
 
