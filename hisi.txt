@@ -2,6 +2,24 @@ Hi3519V101 - Notes on using Hi3510V101
 
 ///////////////////////////////////////////////////////////////////////////
 
+D:\avm\t533c\Download_from_HiSilicon\Hi3519V101R001C01SPC040\01.software\pc\HiTool\HiTool 
+IS NOT WORKING WITH DMB PROPERLY
+
+SUSPECT: Fastbook in SPC040 is not compatible with the chip on DMB
+However SPC030 is compatible
+
+串口已经连接，请给单板上电，若已经上电，请断电后重新上电。
+
+发送头帧失败，可能的原因如下：
+1.烧写的Fastboot镜像与当前单板型号或Flash不匹配导致；
+2.单板DDR有问题，无法正常进行DDR初始化操作；
+3.如果是安全芯片，则需要确认是否需要使用programmer来进行烧写（Conax，Verimatrix高安类型必选）；
+4.如果是安全芯片，则需要确认当前镜像是否已经签名且签名正确，注意签名使用的key必须与芯片启动校验的key一致；
+下载文件失败！
+
+
+///////////////////////////////////////////////////////////////////////////
+
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make menuconfig
 
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
