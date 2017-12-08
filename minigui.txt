@@ -1,0 +1,94 @@
+MINIGUI
+
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY
+	2017/12/08 init
+
+///////////////////////////////////////////////////////////////////////////
+
+Q: How to cross compile
+
+http://www.minigui.org/downloads/zlib-1.2.2.tar.gz
+
+$ CC=arm-hisiv500-linux-gcc ./configure --prefix=`pwd`/../../install --shared
+$ make; make install
+
+http://www.minigui.org/downloads/freetype-2.3.9-fm20100818.tar.gz
+
+$ ./configure --prefix=`pwd`/../../install --host=arm-hisiv500-linux --enable-shared --with-gnu-ld --without-zlib
+$ make; make install
+
+http://www.minigui.org/downloads/jpegsrc.v7.tar.gz
+$ CC=arm-hisiv500-linux-gcc ./configure --prefix=`pwd`/../../install --host=arm-hiv500-linux --enable-shared --with-gnu-ld
+$ make; make install
+
+$ export CFLAGS="-I`pwd`/../../install/include"
+$ export LDFLAGS="-I`pwd`/../../install/lib"
+
+http://www.minigui.org/downloads/libpng-1.2.37.tar.gz
+$ CC=arm-hisiv500-linux-gcc CFLAGS=-I`pwd`/../../install/include LDFLAGS=-L`pwd`/../../install/lib ./configure --prefix=`pwd`/../../install --host=arm-hiv500-linux --enable-shared --with-gnu-ld
+$ # manually remove libpng.vers line 1 "global"
+$ make; make install
+
+http://www.minigui.org/downloads/minigui-res-be-3.0.12.tar.gz
+$ ./configure --prefix=`pwd`/../../install
+$ make install
+
+http://www.minigui.org/downloads/libminigui-3.0.12-linux.tar.gz
+$ CC=arm-hisiv500-linux-gcc ./configure --host=arm-hisiv500-linux --prefix=`pwd`/../../install --with-osname=linux  --with-targetname=fbcon  --disable-screensaver --enable-autoial  --enable-ttfcache --disable-vbfsupport  --disable-videoqvfb --disable-pcxvfb --enable-standalone --enable-ctrltextedit --with-licensepicture=minigui --with-gnu-ld --with-ttfcachesize=1024 --with-mttfcachenum=40 
+
+X http://www.minigui.org/downloads/libmgutils-1.0.4.tar.gz
+
+http://www.minigui.org/downloads/libmgplus-1.2.4.tar.gz
+$ CC=arm-hisiv500-linux-gcc CPPFLAGS="-I`pwd`/../../install/include" ./configure --build=x86_64-unknown-linux-gnu --host=arm-hisiv500-linux --prefix=`pwd`/../../install MINIGUI_CFLAGS="-I`pwd`/../../install/include -I`pwd`/../../install/include/minigui" MINIGUI_LIBS="-L`pwd`/../../install/lib -lminigui_sa -lz -lpng -ljpeg -lfreetype -lpthread -lm"
+
+http://www.minigui.org/downloads/mg-samples-3.0.12.tar.gz
+$ CC=arm-hisiv500-linux-gcc ./configure --prefix=`pwd`/../../install --host=arm-hisiv500-linux MINIGUI_CFLAGS="-I`pwd`/../../install/include/minigui" MINIGUI_LIBS="-L`pwd`/../../install/lib -lminigui_sa -lz -lpng -ljpeg -lfreetype -lpthread -lm"
+
+REFERENCES:
+	[1] linux arm交叉编译，安装Minigui 3.0.12心得 http://www.csdn123.com/html/blogs/20131011/81517.htm
+	
+///////////////////////////////////////////////////////////////////////////
+
+Q: How to test MiniGUI 3.0 on Linux PC? 2017/10/27
+
+Download:
+	libminigui-3.0.12-linux.tar.gz: the source of MiniGUI core library.
+	minigui-res-be-3.0.12.tar.gz: the resource used by MiniGUI, including basic fonts, icons, bitmaps, cursors, and imetables.
+	mg-samples-3.0.12.tar.gz: the samples for MiniGUI Version 3.0.x.
+
+
+$ mkdir libsrc; cd libsrc
+$ tar xvf minigui-res-be-3.0.12.tar.gz -C .
+$ cd minigui-res-be-3.0.12/
+$ ./configure --prefix=`pwd`/../..
+$ make; make install
+$ cd ..
+$ tar xvf libminigui-3.0.12.tar.gz -C .
+$ cd libminigui-3.0.12-linux/
+
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+
+
+
+REFERENCES:
+	[1] http://www.minigui.org/blog/howto-install-minigui-3.0-on-linux-pc/
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+In file included from object.c:20:0:
+object.h: In function 'MGGET_ARG_COUNT':
+object.h:275:9: error: assignment to expression with array type
+  _va.va = va;
+         ^
+Makefile:271: recipe for target 'object.lo' failed
+make[3]: *** [object.lo] Error 1
+编译系统是64位导致的，换为32位就可以了。但是我的编译系统无法换，看了下，直接在对应的makefile里面修改把该模块编译为32位。如下：
+CFLAGS = -m32 -g -O2
+在CFLAGS上加上-m32就可以了。
