@@ -2,6 +2,14 @@ Hi3519V101 - Notes on using Hi3510V101
 
 ///////////////////////////////////////////////////////////////////////////
 
+# mount -t nfs -o nolock 192.168.0.100:/nfsshare /mnt
+
+# ./load3519v101 -i 
+# ./load3519v101 -i -sensor0  imx274
+
+
+///////////////////////////////////////////////////////////////////////////
+
 D:\avm\t533c\Download_from_HiSilicon\Hi3519V101R001C01SPC040\01.software\pc\HiTool\HiTool 
 IS NOT WORKING WITH DMB PROPERLY
 
@@ -30,8 +38,10 @@ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make clean
 
 ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) modules
 
+///////////////////////////////////////////////////////////////////////////
 
 U-boot
+
 mw.b 82000000 ff 100000
 tftp 82000000 u-boot-hi3519v101.bin
 sf probe 0
@@ -51,6 +61,17 @@ sf probe 0
 sf erase 400000 c00000
 sf write 82000000 400000 c00000
 
+(5)Separately compile uboot:
+        Enter the top directory of boot source code, do the following,if your chip is hi3516av200, change the following hi3519v101     to hi3516av200:
+        make ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- hi3519v101_xxx_config
+        make ARCH=arm CROSS_COMPILE=arm-hisiv500-linux-
+        or:
+        make ARCH=arm CROSS_COMPILE=arm-hisiv600-linux- hi3519v101_xxx_config
+        make ARCH=arm CROSS_COMPILE=arm-hisiv600-linux-
+
+        The generated u-boot.bin is copied to osdrv/tools/pc_tools/uboot_tools/ directory
+        ./mkboot.sh reg_info.bin u-boot-hi3519v101.bin
+        The generated u-boot-hi3519v101.bin is available for u-boot image
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -155,5 +176,6 @@ verify=n
 ///////////////////////////////////////////////////////////////////////////////
 
 default demo board u-boot settings
+
 
 

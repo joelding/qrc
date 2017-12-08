@@ -1,4 +1,15 @@
 
+///////////////////////////////////////////////////////////////////////////
+
+12/08 FRI
+
+Sent Jerry Hsiao an email to ask whether HiTool version relates to chip version.
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -45,13 +56,21 @@ square: generated file
 Require modification: configure.ac, Makefile.am
 
 $ autoscan
+
 $ cp configure.scan configure.ac
+
 $ # EDIT configure.ac
+
 $ aclocal
+
 $ autoheader
+
 $ touch Makefile.am # in all nodes of the tree
+
+$ #autoconf # generate configure
+$ autoreconf -i
+
 $ automake # keep running 'automake' until all errors are fixed
-$ autoconf # generate configure
 
 Makefile.am
 
