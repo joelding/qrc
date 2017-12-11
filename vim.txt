@@ -1,8 +1,12 @@
-# VIM
+VIM
 
-## history
-  2017/05/08 init
+###########################################################################
 
+HISTORY
+
+	2017/05/08 init
+
+###########################################################################
 ## install
 ```
 $ mkdir -p ~/.vim/autoload ~/.vim/bundle
@@ -59,6 +63,11 @@ zM/zR: close all/open all
 gqG: formating the text from the current position to the end of the file
 
 
+###########################################################################
 
+:e ++ff=dos # to remove ^M
+reference: http://vim.wikia.com/wiki/File_format
 
+	2017/12/11 add
 
+###########################################################################
