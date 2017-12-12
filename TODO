@@ -4,6 +4,33 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+
+///////////////////////////////////////////////////////////////////////////
+
+12/12 TUE
+
+Q: Linux kernel folder include/uapi/linux/ What use is this?
+在3.7以後把很多header file移到 include/uapi或是arch/xxxx/include/uapi下
+Linux kernel uapi header file by Viller Hsiao, November 21st, 2014, http://vh21.github.io/linux/2014/11/21/linux-kernel-uapi-include-file.html
+The UAPI header file split, By Michael Kerrisk, July 25, 2012, https://lwn.net/Articles/507794/
+
+The uapi folder is supposed to contain the user space API of the kernel. Then upon kernel installation, the uapi include files become the top level /usr/include/linux/ files.
+https://stackoverflow.com/questions/18858190/whats-in-include-uapi-of-kernel-source-project
+
+
+Linux 3.7-rc1
+From: 	 	Linus Torvalds <torvalds@linux-foundation.org>
+To: 	 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: 	 	Linux 3.7-rc1 
+https://lwn.net/Articles/519762/
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 12/11 MON
@@ -61,10 +88,20 @@ include/utils/btools.h
 0x5: 0x0
 
 实例解析linux内核I2C体系结构
+时间：2016-12-30作者：华清远见
+本文针对使用linux内核子系统开发
 http://www.embedu.org/column/column190.htm
 
+在linux系统下编写I2C驱动有两种方式
+1. 一种是把I2C设备当作一个普通的字符设备
+2. 另一种是利用linux I2C驱动体系结构来完成
+	(1) 一种是利用系统给我们提供的i2c-dev.c来实现一个i2c适配器的设备文件。然后通过在应用层操作i2c适配器来控制i2c设备。
+	(2) 另一种是为i2c设备，独立编写一个设备驱动。不需要使用i2c-dev.c。
 
+i2c-dev.c并没有针对特定的设备而设计，只是提供了通用的read()、write()和ioctl()等接口，应用层可以借用这些接口访问挂接在适配器上的i2c设备的存储空间或寄存器，并控制I2C设备的工作方式。
+read()、write()方法只适用用于适配器支持i2c算法的情况，而不适合适配器只支持smbus算法的情况，所以一般都不会使用i2c-dev.c的read()、write()方法。最常用的是ioctl()方法。
 
+针对i2c的算法，需要熟悉struct i2c_rdwr_ioctl_data 、struct i2c_msg。使用的命令是I2C_RDWR。针对smbus算法，需要熟悉struct i2c_smbus_ioctl_data。使用的命令是I2C_SMBUS。
 ---------------------------------------------------------------------------
 Q: How to port to Linux for ADI wrapper.c?
 
