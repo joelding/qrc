@@ -18,6 +18,7 @@ References
 
 ///////////////////////////////////////////////////////////////////////////
 
+
 MAKEFILE
 
 = 是最基本的賦值
@@ -170,14 +171,44 @@ references:
 
 WAIT QUEUE
 
-	* Let the current task sleep
-	* The scheduler will not execute the task until it is waken up
+- Let the current task sleep
+- The scheduler will not execute the task until it is waken up
 
-	#include <linux/wait.h>
+#include <linux/wait.h>
 
-	typedef struct __wait_queue wait_queue_t; 
+typedef struct __wait_queue wait_queue_t; 
 
-	DECLARE_WAIT_QUEUE_HEAD(name)
+/* declare a queue and a condition variable
+ */
+DECLARE_WAIT_QUEUE_HEAD(name);
+static int bCondition;
+
+/* check if the wait queue is empty
+ * return 1: there are processes in the wait queue
+ * return 0: no process in the wait queue
+ */
+int waitqueue_active(wait_queue_t *q);
+
+/* wait for some event
+ * could be waken up by signal
+ * condition: wake up when the condition is true
+ */
+wait_event_interruptible(wq, condition); 
+
+/* could NOT be waken up by signal
+ */
+wait_event(wq, condition);
+
+/* wake up the interruptible process
+ */
+wake_up_interruptible(wait_queue_t *q);
+
+/* wake up all processes
+ */
+wake_up(wait_queue_t *q);
+
+LAB: block/nonblock mode
+chardev_nonblock/nonblock.c
 
 ///////////////////////////////////////////////////////////////////////////
 
