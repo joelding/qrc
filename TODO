@@ -4,6 +4,45 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+///////////////////////////////////////////////////////////////////////////
+
+12/14 THU
+
+Q: Which TLV320AIC3101EVM can be used in the experiment?
+MPD-13026 
+OK: i2c_read 2 0x72 0x0 0x20
+OK: i2c_read 2 0xA0 0x0 0x20
+
+The TLV320AIC3101 responds to the I2C address of 001 1000.
+
+# i2c_read 2 0x30 0 0x20
+
+Header files in the Linux kernel are used for two purposes:
+
+    to define interfaces between components of the kernel, and
+
+    to define interfaces between the kernel and user space 
+http://kernelnewbies.org/KernelHeaders
+
+TIME 19:52
+# /mnt/aic3x
+hisi-i2c-v110 12112000.i2c: wait rx no empty abort, RI: 0x550
+hisi-i2c-v110 12112000.i2c: TX_ABRT:0x1
+Fail ioctl I2C_READ retval=-1
+
+In file included from /home/a003257/avm/t533c/T533C_40/mpp_big-little/sample/aic3x/../../../osdrv/opensource/kernel/linux-3.18.y/include/uapi/linux/i2c.h:30:0,
+                 from audio.c:4:
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/sample/aic3x/../../../osdrv/opensource/kernel/linux-3.18.y/include/uapi/linux/types.h:9:2: warning: #warning "Attempt to use kernel headers from user space, see http://kernelnewbies.org/KernelHeaders" [-Wcpp]
+ #warning "Attempt to use kernel headers from user space, see http://kernelnewbies.org/KernelHeaders"
+  ^
+
+
+///////////////////////////////////////////////////////////////////////////
+
+12/13 WED
+
+TASK: complete porting ADV7604, ADV7842 and commit to joel_testcode branch.
+
 
 ///////////////////////////////////////////////////////////////////////////
 
