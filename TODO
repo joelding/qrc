@@ -6,6 +6,105 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+12/18 MON
+
+Q: How to make Hi3519 send out audio via i2s?
+
+///////////////////////////////////////////////////////////////////////////
+
+12/15 FRI
+
+
+osdrv/tools/board/reg-tools-1.0.0/source/tools/btools.c:91:    printf("*** Board tools : %s *** \n",BTOOLS_VERSION);
+
+source/tools/i2c_ops.c:318:	printf("i2c_num:0x%x, dev_addr:0x%x; reg_addr:0x%x; data:0x%x; reg_width: %d; data_width: %d.\n",
+./source/tools/i2c_ops.c:319:			i2c_num, dev_addr << 1, reg_addr, data, reg_width, data_width);
+
+
+
+Header files in the Linux kernel are used for two purposes: to define interfaces between components of the kernel, and to define interfaces between the kernel and user space. 
+
+Interfaces open to internal modules are defined in the global header space, linux/include/ or linux/arch/*/include/. Interfaces among source files in a single module should be put into the same directory as parts of the module source code. Putting those locally used interfaces would pollute the global header space. 
+
+Building external modules now requires the Makefile to point to /lib/modules/${kver}/build, where ${kver} can be the exact version string of the kernel got from command 'uname -r'.
+
+The correct way to address this problem is to isolate the specific interfaces that you need, e.g. a single header file that is patched in a new kernel providing the ioctl numbers for a character device used by your program.
+
+http://kernelnewbies.org/KernelHeaders
+
+
+
+0x20: 0x0
+0x21: 0x0
+0x22: 0x0
+0x23: 0x0
+0x24: 0x44
+0x25: 0xc0
+0x26: 0x0
+0x27: 0x0
+0x28: 0x1
+0x29: 0x0
+0x2a: 0x0
+0x2b: 0x0
+0x2c: 0x0
+0x2d: 0x0
+0x2e: 0x0
+0x2f: 0xbc
+0x30: 0x0
+0x31: 0x0
+0x32: 0x0
+0x33: 0x1f
+0x34: 0x2f
+0x35: 0x0
+0x36: 0x0
+0x37: 0x0
+0x38: 0x0
+0x39: 0x0
+0x3a: 0x6
+0x3b: 0x0
+0x3c: 0x0
+0x3d: 0x0
+0x3e: 0x0
+0x3f: 0x2f
+0x40: 0xbc
+
+
+
+p0    0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+-----------------------------------------------------
+000: 00 00 00 81 20 1e 00 0a 00 20 00 41 00 00 00 28
+010: 28 0f f0 45 78 78 45 78 78 86 00 00 00 00 00 00
+020: 00 00 00 00 44 c0 00 00 01 00 00 00 00 00 00 bc
+030: 00 00 00 1f 2f 00 00 00 00 00 06 00 00 00 00 2f
+040: bc 1f 00 00 00 00 00 00 06 00 00 00 00 00 00 00
+050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 c6 0c
+060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+070: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+p1    0  1  2  3  4  5  6  7  8  9
+-----------------------------------
+000: 01 6b e3 96 66 67 5d 6b e3 96 66 67 5d 7d 83 84
+010: ee 7d 83 84 ee 39 55 f3 2d 53 7e 6b e3 96 66 67
+020: 5d 6b e3 96 66 67 5d 7d 83 84 ee 7d 83 84 ee 39
+030: 55 f3 2d 53 7e 7f ff 00 00 00 00 00 00 00 00 00
+040: 00 7f ea 80 16 7f d5 7f ea 80 16 7f d5 00 00 00
+050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+070: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+
+
+TLV320AIC3101EVM
+J5A.3 BCLK
+J5A.7 WCLK
+J5A.11 DIN
+J5A.13 DOUT
+J5A.17 MCLK
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 12/14 THU
 
 Q: Which TLV320AIC3101EVM can be used in the experiment?
@@ -17,12 +116,7 @@ The TLV320AIC3101 responds to the I2C address of 001 1000.
 
 # i2c_read 2 0x30 0 0x20
 
-Header files in the Linux kernel are used for two purposes:
 
-    to define interfaces between components of the kernel, and
-
-    to define interfaces between the kernel and user space 
-http://kernelnewbies.org/KernelHeaders
 
 TIME 19:52
 # /mnt/aic3x
