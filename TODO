@@ -4,11 +4,155 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+
+///////////////////////////////////////////////////////////////////////////
+
+12/19 TUE
+
+TLV320AIC3101EVM
+J5A.3 BCLK
+J5A.7 WCLK
+J5A.11 DIN
+J5A.13 DOUT
+J5A.17 MCLK
+
+After inserting extdrv/hi_tlv320aic31.ko
+J5A.3 BCLK >> output signal
+J5A.7 WCLK >> output signal
+J5A.11 DIN
+J5A.17 MCLK >> output signal
+
+After running test_ao:
+J5A.17 MCLK >> output singal, but not the other pins
+
+Q: How to tune register values? 
+	himm
+	himd : memory dump
+	himc : memory clear
+	
+AIAO registers 0x1108_0000
+I2S_CRG_CFG1_00 
+
+/mnt # himd 0x12040000
+*** Board tools : ver0.0.1_20121120 ***
+[debug]: {source/utils/cmdshell.c:161}cmdstr:himd
+====dump memory 0X12040000====
+00000:  01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00  |................|
+00010:  02 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00  |................|
+00020:  00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00  |................|
+00030:  01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00  |................|
+00040:  01 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00  |................|
+00050:  02 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00  |................|
+00060:  01 00 00 00 02 00 00 00 02 00 00 00 02 00 00 00  |................|
+00070:  02 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00  |................|
+00080:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  |................|
+00090:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  |................|
+000a0:  00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00  |................|
+000b0:  01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00  |................|
+000c0:  01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00  |................|
+000d0:  01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00  |................|
+000e0:  01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00  |................|
+000f0:  01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00  |................|
+[END]
+
+ko/pinmux.sh
+
+sample/audio/tlv320aic31_readme.txt
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 12/18 MON
 
 Q: How to make Hi3519 send out audio via i2s?
+
+HI_ACODEC_TYPE_TLV320AIC31
+HI_ACODEC_TYPE_INNER
+
+
+NOTICE: in mpp_big-little, Makefile has included 
+-DSNS_IMX274_8M_SINGLE -DHI_MIPI_ENABLE as defaults
+
+Q: could TLV320AIC31 module be successfully inserted?
+
+$ make ACODEC_TYPE=ACODEC_TYPE_TLV320AIC31
+
+load3519v101 was not automatically inserting extdrv/hi_tlv320aic31.ko
+
+/mnt/ko # insmod extdrv/hi_tlv320aic31.ko
+load tlv320aic31.ko for Hi35xx ok!
+
+$ modinfo hi_tlv320aic31.ko
+filename:       /nfsshare/ko/extdrv/hi_tlv320aic31.ko
+author:         Hisilicon
+license:        GPL
+depends:        
+vermagic:       3.18.20 SMP mod_unload ARMv7 p2v8 
+parm:           chip_count:the num we device uses the tlv320aic31,default 1
+
+Q: Why inserting hi_tlv320aic31.ko -> fail, the kernel would crash during trying again?
+
+
+/mnt # ./aic3x 2
+        --- usage ---
+        i: init
+        r reg: read reg(in decimal)
+        w reg val: write reg(in decimal) val(in hex)
+        d: dump reg values
+        q: quit debugging
+> d
+
+p0    0  1  2  3  4  5  6  7  8  9
+-----------------------------------
+000: 00 00 aa 10 04 00 00 0a f0 07
+010: 00 41 50 00 80 00 00 0f f0 04
+020: 78 78 04 78 78 46 00 fe 00 00
+030: fe 00 00 00 00 00 cc c0 3e 00
+040: 00 01 78 00 00 00 00 80 00 00
+050: 00 04 00 00 00 00 00 00 04 00
+060: 00 00 00 00 80 04 00 00 00 00
+070: 00 00 04 00 00 00 00 00 00 00
+080: 00 00 00 00 00 00 00 00 00 00
+090: 00 00 00 00 c0 00 00 00 00 00
+100: 00 00 32 00 00 00 00 00 00 00
+110: 00 00 00 00 00 00 00 00 00 00
+120: 00 00 00 00 00 00 00 00
+
+p1    0  1  2  3  4  5  6  7  8  9
+-----------------------------------
+000: 01 6b e3 96 66 67 5d 6b e3 96
+010: 66 67 5d 7d 83 84 ee 7d 83 84
+020: ee 39 55 f3 2d 53 7e 6b e3 96
+030: 66 67 5d 6b e3 96 66 67 5d 7d
+040: 83 84 ee 7d 83 84 ee 39 55 f3
+050: 2d 53 7e 7f ff 00 00 00 00 00
+060: 00 00 00 00 00 7f ea 80 16 7f
+070: d5 7f ea 80 16 7f d5 00 00 00
+080: 00 00 00 00 00 00 00 00 00 00
+090: 00 00 00 00 00 00 00 00 00 00
+100: 00 00 00 00 00 00 00 00 00 00
+110: 00 00 00 00 00 00 00 00 00 00
+120: 00 00 00 00 00 00 00 00
+>
+
+
+
+
+
+hi_type.h
+	HI_FALSE = 0,
+	HI_TRUE = 1,
+
+
+Set aic31 ok: bMaster = 0, enWorkmode = 0, enSamplerate = 44100
+
+AIO_MODE_I2S_MASTER = 0,
+AIO_MODE_I2S_SLAVE = 1
+
+
+./pinmux_t533c.sh -vo BT1120
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -94,12 +238,7 @@ p1    0  1  2  3  4  5  6  7  8  9
 
 
 
-TLV320AIC3101EVM
-J5A.3 BCLK
-J5A.7 WCLK
-J5A.11 DIN
-J5A.13 DOUT
-J5A.17 MCLK
+
 
 
 
@@ -1630,7 +1769,187 @@ SENSOR_TYPE is defined in sample/Makefile.param
 
 struct is typedefined as _S.
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Hi3519V101 - Notes on using Hi3510V101
+
+///////////////////////////////////////////////////////////////////////////
+
+# mount -t nfs -o nolock 192.168.0.100:/nfsshare /mnt
+
+# ./load3519v101 -i 
+# ./load3519v101 -i -sensor0  imx274
+
+
+///////////////////////////////////////////////////////////////////////////
+
+D:\avm\t533c\Download_from_HiSilicon\Hi3519V101R001C01SPC040\01.software\pc\HiTool\HiTool 
+IS NOT WORKING WITH DMB PROPERLY
+
+SUSPECT: Fastbook in SPC040 is not compatible with the chip on DMB
+However SPC030 is compatible
+
+串口已经连接，请给单板上电，若已经上电，请断电后重新上电。
+
+发送头帧失败，可能的原因如下：
+1.烧写的Fastboot镜像与当前单板型号或Flash不匹配导致；
+2.单板DDR有问题，无法正常进行DDR初始化操作；
+3.如果是安全芯片，则需要确认是否需要使用programmer来进行烧写（Conax，Verimatrix高安类型必选）；
+4.如果是安全芯片，则需要确认当前镜像是否已经签名且签名正确，注意签名使用的key必须与芯片启动校验的key一致；
+下载文件失败！
+
+
+///////////////////////////////////////////////////////////////////////////
+
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make menuconfig
+
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make modules M=`pwd`/drivers/media/i2c/it6604
+
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make uImage
+
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make clean
+
+ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make -C $(LINUX_ROOT) M=$(PWD) modules
+
+///////////////////////////////////////////////////////////////////////////
+
+U-boot
+
+mw.b 82000000 ff 100000 #1MBytes
+tftp 82000000 u-boot-hi3519v101.bin
+sf probe 0
+sf erase 0 100000
+sf write 82000000 0 100000
+reset
+
+mw.b 82000000 ff 300000 #3MBytes
+tftp 82000000 uImage_hi3519v101
+sf probe 0
+sf erase 100000 300000
+sf write 82000000 100000 300000
+
+mw.b 82000000 ff c00000 #12MBytes
+tftp 82000000 rootfs_hi3519v101_64k.jffs2
+sf probe 0
+sf erase 400000 c00000
+sf write 82000000 400000 c00000
+
+(5)Separately compile uboot:
+        Enter the top directory of boot source code, do the following,if your chip is hi3516av200, change the following hi3519v101     to hi3516av200:
+        make ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- hi3519v101_xxx_config
+        make ARCH=arm CROSS_COMPILE=arm-hisiv500-linux-
+        or:
+        make ARCH=arm CROSS_COMPILE=arm-hisiv600-linux- hi3519v101_xxx_config
+        make ARCH=arm CROSS_COMPILE=arm-hisiv600-linux-
+
+        The generated u-boot.bin is copied to osdrv/tools/pc_tools/uboot_tools/ directory
+        ./mkboot.sh reg_info.bin u-boot-hi3519v101.bin
+        The generated u-boot-hi3519v101.bin is available for u-boot image
+
+
+///////////////////////////////////////////////////////////////////////////
+
+history:
+	2017/11/03	init
+	2017/12/07	move to version 4.0
+
+
+Hi3519V101 SDK setup the SoC in u-boot:
+
+From osdrv/tools/pc/uboot_tools/mkboot.sh 
+original u-boot is split into two 
+[first 64 byte][reg_info data up to 5120 bytes, padded with 0][the rest of u-boot]
+
+
+Q: How to show a binary file?
+  hexdump -C <file>
+  dhex <file>
+Q: How to compare two binary files?
+  cmp -l <file 1> <file 2>
+Q: How to use visual tool to compare two binary files
+  vbindiff <file 1> <file 2>
+
+
+Hi3519V101-uboot-DDR3_1866M_32bit_1GB-A7_792M-A17_930M-BUS_200M.xls
+from folder Hi3519V101R001C01SPC040/02.only for reference/hardware/uboot table/DMEB
+(DMEBPRO: for DDR4; DMEB: for DDR3)
+
+Compare:
+T533C_40/osdrv/tools/pc/uboot_tools/
+	* Hi3519V101-DMEB-uboot-DDR3_1866M_32bit_1GB-A7_792M-A17_930M-BUS_200M.xlsm
+	correspond to
+	* reg_info_hi3519v101.bin
+
+
+The Hi3519 chip on demo board can only use 
+
+///////////////////////////////////////////////////////////////////////////
+
+2017/11/09
+
+
+Burn images to the SPI flash.
+
+a 16 MB SPI flash is used as an example.
+
+    1) Address space
+        |      1 MB     |      4 MB     |     11 MB     |
+        |---------------|---------------|---------------|
+        |     boot      |     kernel    |     rootfs    |
+
+1) Burn the U-boot.
+	mw.b 82000000 ff 100000
+	tftp 82000000 u-boot-hi3519v101.bin
+	sf probe 0
+	sf erase 0 100000
+	sf write 82000000 0 100000	
+	reset    
+
+	Note that the network parameters need to be reconfigured after the reset.
+
+2) Burn the kernel.
+	mw.b 82000000 ff 400000
+	tftp 82000000 uImage_hi3519v101
+	sf probe 0;sf erase 100000 400000;sf write 82000000 100000 400000
+
+3) Burn the file system.
+	mw.b 82000000 ff B00000;
+	tftp 82000000 rootfs_hi3519v101_64k.jffs2
+	sf probe 0;sf erase 500000 B00000;sf write 82000000 500000 B00000
+
+4) Set boot parameters. 
+(Note that the file system is read-only by default for the linux-3.18.y kernel. 
+Therefore, the rw option needs to be added to bootargs so that the file system can be read and written.)
+		
 
 
 
+///////////////////////////////////////////////////////////////////////////////
 
+
+
+set ethaddr 00:00:23:34:45:66
+set bootdelay 1; set baudrate 115200; 
+
+set bootfile uImage; 
+set fileaddr 82000000
+set filesize 4B1D34 
+ 
+set ipaddr 192.168.0.50;set serverip 192.168.0.100;set netmask 255.255.255.0
+
+set bootargs 'mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),4M(kernel),11M(rootfs) ip=dhcp'
+
+set bootcmd 'sf probe 0;sf read 0x82000000 0x100000 0x400000;bootm 0x82000000'
+
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+
+///////////////////////////////////////////////////////////////////////////////
+
+default demo board u-boot settings
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
