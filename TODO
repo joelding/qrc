@@ -6,6 +6,16 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+12/21 THU
+
+TODO: TLV320AIC3101 driver fail to insert the first time into the kernel.
+How come the 2nd module insertion 
+
+REDMINE #17609 OK
+
+
+///////////////////////////////////////////////////////////////////////////
+
 12/20 WED
 
 TODO: Why SD is even shorter than BCLK? Almost no data? Why?
