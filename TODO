@@ -13,6 +13,11 @@ How come the 2nd module insertion
 
 REDMINE #17609 OK
 
+TODO: How to switch between MIPI and VI0_DATA in VICAP?
+It seems taking no setting to do so. See Hi3159V101_PINOUT_EN.xlsx. Tab "1. Pin Information". There is only "Function 0" avaiable.
+
+vio/sample_vio.c:2302: SAMPLE_VI_MODE_BT1120_1080P
+
 
 ///////////////////////////////////////////////////////////////////////////
 
