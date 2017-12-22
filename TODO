@@ -6,6 +6,29 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+12/22 FRI
+
+
+
+Cerbero build system used to build the official upstream GStreamer 1.0 SDK binaries
+a003257@ubuntu:~/avm/other_rds$ git clone git://anongit.freedesktop.org/gstreamer/cerbero
+
+
+
+WARNING: No bootstrapper for the distro version none_uclibc
+WARNING: No bootstrapper for the distro version ubuntu_xenial
+=> DON'T USE UBUNTU 16.04. USE 14.04 INSTEAD.
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 12/21 THU
 
 TODO: TLV320AIC3101 driver fail to insert the first time into the kernel.
