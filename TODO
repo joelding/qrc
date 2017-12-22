@@ -20,7 +20,8 @@ WARNING: No bootstrapper for the distro version ubuntu_xenial
 => DON'T USE UBUNTU 16.04. USE 14.04 INSTEAD.
 
 
-
+Worked on gstreamer official cerbero. Fail a lot! Building the official release 
+was not quite smooth. Lots of errors. Mainly different selections.
 
 
 
