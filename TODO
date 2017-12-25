@@ -6,6 +6,54 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+12/25 MON
+
+TODO: How to roll back a certain files to previous GIT status?
+
+TODO: #18173 one BT1120 input, along with ADV7842/ADV7604 control.
+
+TODO: How did tlv320aic31.ko depend on media driver on HiSilicon platform?
+
+TODO: What is the difference between a preview and a true capture from vi to vo?
+
+HiMPP: Media Processing Platform
+MPI: Media Programming interface
+Capturing of input videos
+H.264/265, MJPEG, JPEG, MPEG4 encodin
+H264, MPEG4, MPEG2 decoding
+Displaying of output video
+Video and picutre pre-processing, Noise reduction, image enhancement, sharpening, deinterlacing
+OSD overlaying for encoded streams
+video detection and analysis
+intelligence analysis
+audio capturing and output
+audio encoding and decoding
++----+--------+
+|MPP |        |
++----+ Driver |
+|OSAL|        |
++----+--------+
+|    OS       |
++-------------+
+
+$ make
+../../component/vdec/lib/libhal-adv7842-rel1.55.2.1.a(rx_hdmi_hal.o): In function `NoPacketHandling':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7842/RX/HAL/rx_hdmi_hal.c:936: undefined reference to `ADIAPI_RxHdmiGetPacket'
+
+../../component/vdec/lib/libhal-adv7842-rel1.55.2.1.a(rx_hdmi_hal.o): In function `HAL_RxHdmiHouseKeeping':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7842/RX/HAL/rx_hdmi_hal.c:693: undefined reference to `ADIAPI_RxHdmiGetAudioChanStatus'
+
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7842/RX/HAL/rx_hdmi_hal.c:679: undefined reference to `ADIAPI_RxHdmiGetDstMode'
+
+../../component/vdec/lib/libhal-adv7842-rel1.55.2.1.a(7844_hal.o): In function `HAL_RxSdpHouseKeeping':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7842/RX/HAL/4G/ADV7842/HAL/7844_hal.c:2242: undefined reference to `ADIAPI_RxSdpGetAutoFormatDetectResult'
+../../component/vdec/lib/libhal-adv7842-rel1.55.2.1.a(7844_hal.o): In function `HAL_CpSet861RecSettings':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7842/RX/HAL/4G/ADV7842/HAL/7844_hal.c:3407: undefined reference to `CeaVsyncPol'
+../../component/vdec/lib/libhal-adv7842-rel1.55.2.1.a(7844_hal.o): In function `HAL_RxCpHouseKeeping':
+
+
+///////////////////////////////////////////////////////////////////////////
+
 12/22 FRI
 
 
@@ -797,7 +845,7 @@ https://www.slideshare.net/zzz00072/gnu-make-autotools-cmake?ref=https://blog.wu
 https://www.slideshare.net/antonywcl/gnu-build-system-52742400?qid=9f2bb907-c5d9-4e6e-8995-3d3aab1e4786&v=&b=&from_search=6
 
 configure.ac: write on your own or auto-generate with autoscan
-Makefile.am: one each subdir:w
+one each subdir:w
 
 step 1. autoscan
 step 2. mv configure.scan configure.ac
