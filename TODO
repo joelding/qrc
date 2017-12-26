@@ -3,6 +3,40 @@
 ************************
 
 *** 隨手記錄工作上碰到的問題與解答 ***
+///////////////////////////////////////////////////////////////////////////
+
+12/26 TUE
+
+$ make
+../../component/vdec/lib/libadv7604-rel1.55.2.1.a(rx_3g_hdmi_hal.o): In function `HAL_RxAssertHpd':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7604/RX/HAL/3G/rx_3g_hdmi_hal.c:376: undefined reference to `HAL_AssertHPD'
+
+../../component/vdec/lib/libadv7604-rel1.55.2.1.a(rx_3g_hdmi_hal.o): In function `HAL_RxIsHpdOn':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7604/RX/HAL/3G/rx_3g_hdmi_hal.c:396: undefined reference to `HAL_IsHPDOn'
+
+../../component/vdec/lib/libadv7604-rel1.55.2.1.a(rx_3g_hdmi_hal.o): In function `HAL_RxSetBksvListReadyBit':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7604/RX/HAL/3G/rx_3g_hdmi_hal.c:435: undefined reference to `HAL_GetCurrentMsCount'
+
+../../component/vdec/lib/libadv7604-rel1.55.2.1.a(rx_3g_hdmi_hal.o): In function `HAL_RxIntPending':
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7604/RX/HAL/3G/rx_3g_hdmi_hal.c:480: undefined reference to `HAL_RxInt2Pending'
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/component/vdec/lib_adv7604/RX/HAL/3G/rx_3g_hdmi_hal.c:476: undefined reference to `HAL_RxInt1Pending'
+collect2: error: ld returned 1 exit status
+
+/home/a003257/avm/t533c/T533C_40/mpp_big-little/sample/test_1vi1120/../Make.linux:10: recipe for target 'test_1vi1120' failed
+make: *** [test_1vi1120] Error 1
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 
