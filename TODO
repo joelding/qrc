@@ -3,6 +3,18 @@
 ************************
 
 *** 隨手記錄工作上碰到的問題與解答 ***
+
+///////////////////////////////////////////////////////////////////////////
+
+12/27 WED
+
+Aimed at porting ADV7842. Quite in vain.
+
+The reason that I must use the whole package of code:
+1. Not just HDMI as inputs. 
+2. Too many codes. I probably can not win over the ref code in a short time.
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 12/26 TUE
@@ -743,7 +755,12 @@ Q: Why the configure I made last night does not have a help such as the followin
 --host=HOST             configure for HOST [guessed]
 --target=TARGET         configure for TARGET [TARGET=HOST]
 
+
+
+
+
 Autotools Tutorial, https://www.lrde.epita.fr/~adl/autotools.html
+
 使用 GNU Libtool 创建库 by 吴小虎, https://www.ibm.com/developerworks/cn/aix/library/1007_wuxh_libtool/index.html << This article is very well written. "结合 Autoconf 和 Automake 使用 Libtool"
 
 Library Versioning, https://autotools.io/libtool/version.html
@@ -780,8 +797,43 @@ $ autoscan
 
 $ cp configure.scan configure.ac
 
-$ # EDIT configure.ac
+$ vim configure.ac
+##################################################################
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
 
+AC_PREREQ([2.69])
+#AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+AC_INIT([ADV7842_LIB], [Rel1.4], [joel.ding@avermedia.com])
+AM_INIT_AUTOMAKE([subdir-objects])
+AC_CONFIG_SRCDIR([ATV_SW/TX/tx_lib.h])
+AC_CONFIG_HEADERS([config.h])
+
+# Checks for programs.
+AC_PROG_CC
+
+# Checks for libraries.
+AC_PROG_LIBTOOL
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+#AC_CHECK_FUNCS([memset])
+
+# Checks for system services
+AC_CONFIG_MACRO_DIRS([m4])
+AC_CONFIG_FILES([Makefile \
+				RX/Makefile \
+				RX/LIB/Makefile \
+				RX/HAL/Makefile \
+				RX/HAL/4G/Makefile \
+				RX/HAL/4G/ADV7842/Makefile \
+				RX/HAL/4G/ADV7842/HAL/Makefile])
+
+AC_OUTPUT
+##################################################################
 $ aclocal
 
 $ autoheader
@@ -791,7 +843,7 @@ $ touch Makefile.am # in all nodes of the tree
 $ #autoconf # generate configure
 $ autoreconf -i
 
-$ automake # keep running 'automake' until all errors are fixed
+$ automake -a -c # keep running 'automake' until all errors are fixed
 
 Makefile.am
 
@@ -831,6 +883,15 @@ Four common build types are possible for toolchains are:
 For example, if you are using arm-none-linux-gnueabi-gcc, set --host=arm-none-linux-gnueabi --target=arm-none-linux-gnueabi. This will write to your makefile. Finally, generated executable will run on target. For --build this will be automatically set, no need to worry.
 
 How to determine host value for configure when using cross compiler, https://stackoverflow.com/questions/21990021/how-to-determine-host-value-for-configure-when-using-cross-compiler
+
+autogen.sh
+
+############################################################
+#!/bin/sh
+
+autoreconf -i || exit 1
+./configure --host=arm-hisiv500-linux --prefix=`pwd`/..
+############################################################
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -2246,4 +2307,4 @@ default demo board u-boot settings
 
 
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
