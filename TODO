@@ -6,6 +6,30 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+12/28 THU
+
+
+TODO
+----
+Q: PORT THE WHOLE 7604 CODE TO HI3519
+	add to git
+	go through lib process again
+Q: Kyle email AM 9:46
+Q: 
+
+
+SUMMARY
+-------
+Q: IS THERE ANY ADI RECEIVER BOARD AVAILABLE FOR TEST?
+A: two. 7619+7511 at Tommy's; 7612+7513 available. No 7604 or 7842 EVM on the list.
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 12/27 WED
 
 Aimed at porting ADV7842. Quite in vain.
@@ -764,12 +788,16 @@ Autotools Tutorial, https://www.lrde.epita.fr/~adl/autotools.html
 使用 GNU Libtool 创建库 by 吴小虎, https://www.ibm.com/developerworks/cn/aix/library/1007_wuxh_libtool/index.html << This article is very well written. "结合 Autoconf 和 Automake 使用 Libtool"
 
 Library Versioning, https://autotools.io/libtool/version.html
+
 lib_LTLIBRARIES = libtest-1.0.la
 libtest_1_0_la_LDFLAGS = -version-info 0:0:0
+
 The three numbers stand for CURRENT:REVISION:AGE
 The formula for calculating the file numbers on Linux and Solaris is (C - A).(A).(R)
 
-
+libfoo.so.0.0.0
+an incorrect implication that the version of the shared object uses the full three components.
+The version of the library is the one indicated in the DT_SONAME tag and is, generally, only one component, so in the aforementioned case, that would be libfoo.so.0. 
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -845,11 +873,22 @@ $ autoreconf -i
 
 $ automake -a -c # keep running 'automake' until all errors are fixed
 
-Makefile.am
+##################################################################
+# Makefile.am
 
 	SUBDIRS = ...
+##################################################################
+# Makefile.am
 
-
+lib_LTLIBRARIES = libadv7604-1.55.2.la
+AM_CFLAGS =	\
+			... \
+			...
+libadv7604_1_55_2_la_SOURCES =	\
+								... \
+								...
+			
+##################################################################
 Cross-Compilation
 
 	--build=build: The system on which the package is built. (No need to specify)

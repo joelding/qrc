@@ -50,6 +50,63 @@ page 11
 
 ///////////////////////////////////////////////////////////////////////////
 
+Module Exercise - Load Module
+
+* Load the hello module into kernel
+	$ insmod hello.ko 
+* List all the modules loaded in kernel
+	$ lsmod
+	$ cat /proc/modules
+* Open /var/log/kern.log file and see the "Hello! World!" messages
+	$ tail /var/log/kern.log
+* Remove the hello module from kernel
+	$ rmmod hello
+* See "Bye Bye" from /var/log/kern.log
+	$ tail /var/log/kern.log
+
+page 18
+
+///////////////////////////////////////////////////////////////////////////
+
+System log -- syslogd & klogd
+
+* Start/stop the syslogd & klogd
+	# /etc/init.d/syslog start/stop/restart
+	# service syslog start/stop/restart
+* When the module inserted or removed, the printk() message will be 
+	written in /var/log/messages
+
+page 17
+
+///////////////////////////////////////////////////////////////////////////
+
+Multiple Source
+
+start.c, stop.c
+
+page 19
+
+///////////////////////////////////////////////////////////////////////////
+
+Makefile for Multiple Source
+
+obj-m += startstop.o
+startstop-objs := start.o stop.o
+
+page 19
+
+///////////////////////////////////////////////////////////////////////////
+
+COMPILE WITH EXTRA_CFLAGS
+
+#ifdef __TEST__
+#endif
+
+page 20
+
+
+///////////////////////////////////////////////////////////////////////////
+
 # Compiling with -D__TEST__
 
 * Define with EXTRA_CFLAGS in Makefile
@@ -61,6 +118,7 @@ page 11
 	make V=1 -C /lib/modules/`uname -r`/build M=`pwd` modules
 	V=1: verbose mode
 
+page 21
 
 ///////////////////////////////////////////////////////////////////////////
 

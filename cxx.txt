@@ -1,8 +1,20 @@
-# C/C++
+
+C/C++
+
 This document collects summaries of C computer language and C++, CObject.
 
-## history
-  * 2017/05/02	init
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY
+	2017/05/02	init
+
+///////////////////////////////////////////////////////////////////////////
+
+REFERENCES
+
+高等 C 語言 -- (專業限定版) http://ccckmit.wikidot.com/cp:main
+
+///////////////////////////////////////////////////////////////////////////
 
 ## Codes for Formated I/O: "%-+ 0w,pmc"
   %#x,X hexadecimal with head 0x/X
@@ -42,3 +54,64 @@ references:
 ```
 
 ///////////////////////////////////////////////////////////////////////////
+
+GCC DIRECTIVE
+
+#error : 在編譯時，輸出錯誤訊息，警告使用者某些錯誤，編譯在巨集處理階段就會停止。
+#warning:在編譯時，輸出警告訊息，警告使用者某些注意事項，但不會中止編譯，仍然會繼續編譯出目的檔。
+Example:
+#warning "This section is compiled"
+#error "Compiling stops here"
+
+#pragma: 用來告知編譯器某些特殊指示，例如不要輸出錯誤訊息，抑制警告訊息，或者加上記憶體漏洞檢查機制等。
+
+references: 
+1. C 語言中的編譯時期函數http://ccckmit.wikidot.com/cp:macrofunc
+2. Diagnostics https://gcc.gnu.org/onlinedocs/cpp/Diagnostics.html
+3. Pragmas https://gcc.gnu.org/onlinedocs/cpp/Pragmas.html#Pragmas#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+static void fmt(const char *data, ...)
+{
+	int d;
+	char c, *s;
+	va_list args;
+	
+	va_start(args, data);
+	while (*data) {
+		switch (*data++) {
+			case 's':
+				s = va_arg(args, char *);
+				printf("%s", s);
+				break;
+			case 'd':
+			case 'u':
+				d = va_arg(args, int);
+				printf("%d", d);
+				break;
+			case 'c':
+				c = va_arg(args, int);
+				printf("%c", c);
+				break;
+			case 'x':
+			case 'p':
+				d = va_arg(args, int);
+				printf("%x",d);
+				break;
+			default:
+				break;
+		}
+	}
+	va_end(args);
+}
+
+int main(int argc, 
+		 char *argv[])
+{
+	fmt("%s %d\n", __func__, (int)getpid());
+	return 0;
+}
+
