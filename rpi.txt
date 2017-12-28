@@ -19,4 +19,5 @@ References
 Q: How to compile from source code for RPI3?
 
 
-[link](https://coldnew.github.io/f5873b3f/)
+自己動手編譯 Raspberry Pi 的 Kernel https://coldnew.github.io/f5873b3f/
+安裝 Raspberry Pi 的 Toolchain https://www.raspberrypi.com.tw/tag/cross-compiler/
