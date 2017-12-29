@@ -4,6 +4,17 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+
+///////////////////////////////////////////////////////////////////////////
+
+12/29 FRI
+
+Q: HOW TO DEAL WITH ADV7842, ADV7604 LIBS SHARING THE SAME NAME SPACE?
+
+#define RX_NUM_OF_DEVICES
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 12/28 THU
@@ -14,8 +25,8 @@ TODO
 Q: PORT THE WHOLE 7604 CODE TO HI3519
 	add to git
 	go through lib process again
-Q: Kyle email AM 9:46
-Q: 
+XQ: Kyle email AM 9:46
+ 
 
 
 SUMMARY

@@ -122,6 +122,59 @@ page 21
 
 ///////////////////////////////////////////////////////////////////////////
 
+MODULE ARGUMENTS
+* module_param(name, type, perm)
+* module_param_array(name, type, nump, perm)
+	type: 
+		byte, short, ushort, int, uint, long, ulong
+		charp: a character pointer
+		bool: a bool, values 0/1, y/n, Y/N
+		invbool: the above, only sense-reversed (N = true)
+	perm:
+		user: S_IRWXU = S_IRUSR | S_IWUSR | S_IXUSR
+		group: S_IRWXG = S_IRGRP | S_IWGRP | S_IXGRP
+		other: S_IRWXO = S_IROTH | S_IWOTH | S_IXOTH
+		most commonly used: (S_IRWXU | S_IRWXG)
+
+```````````````````````````````````````````````````````````````````````````
+int myint = 3;
+module_param(myint, int, S_IRWXU | S_IRWXG);
+```````````````````````````````````````````````````````````````````````````
+
+* MODULE_PARM_DESC(var, desc)
+	Describe the meaning of this variable "var"
+```````````````````````````````````````````````````````````````````````````
+MODULE_PARM_DESC(myint, "the counter");
+```````````````````````````````````````````````````````````````````````````
+
+page 24
+
+///////////////////////////////////////////////////////////////////////////
+
+LINUX_VERSION_CODE
+
+#include <linux/version.h>
+
+LINUX_VERSION_CODE
+	The version of this kernel
+
+KERNEL_VERSION(major, minor, release)
+
+```````````````````````````````````````````````````````````````````````````
+#if (LINUX_VERSION_CODE > KERNEL_VERSION(2,6,10)) // kernel above 2.6.10
+	module_param_array(myintArray, int, &num_myintArray, 0444);
+#elif (LINUX_VERSION_CODE > KERNEL_VERSION(2,6,0)) // from 2.6.0 to 2.6.10 kernel
+	module_param_array(myintArray, int, num_myintArray, 0444);
+#elif (LINUX_VERSION_CODE > KERNEL_VERSION(2,4,0)) // kernel above 2.4
+	MODULE_PARM(myintArray, "1-2i");
+#endif 
+
+```````````````````````````````````````````````````````````````````````````
+
+page 25
+
+///////////////////////////////////////////////////////////////////////////
+
 # Character Device Driver
 
 # Name Space
