@@ -93,16 +93,42 @@ Makefile for Multiple Source
 obj-m += startstop.o
 startstop-objs := start.o stop.o
 
-page 19
+
+Makefile =, :=, +=, ?=
 
 ///////////////////////////////////////////////////////////////////////////
 
 COMPILE WITH EXTRA_CFLAGS
 
-#ifdef __TEST__
-#endif
+* benefit to use gcc diagnostic directive: 
+	enabling the coder to know whether the codes are preperly compiled
 
-page 20
+/* example code */
+
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/init.h>
+
+static int __init helloworld_init(void)
+{
+#ifndef __TEST__
+#warning "Test compile info"
+//#error "Test compile info"
+#endif
+	printk("%s\n", __func__);
+	return 0;
+}
+
+module_init(helloworld_init);
+
+static void __exit helloworld_exit(void)
+{
+	printk("%s\n", __func__);
+}
+
+module_exit(helloworld_exit);
+
+MODULE_LICENSE("Dual BSD/GPL");
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -489,10 +515,22 @@ Change a bit and return its new value
 ///////////////////////////////////////////////////////////////////////////
 
 CAT BUFFER AREA
+```````````````````````````````````````````````````````````````````````````
 
 
 
 
+ifneq ($(KERNELRELEASE),)
+	obj-m += helloworld.o
+	helloworld-objs := init.o
+else
+#	KDIR := /lib/modules/`uname -r`/build
+	KDIR := /home/a003257/avm/t533c/T533C_40/osdrv/opensource/kernel/linux-3.18.y
+	ARCH := arm
+	CC := arm-hisiv500-linux-
+all:
+	ARCH=$(ARCH) CROSS_COMPILE=$(CC) $(MAKE) V=1 -C $(KDIR) M=$$PWD
 
-
-
+clean:
+	ARCH=$(ARCH) CROSS_COMPILE=$(CC) $(MAKE) V=1 -C $(KDIR) M=$$PWD clean
+endif
