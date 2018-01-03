@@ -175,36 +175,122 @@ page 25
 
 ///////////////////////////////////////////////////////////////////////////
 
-# Character Device Driver
+CHARACTER DEVICE DRIVER
 
-# Name Space
-	* Preventing naming polution:
-		1. Declare all your variables as static and to use a well-define prefix
-		for for your symbols (lowercase).
-		2. To export a function or variable
-			- EXPORT_SYMBOL(your_function_or_variable)
-			- For 2.4 kernel must be compiled with this options:
-			-DEXPORT_SYMTAB
+Name Space
+* Preventing naming polution:
+	1. Declare all variables as static and to use a well-define prefix
+	for for symbols (lowercase).
+	2. To export a function or variable
+		- EXPORT_SYMBOL(your_function_or_variable)
+		- For 2.4 kernel must be compiled with this options:
+		-DEXPORT_SYMTAB
 
-# Code Space
-	* Kernel has its own space of memory as well
-	* Module: dynamically insert and remove in the kernel. shares the kernel space
-	* If your module segfaults, the kernel segfaults.
+Code Space
+* Kernel has its own space of memory as well
+* Module: dynamically insert and remove in the kernel. shares the kernel space
+* If your module segfaults, the kernel segfaults.
 
-# Device Driver
-	* One class of module, which provides functionality for hardware.
-	* Linux programs treat most devices as files
-		- Device files are located in '/dev' directory
-	* Provides a familiar programming interface
-		- Standard C functions: open(), read(), etc
-	* Kernel uses number-pairs (major, minor)
-		- Major Number:
-			. Identify the driver assiciated with the device.
-			. /usr/src/linux-2.x.x/Documentation/devices.txt
-		- Minor Number:
-			. The 'minor' number identifies the device
+Device Driver
+* One class of module, which provides functionality for hardware.
+* Linux programs treat most devices as files
+	- Device files are located in '/dev' directory
+* Provides a familiar programming interface
+	- Standard C functions: open(), read(), etc
+* Kernel uses number-pairs (major, minor)
+	- Major Number:
+		. Identify the driver assiciated with the device.
+		. /usr/src/linux-x.x.x/Documentation/devices.txt
+	- Minor Number:
+		. The 'minor' number identifies the device
 
-# Register Char Device
+```````````````````````````````````````````````````````````````````````````
+
+$ cat /proc/devics
+
+Character devices:
+  1 mem
+  4 /dev/vc/0
+  4 tty
+  4 ttyS
+  5 /dev/tty
+  5 /dev/console
+  5 /dev/ptmx
+  5 ttyprintk
+  6 lp
+  7 vcs
+ 10 misc
+ 13 input
+ 21 sg
+ 29 fb
+ 89 i2c
+ 99 ppdev
+108 ppp
+116 alsa
+128 ptm
+136 pts
+180 usb
+189 usb_device
+226 drm
+244 mei
+245 hidraw
+246 aux
+247 ptp
+248 pps
+249 bsg
+250 watchdog
+251 rtc
+252 dimmctl
+253 ndctl
+254 tpm
+
+Block devices:
+259 blkext
+  7 loop
+  8 sd
+  9 md
+ 11 sr
+ 65 sd
+ 66 sd
+ 67 sd
+ 68 sd
+ 69 sd
+ 70 sd
+ 71 sd
+128 sd
+129 sd
+130 sd
+131 sd
+132 sd
+133 sd
+134 sd
+135 sd
+252 device-mapper
+253 virtblk
+254 mdp
+total 0
+
+```````````````````````````````````````````````````````````````````````````
+
+brw-rw----  1 root disk        8,   0 Jan  3 09:01 sda
+brw-rw----  1 root disk        8,   1 Jan  3 09:02 sda1
+brw-rw----  1 root disk        8,   2 Jan  3 09:02 sda2
+brw-rw----  1 root disk        8,   5 Jan  3 09:02 sda5
+
+crw--w----  1 root tty         4,   0 Jan  3 09:01 tty0
+crw--w----  1 root tty         4,   1 Jan  3 09:02 tty1
+
+
+lrwxrwxrwx  1 root root            15 Jan  3 09:01 stderr -> /3yyproc/self/fd/2
+lrwxrwxrwx  1 root root            15 Jan  3 09:01 stdin -> /proc/self/fd/0
+lrwxrwxrwx  1 root root            15 Jan  3 09:01 stdout -> /proc/self/fd/1
+
+
+crw-rw-rw-  1 root root        1,   5 Jan  3 09:01 zero
+
+```````````````````````````````````````````````````````````````````````````
+
+Register Char Device
 	* Register a character device
 		- int regsiter_chrdev(unsigned int, const char*, struct file_operations*);
 			. Others: major number, "Documentation/devices.txt" 
@@ -402,18 +488,11 @@ Change a bit and return its new value
 
 ///////////////////////////////////////////////////////////////////////////
 
-page 40
+CAT BUFFER AREA
 
-Device Driver
 
-* One class of module, which provides functionality for hardware
-* Linux programs treat most devices as files
-	- Device files are located in '/dev' directory
-* Provides a familiar programming interface
-	- Standard C functions: open(), read(), etc
-* Kernel uses number-paris (major, minor) 
-	- Major Number:
-		. Identify the driver associated with the device
-		. /usr/src/linux-`uname -r`/Documentation/devices.txt
-	- Minor Number:	
-		. The 'minor' number identifies the device
+
+
+
+
+

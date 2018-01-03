@@ -4,6 +4,54 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+///////////////////////////////////////////////////////////////////////////
+
+01/02 TUE
+
+Google: advantiv software documents for video interface products
+https://ez.analog.com/docs/DOC-8566
+
+Q: sample_venc.c Usage. DONT QUITE UNDERSTAND!
+NormalP -> SAMPLE_VENC_NORMALP_CLASSIC() H.265@4k@30fps+H.264@1080p@30fps
+SMARTP H.265@4k@30fps+H.264@1080p@30fps
+DUALP H.265@1080p@30fps+H.264@1080p@30fps
+BIPREDB H.265@1080p@30fps+H.264@1080p@30fps
+BgModel, frame structure in SMARTP mode
+DUALP2 /case 5 / H.265@(SPInterval=0)+H.265@(SPInterval!=0)
+IntraRefresh
+MJPEG
+low delay encode
+roi background framerate
+svc-t H264
+Thumbnail of 1080p jpeg
+A: Selections 0~3 setup GOP modle. 
+
+* Hi3519V101 supports VENC2 module.
+. receiving channel submodule
+. encoding channel
+. region module
+. input picture size > encoding channel size : zoom out/shrink
+. input picture size < encoding channel size : discard/no zoom in
+. input picture size = encoding channel size : encoding
+
+RC: rate control
+
+CBR: constant bitrate within the bitrate statistical time
+
+LCU
+. H265 64x64
+. H264 16x16
+. 5 GOP modes
+	.NORMALP
+	.DUALP
+	.SMARTP
+	.BIPREDB
+	x LOWDELAYB
+
+
+SAMPLE_COMM_VENC_StartGetStream ->
+SAMPLE_COMM_VENC_GetVencStreamProc : a thread to get from encoder and save to a file
+
 
 ///////////////////////////////////////////////////////////////////////////
 

@@ -115,3 +115,45 @@ int main(int argc,
 	return 0;
 }
 
+
+```````````````````````````````````````````````````````````````````````````
+Q: HOW TO USE COMMAND LINE such as ./a.out -n -t 92
+
+#include <stdio.h>
+#include <unistd.h> //getopt
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+	int opt, flags, nsecs, tfnd;
+
+	if (argc < 2) {
+		printf("Example:\n");
+		printf("\t%s -n\n", argv[0]);
+		printf("\t%s -t val\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+
+	while ((opt = getopt(argc, argv, "nt:")) != -1) {
+		switch (opt) {
+			case 'n':
+				flags = 1;
+				break;
+			case 't':
+				nsecs = atoi(optarg);
+				tfnd = 1;
+				break;
+			default:
+				break;
+		}
+	}
+
+	printf("flags=%d\n", flags);
+	printf("tfnd=%d\n", tfnd);
+	printf("nsecs=%d\n", nsecs);
+	printf("optind=%d; %s\n", optind, argv[optind]);
+	
+	return 0;
+}
+
+```````````````````````````````````````````````````````````````````````````
