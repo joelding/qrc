@@ -6,6 +6,22 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+01/04 THU
+
+HiMPP IPC V3.0 Media Processing Software Development Reference page 3-4
+VI Device: 
+"Hi3519V101 supports two VI devices: Dev0 and Dev1. The two devices are independent of
+each other. According to the logic, Dev0 is bound to Chn0 and Dev1 is bound to Chn1."
+Physical VI Channels
+"Hi3159V101 VIU provides two physical VI channels: Chn0 and Chn1. There is no secondary
+channel, and extended channels are suppported."
+"Extended VI channels are used to scale pictures, and their data source is the physical VI
+channel. Hi3519V101 supports a maximum of 16 extended channels."
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 01/02 TUE
 
 Google: advantiv software documents for video interface products
