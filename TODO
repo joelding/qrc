@@ -6,15 +6,33 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+01/05 FRI
+
+HiMPP IPC V3.0 Media Processing Software Development Reference page 5-1 VPSS device:
+
+"The VPSS provides a maximum of VPSS_MAX_GRP_NUM availble groups. The used chip determines the maximum number of groups. The VPSS 
+is multiplexed by various groups in time division multiplexing (TDM) mode.
+Each group has multiple channels."
+
+"The VPSS group channels are classified into physical channels and extended channels."
+
+"STICHING BLENDING"
+In offline mode, two pictures from one group can be stiching-blended together.
+
+
+///////////////////////////////////////////////////////////////////////////
+
 01/04 THU
 
-HiMPP IPC V3.0 Media Processing Software Development Reference page 3-4
-VI Device: 
+HiMPP IPC V3.0 Media Processing Software Development Reference page 3-4 VI Device: 
+
 "Hi3519V101 supports two VI devices: Dev0 and Dev1. The two devices are independent of
 each other. According to the logic, Dev0 is bound to Chn0 and Dev1 is bound to Chn1."
 Physical VI Channels
+
 "Hi3159V101 VIU provides two physical VI channels: Chn0 and Chn1. There is no secondary
 channel, and extended channels are suppported."
+
 "Extended VI channels are used to scale pictures, and their data source is the physical VI
 channel. Hi3519V101 supports a maximum of 16 extended channels."
 

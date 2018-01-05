@@ -322,10 +322,13 @@ REGISTER CHAR DEVICE
 
 * #include <linux/fs.h>
 * Register a character device
-	- int regsiter_chrdev(unsigned int, const char*, struct file_operations*);
+	- int regsiter_chrdev(unsigned int major, 
+							const char *name, 
+							struct file_operations *fops);
 		. Others: major number, "Documentation/devices.txt" 
-		. 0: Major number decides by kernel
-		. Device name, it appears at /proc/devices
+		. if major = 0: Major number decides by kernel
+		. if major != 0: attemp to use the given major number; return 0 on success
+		. Device name, show up in /proc/devices
 		. file operation table pointer. MUST not be NULL. MUST provide
 			open, release, read, write, ioctl, or more.
 * Unregister a character device
