@@ -345,8 +345,9 @@ if (major < 0) {
 ```````````````````````````````````````````````````````````````````````````
 
 REGISTER CHAR DEVICE (NEW)
+
 * #include <linux/fs.h>
-* Register character device
+* Register a range of device numbers for several character devices
 	- int register_chrdev_region(dev_t from, unsigned count, const char *name)
 	- from: first device number (major/minor) of the region
 	- count: Total number of contiguous device numbers 
@@ -354,13 +355,70 @@ REGISTER CHAR DEVICE (NEW)
 	- name: Device name, it appears at /proc/devices
 
 ```````````````````````````````````````````````````````````````````````````
-
-if (register_chrdev_region(MKDEV(major, minor), 1, "char_reg") < 0) {
-	printk("register_chrdev_region() fail\n");
-	return -ENOPERM;
+retval = register_chrdev_region(MKDEV(major, minor), 1, "char_reg"); 
+if (retval < 0) {
+	printk("Fail register_chrdev_region(). error code=%d\n", retval);
+	return retval;
 }
 
 ```````````````````````````````````````````````````````````````````````````
+
+int alloc_chrdev_region(
+	dev_t *dev, 
+	unsigned baseminor, 
+	unsigned count, 
+	const char *name
+);
+
+
+```````````````````````````````````````````````````````````````````````````
+retval = alloc_chrdev_region(&devno, 0, 1, "char_reg");
+if (retval < 0) {
+	printk("Fail alloc_chrdev_region(). error code=%d\n", retval);
+	return retval;
+}
+
+major = MAJOR(devno);
+```````````````````````````````````````````````````````````````````````````
+
+void unregister_chrdev_region(
+	dev_t from,
+	unsigned count
+);
+
+
+MAJOR(dev)
+MINOR(dev)
+MKDEV(ma, mi)
+
+aaaaaaaa aaaaiiii iiiiiiii iiiiiiii
+, where a as major, i as minor
+
+///////////////////////////////////////////////////////////////////////////
+#include <linux/cdev.h>
+
+/* init a cdev structure */
+void cdev_init(
+	struct cdev *cdev,
+	const struct file_operations *fops
+);
+
+/* add a char device to the system */
+int cdev_add(
+	struct cdev *p,
+	dev_t dev,
+	unsigned count
+);
+
+/* remove a cdev from the system */
+void cdev_del(
+	struct cdev *p
+);
+
+/* allocate a cdev structure */
+struct cdev *cdev_alloc(void);
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -418,21 +476,38 @@ struct file_operations fops = {
 
 ///////////////////////////////////////////////////////////////////////////
 
-		- int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count,
-const char *name)
-```
-if (alloc_chrdev_region(&devno, 0, 1, "char_reg") < 0) {
-	printk("alloc_chrdev_region() fail\n");
-}
-major = MAJOR(devno);
-```
+MAKE SURE WHETHER USER MEMORY IS IN USER-LEVEL SPACE
 
-	* Unregister a character device
-		- void unregister_chrdev_region(dev_t from, unsigned count)
+#include <asm/uaccess.h>
+
+access_ok(
+	type,
+	addr,
+	size
+);
+
+type: VERIFY_READ, VERIFY_WRITE
+
+addr and size come from read/write. Those functions provide two parameters
+const char __user *addr, size_t size.
 
 
+////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////
+DATA TRANSFER BETWEEN KERNEL AND USER SPACE
+
+/* access_ok is included */
+
+#include <asm/uaccess.h>
+
+/* the single-value transfer routines */
+put_user(x, ptr)
+get_user(x, ptr);
+
+copy_to_user(to, from, n);
+copy_from_user(to, from , n);
+
+////////////////////////////////////////////////////////////////////////////
 
 
 
