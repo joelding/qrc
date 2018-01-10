@@ -16,12 +16,15 @@ static struct cdev cdev;
 
 int skeleton_open(struct inode *inode, struct file *fs)
 {
-//	static int cnt = 0;
-
 	printk("%s\n", __func__);
-//	sprintf(mem, "skeleton %d\n", cnt++);
-//	len = strlen(mem);
+
+#if 0
+	static int cnt = 0;
+
+	sprintf(mem, "skeleton %d\n", cnt++);
+	len = strlen(mem);
 //	len = 0;
+#endif
 	try_module_get(THIS_MODULE);
 	return 0;
 }
@@ -35,43 +38,46 @@ long skeleton_ioctl(struct file *fs, unsigned int cmd, unsigned long args)
 ssize_t skeleton_read(struct file *fs, char __user *buffer, size_t size, loff_t *offset)
 {
 	ssize_t retval = 0;
-	unsigned idx = 0;
+	unsigned int idx = 0;
 
-	printk("%s size=%d\n", __func__, size);
+	printk("%s\n", __func__);
 
 #if 0	
 	if (!access_ok(VERIFY_WRITE, buffer, size))
 		return -EFAULT;
 #endif
 
-/*	while (len) {
+	while (len) {
 		put_user(mem[idx++], buffer++);
 		++retval;
 		--len;
-	}*/
+	}
 
-	copy_to_user(buffer, mem, len);
-
-	return 0;
+	return retval;
 }
 
 ssize_t skeleton_write(struct file *fs, const char __user *buffer, size_t size, loff_t *offset)
 {
-	printk("%s size=%d\n", __func__, size);
+	unsigned int idx = 0;
+
+	printk("%s\n", __func__);
 
 #if 0
 	if (!access_ok(VERIFY_READ, buffer, size))
 		return -EFAULT;
 #endif
 
-	len = 0;
-
-	while (len < size) {
-		get_user(mem[len++], buffer++);
-		++len;
+	if (size > BUFSIZE) {
+		return -EFAULT;
 	}
 
-	return len;
+	while (idx < size) {
+		get_user(mem[idx++], buffer++);
+	}
+
+	len = idx;
+
+	return ((ssize_t) len);
 }
 
 int skeleton_release(struct inode *inode, struct file *fs)
