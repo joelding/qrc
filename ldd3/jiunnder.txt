@@ -494,6 +494,35 @@ const char __user *addr, size_t size.
 
 ////////////////////////////////////////////////////////////////////////////
 
+IOCTL
+
+* used to get or set info to a driver
+* prototype long (*compat_ioctl) (
+	struct file *pfil, /* file descriptor for the appropriate device file */
+	unsigned int cmd, /* ioctl number */
+	unsigned long parameter); /* ioctl-command-associated argument */
+* kernel documentation/ioctl-number.txt
+* 
+
+IOCTL NUMBER
+
+#define IOCTL_SET_MSG _IOW(MAJOR_NUM, 0, char*)
+#define IOCTL_GET_MSG _IOR(MAJOR_NUM, 1, char*)
+#define IOCTL_GET_NTH_BYTE _IOWR(MAJOR_NUM, 2, int)
+
+
+_IOC_TYPEBITS, length=8 bits, type : magic number 
+_IO_NRBITS, length=8 bits, number : the sequential number
+_IOC_SIZEBITS, length=14 bits, size : size of the data transfer
+_IOC_DIRBITS, length= 2 bits, direction: direction of the data transfer
+
+_IO(type, number)
+_IOR(type, number, size)
+_IOW(type, number, size)
+_IOWR(type, number, size)
+
+////////////////////////////////////////////////////////////////////////////
+
 DATA TRANSFER BETWEEN KERNEL AND USER SPACE
 
 /* access_ok is included */
@@ -506,6 +535,18 @@ get_user(x, ptr);
 
 copy_to_user(to, from, n);
 copy_from_user(to, from , n);
+
+////////////////////////////////////////////////////////////////////////////
+
+MANIPULATING STRINGS IN USER SPACE
+
+#include <linux/uaccess.h>
+
+long strlen_user(const char __user *);
+long strnlen_user(const char __user *, long);
+long strncpy_from_user(char *dst, cnost char __user *src, long count);
+
+
 
 ////////////////////////////////////////////////////////////////////////////
 
