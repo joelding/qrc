@@ -8,6 +8,15 @@ HISTORY:
 
 ///////////////////////////////////////////////////////////////////////////
 
+[Q] Saw in load3519v101 script a line "insert_isp;" ended with a semicolon.
+Is it necessary? 2018/01/12
+
+Single semicolons at the end of a line are superfluous, since the newline is also a command separator. 
+
+[reference]: https://stackoverflow.com/questions/7507038/semicolons-superfluous-at-the-end-of-a-line-in-shell-scripts
+
+///////////////////////////////////////////////////////////////////////////
+
 "Here Documents"
 This type of redirection instructs the shell to read input from the 
 current ... until a line containing delimiter.
