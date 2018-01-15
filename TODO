@@ -6,10 +6,38 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-01/12 FRI 
+01/15 MON
+
+
+HI_ACODEC_TYPE_TLV320AIC31
+
+SAMPLE_COMM_AUDIO_CreatTrdFileAo
 
 
 
+Dave's DEMO BOARD
+
+
+hisilicon # printenv
+bootcmd=sf probe 0;sf read 0x82000000 0x100000 0x400000;bootm 0x82000000
+bootdelay=1
+baudrate=115200
+ethaddr=00:00:23:34:45:66
+netmask=255.255.255.0
+bootfile="u-boot"
+kernelfile="kernel"
+rootfile="rootfs"
+bootargs=mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),4M(kernel),27M(rootfs) board=imx274
+serverip=10.1.9.187
+ipaddr=10.1.9.177
+gatewayip=10.1.9.254
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+ver=U-Boot 2010.06-dirty (Dec 14 2017 - 16:48:38)
+
+setenv bootargs 'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),4M(kernel),27M(rootfs) board=imx274'
 
 
 /********** 1100 first boot up T533C board **********/
