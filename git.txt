@@ -50,3 +50,14 @@ $ git rm --cached <filename>
 Q: How to remove all staged files?
 $ git reset
 
+///////////////////////////////////////////////////////////////////////////
+
+如何使用git 生成patch 和打入patch
+http://blog.csdn.net/liuhaomatou/article/details/54410361
+
+$ git format-patch <commit>
+$ mkdir patch
+$ mv *.path patch/
+$ cd <dest dir>
+$ git am --abort
+$ git am patch/*.patch
