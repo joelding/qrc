@@ -1,11 +1,45 @@
 
-USE UBUNTU
+USE UBUNTU LINUX
 
 ///////////////////////////////////////////////////////////////////////////
 
 HISTORY
 
 	2017/05/06	init
+
+///////////////////////////////////////////////////////////////////////////
+
+安裝結束後的設定
+
+使用bash不要dash
+$ sudo dpkg-reconfigure dash
+$ # choose NO
+
+不要開機畫面 
+$ sudo nano /etc/default/grub # comment GRUB_CMDLINE_LINUX_DEFAULT
+$ sudo update-grub
+
+不要自動更新、不要提醒更新
+$ sudo nano /etc/update-manager/release-upgrades
+$ # modify "Prompt=never"
+$ sudo rm /var/lib/ubuntu-release-upgrader/release-upgrade-available
+
+新增使用者
+$ sudo adduser a003257
+
+mount SMB
+$ sudo apt-get install cifs-utils
+$ sudo mount -t cifs //[ip address]/path /[mount point] -o username=[USERNAME],password=[PASSWD]
+
+///////////////////////////////////////////////////////////////////////////
+
+x64操作系統相容x86軟體
+$ sudo apt-get install multiarch-support
+#$ sudo dpkg --add-architecture i386
+#$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
+
+使用tty裝置
+$ sudo adduser second_user dialout
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -34,13 +68,17 @@ iface enp0s8 inet static
 address 192.168.56.88
 network 192.168.56.0
 
+讓別台電腦可用ssh登錄
 $ sudo apt-get install openssh-server
+$ sudo nano /etc/hosts.allow
+$ #加一行 ALL:
+$ sudo service ssh restart
 
 ///////////////////////////////////////////////////////////////////////////
 
 VIM
 
-安裝：
+plugins安裝：
 
 $ mkdir -p ~/.vim/autoload ~/.vim/bundle
 $ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -92,32 +130,6 @@ nmap <F11> :NERDTreeToggle<CR>
 	reference: http://vim.wikia.com/wiki/File_format
 
 ///////////////////////////////////////////////////////////////////////////
-
-安裝結束後的設定
-
-不要開機畫面 
-$ sudo nano /etc/default/grub # comment GRUB_CMDLINE_LINUX_DEFAULT
-$ sudo update-grub
-
-
-不要自動更新、不要提醒更新
-$ sudo nano /etc/update-manager/release-upgrades
-$ # modify "Prompt=never"
-$ sudo rm /var/lib/ubuntu-release-upgrader/release-upgrade-available
-
-新增使用者
-$ sudo adduser a003257
-
-///////////////////////////////////////////////////////////////////////////
-## x64操作系統相容x86軟體
-```
-$ sudo apt-get install multiarch-support
-#$ sudo dpkg --add-architecture i386
-#$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
-```
-## 使用tty裝置
-```
-$ sudo adduser second_user dialout
 ```
 ## Install a window manager
 ```
