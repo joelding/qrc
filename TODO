@@ -6,6 +6,23 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+02/02 FRI
+
+Kocha
+a003257@ubuntu:~/avm/c285/src/ap/dm365/interface/avm$
+./kocha_internal.h
+./kocha_commonLib.h
+./kocha_primary.c
+./kocha_impl.c
+./kocha_debug.h
+./kocha_interface.h
+./avm_disk_detection.c
+./avm_disk_detection.h
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 01/30 TUE
 
 
