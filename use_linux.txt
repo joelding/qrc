@@ -180,10 +180,16 @@ $ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
 ///////////////////////////////////////////////////////////////////////////
 
 ## Openbox
-To add an entry to openbox menu: copy /etc/xdg/openbox/menu.xml to ~/.config/openbox
+
+To add an entry to openbox menu: copy menu.xml rc.xml in /etc/xdg/openbox/ to ~/.config/openbox
+
+<keybind key="C-A-t">
+<action name="Execute">
+<command>lxterminal</command>
+</action>
+</keybind>
 
 ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
-
 
 ///////////////////////////////////////////////////////////////////////////
 
