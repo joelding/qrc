@@ -180,10 +180,12 @@ $ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
 ///////////////////////////////////////////////////////////////////////////
 
 ## Openbox
-To add an entry to openbox menu: edit /etc/xdg/openbox/menu.xml
+To add an entry to openbox menu: copy /etc/xdg/openbox/menu.xml to ~/.config/openbox
+
 ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
 
-QUICK REFERENCE CARD for COMMONLY USED LINUX COMMANDS
+
+///////////////////////////////////////////////////////////////////////////
 
 History
 	17/04/01	init
