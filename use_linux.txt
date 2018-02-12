@@ -39,6 +39,7 @@ $ sudo apt-get install multiarch-support #16.04
 #$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 #14.04
 
 使用tty裝置
+$ groups second_user
 $ sudo adduser second_user dialout
 
 ///////////////////////////////////////////////////////////////////////////
