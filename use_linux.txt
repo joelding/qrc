@@ -34,9 +34,9 @@ $ sudo mount -t cifs //[ip address]/path /[mount point] -o username=[USERNAME],p
 ///////////////////////////////////////////////////////////////////////////
 
 x64操作系統相容x86軟體
-$ sudo apt-get install multiarch-support
-#$ sudo dpkg --add-architecture i386
-#$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 
+$ sudo apt-get install multiarch-support #16.04
+#$ sudo dpkg --add-architecture i386 #14.04
+#$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 #14.04
 
 使用tty裝置
 $ sudo adduser second_user dialout
