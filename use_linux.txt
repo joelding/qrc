@@ -183,6 +183,8 @@ $ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
 
 To add an entry to openbox menu: copy menu.xml rc.xml in /etc/xdg/openbox/ to ~/.config/openbox
 
+<!-- Keybindings for running applications -->
+
 <keybind key="C-A-t">
 <action name="Execute">
 <command>lxterminal</command>
