@@ -5,6 +5,31 @@
 *** 隨手記錄工作上碰到的問題與解答 ***
 
 ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+02/13 TUE
+
+SE510 
+~/avm/f239/git/AVerCasterHDDuet/RT288x_SDK/source/user/cm/fact_test
+
+VISCA
+D:\avm\ec530b\factest-0.0.1
+
+EC530B
+~/avm/ec530b/git/EC530B/angstrom-build/build/tmp-angstrom_v2015_12-glibc/work/armv7at2hf-vfp-neon-angstrom-linux-gnueabi/avermedia-ec530b-cm-main/1.0-r0/git/user/factest
+
+///////////////////////////////////////////////////////////////////////////
+
+02/12 MON
+
+
+EC530B
+root/machinekit
+
+bootargs=console=ttyS0,115200
+
+
+///////////////////////////////////////////////////////////////////////////
 
 02/02 FRI
 
