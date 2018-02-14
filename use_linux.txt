@@ -179,7 +179,7 @@ service tftp
 
 $ sudo mkdir /tftpsvr
 $ sudo chmod -R 777 /tftpsvr
-$ sudo chown -R nobody /tftpsvr
+$ sudo chown nobody:nogroup -R /tftpsvr
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -188,7 +188,7 @@ $ sudo chown -R nobody /tftpsvr
 $ sudo apt-get install nfs-kernel-server
 $ mkdir /nfs_share
 $ chmod -R 777 /nfs_share
-$ sudo chown -R nobody /nfs_share
+$ sudo chown nobody:nogroup -R /nfs_share
 $ sudo vim /etc/exports
 
 ## 目錄可讀寫，同步寫入，用戶進入後即變為root
