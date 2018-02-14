@@ -211,11 +211,22 @@ $ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
 
 <!-- Keybindings for running applications -->
 
+<keybind key="W-e">
+<action name="Execute">
+<command>firefox</command> 
+</action>
+</keybind>
+<!-- or x-www-browser -->
+
 <keybind key="C-A-t">
 <action name="Execute">
 <command>lxterminal</command>
 </action>
 </keybind>
+
+<item label="virtualbox">
+<action name="Execute"><execute>virtualbox</execute></action>
+</item>
 
 ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
 
