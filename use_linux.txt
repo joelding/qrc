@@ -206,7 +206,8 @@ $ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
 
 ## Openbox
 
-To add an entry to openbox menu: copy menu.xml rc.xml in /etc/xdg/openbox/ to ~/.config/openbox
+$ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/ #for hotkey/keybind
+$ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
 
 <!-- Keybindings for running applications -->
 
