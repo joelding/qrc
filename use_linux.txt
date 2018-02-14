@@ -81,6 +81,7 @@ VIM
 
 plugins安裝：
 
+$ sudo apt-get install curl
 $ mkdir -p ~/.vim/autoload ~/.vim/bundle
 $ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
@@ -131,51 +132,75 @@ nmap <F7> :NERDTreeToggle<CR>
 	reference: http://vim.wikia.com/wiki/File_format
 
 ///////////////////////////////////////////////////////////////////////////
-```
+
 ## Install a window manager
-```
+
 $ sudo apt-get install lubuntu-desktop 
 $ sudo apt-get install lubuntu-core
 $ sudo apt-get install openbox xinit
 $ exec openbox-session; startx
 
-```
+
 
 ///////////////////////////////////////////////////////////////////////////
 
 Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
-```
+
 $ sudo apt-get install curl
-```
 
 
-```
+
+
 ## sudo 出現 unable to resolve host 錯誤解法
 * https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
-```
+
 $ sudo vim /etc/hosts
-```
+
 add 127.0.0.1 <hostname>
 
 ///////////////////////////////////////////////////////////////////////////
 
-## Ubuntu 安裝 NFS Serve
-```
+## Ubuntu 安裝 TFTP Server
+
+$ sudo apt-get install xinetd tftpd tftp
+$ sudo vim /etc/xinetd.d/tftp 
+
+service tftp
+{
+    protocol        = udp
+    port            = 69
+    socket_type     = dgram
+    wait            = yes
+    user            = nobody
+    server          = /usr/sbin/in.tftpd
+    server_args     = /tftpsvr
+    disable         = no
+}
+
+$ sudo mkdir /tftpsvr
+$ sudo chmod -R 777 /tftpsvr
+$ sudo chown -R nobody /tftpsvr
+
+///////////////////////////////////////////////////////////////////////////
+
+## Ubuntu 安裝 NFS Server
+
 $ sudo apt-get install nfs-kernel-server
 $ mkdir /nfs_share
 $ chmod -R 777 /nfs_share
+$ sudo chown -R nobody /nfs_share
 $ sudo vim /etc/exports
-```
+
 ## 目錄可讀寫，同步寫入，用戶進入後即變為root
-```
+
 /nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
 $ sudo exportfs -r #更新
 $ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
-```
+
 ## 客戶端下指令：
-```
+
 $ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
-```
+
 
 ///////////////////////////////////////////////////////////////////////////
 
