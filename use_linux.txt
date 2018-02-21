@@ -184,6 +184,13 @@ $ sudo mkdir /tftpsvr
 $ sudo chmod -R 777 /tftpsvr
 $ sudo chown nobody:nogroup -R /tftpsvr
 
+SELF-TEST
+$ tftp [ip address]
+tftp> get [filename]
+Received xxx bytes in 0.0 seconds
+tftp> quit
+$ ls -lh [filename]
+
 ///////////////////////////////////////////////////////////////////////////
 
 ## Ubuntu 安裝 NFS Server
@@ -199,6 +206,10 @@ $ sudo vim /etc/exports
 /nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
 $ sudo exportfs -r #更新
 $ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
+
+SELF-TEST
+$ mount -t nfs -o nolock [ip address]:/nfs_share /mnt
+
 
 ## 客戶端下指令：
 
@@ -235,9 +246,14 @@ ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
 
 ///////////////////////////////////////////////////////////////////////////
 
-History
-	17/04/01	init
+SET USER'S PRIVATE PATH
+$ vim ~/.profile
+$ #insert PATH=$PATH:[user's private path]
 
+CONSIDER USING ~/bin
+In ~/.profile, the script said it would automatically include ~/bin in PATH.
+
+///////////////////////////////////////////////////////////////////////////
 
 $ scp username@[IP ADDRESS]:[PATH]/[FILE] [DEST] 由遠端主機複製檔案至本機
 $ scp [FILE] username@[IP ADDRESS]:[PATH] 將檔案由本機複製到遠端主機
