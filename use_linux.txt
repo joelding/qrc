@@ -11,6 +11,9 @@ HISTORY
 
 安裝結束後的設定
 
+CHECK UBUNTU VERSION
+$ lsb_release -a
+
 使用bash不要dash
 $ sudo dpkg-reconfigure dash
 $ # choose NO
