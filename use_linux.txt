@@ -206,6 +206,7 @@ $ sudo vim /etc/exports
 /nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
 $ sudo exportfs -r #更新
 $ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
+$ sudo service nfs-kernel-server restart #重啟nfs服務
 
 SELF-TEST
 $ mount -t nfs -o nolock [ip address]:/nfs_share /mnt
