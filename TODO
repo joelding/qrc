@@ -6,6 +6,16 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+03/02 FRI
+
+# killall 4KNDIDevice.sh 4KNDIDevice
+# systemctl stop [serivce] #where [service]=4KNDIDevice
+# mount -o remote,rw /dev/mtdblock1 /
+# systemctl disable [service]
+# reboot
+
+///////////////////////////////////////////////////////////////////////////
+
 02/22 THU
 
 iPerf - The ultimate speed test tool for TCP, UDP and SCTP
