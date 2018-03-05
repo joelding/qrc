@@ -58,6 +58,20 @@ GStreamer編程：libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugi
 虛擬機：virtualbox
 $ sudo usermod -a -G vboxsf <username> # add an existing user to vbox group
 
+///////////////////////////////////////////////////////////////////////////
+
+固定 IP
+
+$ sudo vim /etc/network/interfaces
+
+auto eth1
+iface eth1 inet static
+address 192.168.1.2
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+///////////////////////////////////////////////////////////////////////////
+
 虛擬機 Guest 設定 Host Only + NAT 網卡連通內外網路
 * reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
 * VirtualBox 的 Host Only 網卡的預設網段是 192.168.56.0
@@ -66,7 +80,8 @@ $ lspci
 00:03:0 Ethernet controller ... => enp0s3
 00:08:0 Ethernet controller ... => enp0s8
 
-Add the following lines to /etc/network/interfaces:
+$ sudo vim /etc/network/interfaces
+
 auto enp0s8
 iface enp0s8 inet static
 address 192.168.56.88
