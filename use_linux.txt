@@ -258,6 +258,15 @@ $ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
 </action>
 </keybind>
 
+<keybind key="C-f">
+	<keybind key="x">
+		<action name="ToggleMaximizeFull"/>
+	</keybind>
+	<keybind key="s">
+		<action name="ToggleShade"/>
+	</keybind>
+</keybind>
+
 <item label="virtualbox">
 <action name="Execute"><execute>virtualbox</execute></action>
 </item>
