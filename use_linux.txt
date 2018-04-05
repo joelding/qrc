@@ -24,7 +24,7 @@ $ sudo update-grub
 
 不要自動更新、不要提醒更新
 $ sudo nano /etc/update-manager/release-upgrades
-$ # modify "Prompt=never"
+$ # modify "Prompt=lts" as "never"
 $ sudo rm /var/lib/ubuntu-release-upgrader/release-upgrade-available
 
 新增使用者
@@ -38,6 +38,7 @@ $ sudo mount -t cifs //[ip address]/path /[mount point] -o username=[USERNAME],p
 
 x64操作系統相容x86軟體
 $ sudo apt-get install multiarch-support #16.04
+# LUBUNTU 14.04.5 automatically have --add-architecture, libc6:i386, libstdc++6:i386
 #$ sudo dpkg --add-architecture i386 #14.04
 #$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 #14.04
 
