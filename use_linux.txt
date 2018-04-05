@@ -250,8 +250,13 @@ $ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
 
 ## Openbox
 
-$ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/ #for hotkey/keybind
 $ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
+
+<item label="virtualbox">
+<action name="Execute"><execute>virtualbox</execute></action>
+</item>
+
+$ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/ #for hotkey/keybind
 
 <!-- Keybindings for running applications -->
 
@@ -268,18 +273,15 @@ $ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
 </action>
 </keybind>
 
+<!-- Keybindings for windows -->
+
 <keybind key="C-s">
 	<keybind key="x">
 		<action name="ToggleMaximizeFull"></action>
 	</keybind>
-	<keybind key="s">
-		<action name="ToggleShade"></action>
-	</keybind>
 </keybind>
 
-<item label="virtualbox">
-<action name="Execute"><execute>virtualbox</execute></action>
-</item>
+
 
 ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
 
