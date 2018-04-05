@@ -264,12 +264,12 @@ $ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
 </action>
 </keybind>
 
-<keybind key="C-f">
+<keybind key="C-s">
 	<keybind key="x">
-		<action name="ToggleMaximizeFull"/>
+		<action name="ToggleMaximizeFull"></action>
 	</keybind>
 	<keybind key="s">
-		<action name="ToggleShade"/>
+		<action name="ToggleShade"></action>
 	</keybind>
 </keybind>
 
