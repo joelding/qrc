@@ -116,12 +116,16 @@ $ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 $ git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 
 $ git clone https://github.com/wesleyche/SrcExpl.git
-$ cp -r ./SrcExpl/plugin ~/.vim/
-$ cp -r ./SrcExpl/doc ~/.vim/
+$ rsync -a ./SrcExpl/plugin/ ~/.vim/plugin/
+$ rsync -a ./SrcExpl/doc/ ~/.vim/doc/
+$ #cp -r ./SrcExpl/plugin ~/.vim/
+$ #cp -r ./SrcExpl/doc ~/.vim/
 
 $ git clone https://github.com/vim-scripts/taglist.vim.git
-$ cp -r ./taglist.vim/plugin ~/.vim/
-$ cp -r ./taglist.vim/doc ~/.vim/
+$ rsync -a ./taglist.vim/plugin/ ~/.vim/plugin/
+$ rsync -a ./taglist.vim/doc/ ~/.vim/doc/
+$ #cp -r ./taglist.vim/plugin ~/.vim/
+$ #cp -r ./taglist.vim/doc ~/.vim/
 
 $ wget http://cscope.sourceforge.net/cscope_maps.vim
 $ cp cscope_maps.vim ~/.vim/plugin/
