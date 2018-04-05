@@ -36,6 +36,11 @@ $ sudo mount -t cifs //[ip address]/path /[mount point] -o username=[USERNAME],p
 
 ///////////////////////////////////////////////////////////////////////////
 
+LIST INSTALLED PACKAGES
+$ apt list --installed
+
+///////////////////////////////////////////////////////////////////////////
+
 x64操作系統相容x86軟體
 $ sudo apt-get install multiarch-support #16.04
 # LUBUNTU 14.04.5 automatically have --add-architecture, libc6:i386, libstdc++6:i386
