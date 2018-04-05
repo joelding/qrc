@@ -213,6 +213,9 @@ $ sudo mkdir /tftpsvr
 $ sudo chmod -R 777 /tftpsvr
 $ sudo chown nobody:nogroup -R /tftpsvr
 
+$ sudo service xinetd restart
+$ #sudo /etc/init.d/xinetd restart
+
 SELF-TEST
 $ tftp [ip address]
 tftp> get [filename]
