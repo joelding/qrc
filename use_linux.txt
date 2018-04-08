@@ -110,6 +110,19 @@ VIM
 plugins安裝：
 
 $ sudo apt-get install curl
+#安裝Vundle: Vim bundle, Vim 插件管理器
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ cp ~/.vim/bundle/Vundle.vim/test/minirc.vim(or vimrc) ~/.vimrc
+
+Plugin 'tpope/vim-pathogen'
+Plugin 'scrooloose/nerdtree'
+Plugin 'wesleyche/SrcExpl'
+Plugin 'taglist.vim'
+Plugin 'chazy/cscope_maps'
+
+運行 vim 再運行 :PluginInstall 或通過命令列直接安裝 vim +PluginInstall +qall
+
+[obsolete]
 $ mkdir -p ~/.vim/autoload ~/.vim/bundle
 $ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
