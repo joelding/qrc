@@ -4,6 +4,94 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+///////////////////////////////////////////////////////////////////////////
+
+04/9 MON
+
+root
+machinekit
+i2cdetect -y -r 1
+
+==6th==
+[  OK  ] Started Altera GSRD initialization.
+[  OK  ] Reached target Multi-User System.
+         Starting Update UTMP about System Runlevel Changes...
+[FAILED] Failed to start Update UTMP about System Runlevel Changes.
+See 'systemctl status systemd-update-utmp-runlevel.service' for details.
+
+
+SF: Detected MX66L1G45G with page size 65536, total: 134217728
+altera_load: Failed with error code -4
+## Starting application at 0x1FF78584 ...
+## Application terminated, rc = 0x0
+SF: Detected MX66L1G45G with page size 65536, total: 134217728
+## Flattened Device Tree blob at 00000100
+   Booting using the fdt blob at 0x00000100
+   reserving fdt memory region: addr=0 size=1000
+   Loading Device Tree to 03ff5000, end 03fffc6c ... OK
+
+| NDILIB not found: arm-linux-gnueabihf-4.6
+| make[1]: *** [all] Error 1
+| make[1]: Leaving directory `/home/joel/avm/ec530b/src/angstrom-build/build/tmp-angstrom_v2015_12-glibc/work/armv7at2hf-vfp-neon-angstrom-linux-gnueabi/avermedia-ec530b-cm-main/1.0-r0/git/user'
+| make: *** [SUBDIR] Error 1
+| WARNING: /home/joel/avm/ec530b/src/angstrom-build/build/tmp-angstrom_v2015_12-glibc/work/armv7at2hf-vfp-neon-angstrom-linux-gnueabi/avermedia-ec530b-cm-main/1.0-r0/temp/run.do_compile.16365:1 exit 1 from
+|   exit 1
+| ERROR: oe_runmake failed
+| ERROR: Function failed: do_compile (log file is located at /home/joel/avm/ec530b/src/angstrom-build/build/tmp-angstrom_v2015_12-glibc/work/armv7at2hf-vfp-neon-angstrom-linux-gnueabi/avermedia-ec530b-cm-main/1.0-r0/temp/log.do_compile.16365)
+ERROR: Task 499 (/home/joel/avm/ec530b/src/angstrom-build/sources/meta-avermedia/recipes-ec530b/avermedia-ec530b-apps/avermedia-ec530b-cm-main_1.0.bb, do_compile) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 2636 tasks of which 370 didn't need to be rerun and 1 failed.
+NOTE: Writing buildhistory
+Waiting for 0 running tasks to finish:
+
+Summary: 1 task failed:
+  /home/joel/avm/ec530b/src/angstrom-build/sources/meta-avermedia/recipes-ec530b/avermedia-ec530b-apps/avermedia-ec530b-cm-main_1.0.bb, do_compile
+Summary: There were 96 WARNING messages shown.
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
+‘deploy/glibc/images/cyclone5/zImage’ -> ‘../prebuild_bin/QSPI_flash/zImage’
+cp: cannot stat ‘deploy/glibc/images/cyclone5/console-image-minimal-cyclone5.jffs2’: No such file or directory
+cp: cannot stat ‘deploy/glibc/images/cyclone5/console-image-minimal-cyclone5.tar.gz’: No such file or directory
+‘../Newtek/4KNDIDevice/AVerMedia_NDI_v2.rbf’ -> ‘../prebuild_bin/QSPI_flash/soc_system.rbf’
+‘deploy/glibc/images/cyclone5/zImage’ -> ‘../prebuild_bin/SD_CARD/zImage’
+cp: cannot stat ‘deploy/glibc/images/cyclone5/console-image-minimal-cyclone5.jffs2’: No such file or directory
+cp: cannot stat ‘deploy/glibc/images/cyclone5/console-image-minimal-cyclone5.tar.gz’: No such file or directory
+‘../Newtek/4KNDIDevice/AVerMedia_NDI_v2.rbf’ -> ‘../prebuild_bin/SD_CARD/soc_system.rbf’
+‘../prebuild_bin/QSPI_flash/2017031718/preloader-mkpimage.bin’ -> ‘../prebuild_bin/SD_CARD/preloader-mkpimage.bin’
+‘../prebuild_bin/QSPI_flash/2017031718/u-boot-cyclone5.img’ -> ‘../prebuild_bin/SD_CARD/u-boot-cyclone5.img’
+‘../prebuild_bin/QSPI_flash/2017031718/u-boot.scr’ -> ‘../prebuild_bin/SD_CARD/u-boot.scr’
+mkdir: cannot create directory ‘/tftpboot’: Permission denied
+‘zImage’ -> ‘/tftpboot’
+cp: cannot create regular file ‘/tftpboot’: Permission denied
+‘rootfs.jffs2’ -> ‘/tftpboot’
+cp: cannot create regular file ‘/tftpboot’: Permission denied
+cp: cannot stat ‘usr_flash.jffs2’: No such file or directory
+‘soc_system.rbf’ -> ‘/tftpboot’
+cp: cannot create regular file ‘/tftpboot’: Permission denied
+cksum: /home/joel/avm/ec530b/src/prebuild_bin/QSPI_flash/usr_flash.jffs2: No such file or directory
+cksum: /home/joel/avm/ec530b/src/prebuild_bin/QSPI_flash/usr_flash.tgz: No such file or directory
+Create the [EC530B] header file, path(/home/joel/avm/ec530b/src/prebuild_bin/QSPI_flash/.product_firmware_header)
+[sudo] password for joel: 
+tar (child): ../rootfs.tar.gz: Cannot open: No such file or directory
+tar (child): Error is not recoverable: exiting now
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
+‘.product_firmware_header’ -> ‘rootfs/.product_firmware_header’
+‘../../Newtek/4KNDIDevice/4KNDIDevice’ -> ‘rootfs/usr/bin’
+cp: cannot create regular file ‘rootfs/usr/bin’: No such file or directory
+‘../../NDI_converter/shadow’ -> ‘rootfs/etc’
+‘../../NDI_converter/fstab’ -> ‘rootfs/etc’
+cp: failed to access ‘rootfs/etc/ssh’: Not a directory
+‘../../NDI_converter/rc-local.service’ -> ‘rootfs/lib/systemd/system’
+cp: cannot create regular file ‘rootfs/lib/systemd/system’: No such file or directory
+./rootfs.sh: line 14: ./install.sh: No such file or directory
+mkfs.jffs2 -s 0x1000 -e 0x10000 -p 0x800000 -d rootfs -o rootfs.jffs2
+‘rootfs.jffs2’ -> ‘/tftpboot’
+cp: cannot create regular file ‘/tftpboot’: Permission denied
+{"sku": {"sub_model": "B"}, "org": "AVerMedia", "daily": "2018.04.09_17:42:12", "model": "EC530B", "master_version": "0.0.9.30", "content": {"file_type": "tar.gz", "rootfs_file": {"length": "65536", "type": "jffs2", "name": "rootfs.jffs2", "checksum": "2590700791"}, "files": [{"length": "4052368", "type": "bin", "name": "zImage", "checksum": "436165890"}, {"length": "", "type": "jffs2", "name": "usr_flash.jffs2", "checksum": ""}, {"length": "", "type": "tgz", "name": "usr_flash.tgz", "checksum": ""}, {"length": "1736800", "type": "bin", "name": "soc_system.rbf", "checksum": "305453372"}]}, "sdk": "Angstrom v2015.12", "branch": "NDI_UIO"}
+tar zcf /home/joel/avm/ec530b/src/images/content.tar.gz zImage usr_flash.jffs2 usr_flash.tgz soc_system.rbf rootfs.jffs2
+tar: usr_flash.jffs2: Cannot stat: No such file or directory
+tar: usr_flash.tgz: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+
 
 ///////////////////////////////////////////////////////////////////////////
 

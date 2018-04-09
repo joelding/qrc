@@ -296,7 +296,7 @@ $ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/ #for hotkey/keybind
 
 <!-- Keybindings for windows -->
 
-<keybind key="C-s">
+<keybind key="W-s">
 	<keybind key="x">
 		<action name="ToggleMaximizeFull"></action>
 	</keybind>
