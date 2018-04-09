@@ -103,6 +103,9 @@ $ sudo nano /etc/hosts.allow
 $ #加一行 ALL:
 $ sudo service ssh restart
 
+ssh登錄別台電腦
+$ ssh username@remote_host
+
 ///////////////////////////////////////////////////////////////////////////
 
 VIM
