@@ -114,6 +114,8 @@ $ sudo apt-get install curl
 $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ cp ~/.vim/bundle/Vundle.vim/test/minirc.vim(or vimrc) ~/.vimrc
 
+Add the following between "call vundle#begin()", "Plugin 'VundleVim/Vundle.vim'"
+and "call vundle#end()"
 Plugin 'tpope/vim-pathogen'
 Plugin 'scrooloose/nerdtree'
 Plugin 'wesleyche/SrcExpl'
