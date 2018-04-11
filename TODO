@@ -6,6 +6,91 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+04/11 WED
+
+
+[   20.620682] i2c_designware ffc04000.i2c: i2c_dw_handle_tx_abort: lost arbitration
+[   20.644046] i2c_designware ffc04000.i2c: i2c_dw_handle_tx_abort: lost arbitration
+[   20.698129] i2c_designware ffc04000.i2c: i2c_dw_handle_tx_abort: lost arbitration
+[   20.716345] i2c_designware ffc04000.i2c: i2c_dw_handle_tx_abort: lost arbitration
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+04/10 TUE
+
+joel@cvaiii-srv:~/avm/ghrd-17.1$ export PATH=$PATH:`pwd`
+joel@cvaiii-srv:~/avm/ghrd-17.1$ repo init -u git://github.com/Angstrom-distribution/angstrom-manifest -b angstrom-v2017.06-yocto2.3
+error: cannot run gitproxy: No such file or directory
+fatal: cannot start proxy gitproxy
+
+$ git config --get http.proxy
+http://proxy.avermedia.com:8080
+joel@cvaiii-srv:~/avm/ghrd-17.1$ git config --global --unset http.proxy
+
+The Yocto Project: 
+a build system
+able to provide the tools and environment to build the packages that comprise a bootable Linux image
+
+https://wiki.yoctoproject.org/wiki/Working_Behind_a_Network_Proxy
+
+If no proxy, don't follow "HTTP/HTTPS/FTP Setup".
+"Git Proxy Configuration" is necessary:
+$ sudo apt-get install socat
+$ wget http://git.yoctoproject.org/cgit/cgit.cgi/poky/plain/scripts/oe-git-proxy
+$ cp oe-git-proxy ~/bin
+$ chmod +x ~/bin/oe-git-proxy
+
+in ~/.bashrc, add
+export GIT_PROXY_COMMAND="oe-git-proxy"
+export NO_PROXY=$no_proxy
+
+
+https://rocketboards.org/foswiki/Documentation/GSRDCompilingLinux
+The commands for cloning the Yocto Project git trees and building Yocto Project are:
+
+$ cd ~
+$ mkdir angstrom-build
+$ cd angstrom-build
+$ wget http://releases.rocketboards.org/release/2017.10/gsrd/src/altera.xml
+$ wget http://commondatastorage.googleapis.com/git-repo-downloads/repo
+$ chmod 777 repo
+$ export PATH=$PATH:~/angstrom-build
+$ repo init -u git://github.com/Angstrom-distribution/angstrom-manifest -b angstrom-v2017.06-yocto2.3
+$ mkdir -p .repo/local_manifests
+$ mv altera.xml .repo/local_manifests/
+$ repo sync
+$ MACHINE=cyclone5 . ./setup-environment # Replace machine name (eg. MACHINE=arria10) with the target family, options are: cyclone5, arria5, arria10 and stratix10
+$ sed -i '/meta-altera/a \ \ ${TOPDIR}\/layers\/meta-altera-refdes \\' conf/bblayers.conf # This is to add the meta-altera-refdes layer to conf/bblayers.conf
+$ sed -i '/meta-atmel/d' conf/bblayers.conf # We do not need this layer
+$ export KERNEL_PROVIDER=linux-altera-ltsi
+$ export KERNEL_TAG=refs/tags/ACDS17.1_REL_GSRD_UPDATE1_PR # Check above for newer release tags and replace it with the version you are building with
+$ export UBOOT_TAG=refs/tags/ACDS17.1_REL_GSRD_UPDATE1_PR # Check above for newer release tags and replace it with the version you are building with
+$ export KBRANCH=socfpga-4.9.78-ltsi # Check above for release branch to use
+$ BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE KBRANCH KERNEL_TAG UBOOT_TAG KERNEL_PROVIDER"
+
+# To build the image with PCIe applications, replace xvfb-console-image with pcie-console-image
+# To build a small image for NAND/QSPI boot, replace xvfb-console-image with core-image-minimal
+# To build a image with X Frame Buffer and frame buffer tools support replace gsrd-console-image with xvfb-console-image (support for older releases)
+$ bitbake gsrd-console-image 
+
+
+cd angstrom-build/build/tmp-angstrom_v2015_12-glibc/work-shared/cyclone5/kernel-source/drivers/i2c/
+cp -i /home/joel/avm/ghrd-17.1/angstrom-build/build/tmp-angstrom-glibc/work-shared/cyclone5/kernel-source/drivers/i2c/i2c-core.c .
+
+
+$ scp joel@10.1.9.187:/home/joel/avm/ec530b/src/images/EC530B_FW_0.4.10.0_20180410.bin /home/a003257/Downloads/
+
+
+root@NDI_cd2e7c:~# [  684.630746] stmmaceth ff702000.ethernet eth0: Link is Down
+[  684.651595] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[  687.630833] stmmaceth ff702000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+[  687.639604] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+
+
+///////////////////////////////////////////////////////////////////////////
+
 04/9 MON
 
 root
