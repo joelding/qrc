@@ -1,0 +1,8 @@
+https://www.howto-connect.com/reset-windows-spotlight-lock-screen-windows-10/
+
+set lock screen to pictures
+C:\Users\Joel\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\
+DEL LocalState\Assets\*
+MOVE Settings\roaming.lock roaming.lock.bak
+MOVE Settings\settings.dat settings.dat.bak  
+reboot and set lock screen to windows spotlight
