@@ -1,10 +1,50 @@
-************************
-          TODO
-************************
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-*** 隨手記錄工作上碰到的問題與解答 ***
+​	JOURNAL/TODO w15 4/8~15		
+		
+	隨手記錄工作上碰到的問題與解答
 
-​JOURNAL w15 4/8~15
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+4/17 TUE
+
+
+GC533/T511S:
+U51: spi flash 32Mbits/4MBytes MX25L3233F[M2I-08G]
+xilinx artix xc7a50tcsg324
+U8: FPGA key 
+
+sector size 4kbytes x1024
+block size 64k x64/32kbytes x128
+interface x1/x2/x4 for read
+page program size 256bytes, 4096kbytes/256bytes*1.2ms~20s
+internal page program time is far more than the time data flows in.
+
+U5: FX3
+
+chip erase: command 60h or c7h, typical 10s, max 30s
+WIP, write in progress bit can be read during chip erase
+
+
+
+Via U16 (74LVC244)
+                                      U51 MX25L3233F 4Mbytes
+XC7A_SPI_FPGA_CLK/CS/MISO(/MOSI) -+-> SPI_FPGA_CLK/CS/MOSI(/MISO)
+SIM_CLK/CS/DD(/DQO)---------------+
+
+Via U22 (74LVC244)
+                             U23 W25X40CL 512kbytes
+SPI_SCK/SSN/MISO(/MOSI) -+-> FX3_SCK/SSN/MISO(/MOSI)
+SIM_CLK/CS/DD/(/DQO) ----+
+
+MOSI: master out, slave in. As an spi master, this pin is an output pin and connects to slave's MOSI.
+MISO: master in, slave out. As an spi master, this pin is an input pin and connects to slave's MISO.
+
+fSCLK max 133MHz
+
+avm_fx3_flash_info_set/get
 
 ///////////////////////////////////////////////////////////////////////////////
 
