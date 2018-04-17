@@ -4,6 +4,154 @@
 
 *** 隨手記錄工作上碰到的問題與解答 ***
 
+​JOURNAL w15 4/8~15
+
+///////////////////////////////////////////////////////////////////////////////
+
+4/17 TUE
+
+CGI Library for C
+https://sourceforge.net/projects/libccgi/
+
+https://boutell.com/cgic/
+
+http://bluelove1968.pixnet.net/blog/post/222286543-%E5%88%A9%E7%94%A8c%E8%AA%9E%E8%A8%80%E5%AF%ABcgi%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BF%83%E5%BE%97%E6%95%B4%E7%90%86
+
+FX3 gpio toggle speed
+https://community.cypress.com/thread/28648
+
+https://community.cypress.com/docs/DOC-10967
+
+///////////////////////////////////////////////////////////////////////////////
+
+4/16 MON
+
+ 
+sudo -i dd if='mini.iso' of=/dev/sdc bs=4096  ## make sure that the device name of your USB drive is correct!
+
+CGI 
+http://ind.ntou.edu.tw/~dada/cgi/
+
+http://ind.ntou.edu.tw/~dada/cgi/CGIapp.htm
+
+Running native CGI scripts (perl) with micro-httpd on Android
+http://hex.ro/wp/blog/running-native-cgi-scripts-perl-with-micro-httpd-on-android/
+cgi wrapper http://cgiwrap.sourceforge.net/
+
+chmod 4755與chmod 755 的區別在於開頭多了一位，這個4表示其他用戶執行文件時，具有與所有者相當的權限。
+
+原文網址：https://read01.com/7DQaR4.html
+
+CGI programs are just ordinary executable programs (or interpreted programs written in, say, Perl or Python, as long as the server knows how to start the program), so you can use just about any programming language you want.
+http://www.garshol.priv.no/download/text/http-tut.html
+The way the CGI returns its output (HTTP headers and HTML document) to the server is exceedingly simple: it writes it to standard out. In other words, in a Perl or Python script you just use the print statement. In C you use printf or some equivalent (C++ uses cout <<) while Java would use System.out.println. 
+
+http://www.qingpingshan.com/pc/fwq/86576.html
+FastCGI
+
+Button Pad Hookup Guide
+https://learn.sparkfun.com/tutorials/button-pad-hookup-guide?_ga=2.117955534.695071897.1523867018-1877848786.1523867018
+
+C CGI Library 1.1 libccgi.sourceforge.net can be an easy way to integrate into webapi
+
+///////////////////////////////////////////////////////////////////////////////
+4/13 FRI
+
+
+
+devicetree
+a tree data structure to describe system hardware
+loaded into RAM by a bootloader and passed as a pointer to the client, the OS
+with nodes to describe devices whose characteristics are represented as property/value pairs
+for devices that cannot necessarily be dynamically detected: a USB host controller vs a USB device
+
+
+node-name@unit-address
+node-name:
+1 to 31 characters: 0-9, a-z, A-Z, ',', '.', '_', '+', '-' 
+starting with a lower or uppercase character
+unit-address: 
+has reg property: must match the ﬁrst address speciﬁed in the reg property of the node
+has no reg property: @unit-address must be omitted
+
+??????????????????????????????????????????????????????????????????????????????????????????
+The unit-address must match the ﬁrst address
+speciﬁed in the reg property of the node. If the node has no reg property, the @unit-address must be omitted
+and the node-name alone differentiates the node from other nodes at the same level in the tree. The binding for a
+particular bus may specify additional, more speciﬁc requirements for the format of reg and the unit-address .
+
+root node: no node-name nor unit-address, just a forward slash (/)
+cpu: distinguished by their unit-address values of 0 and 1
+
+a device path
+A node identiﬁed by specifying the full path from the root node, through all descendant nodes, to the desired node.
+/node-name-1/node-name-2/node-name-N
+
+properties
+property-name property-value
+property-name:
+1 to 31 characters: 0-9, a-z, A-Z, ',', '.', '_', '+', '?', '#'
+
+Nonstandard property names: a unique string preﬁx, such as a stock ticker symbol, identifying the name of the company or organization
+
+property-value
+an array of zero or more bytes 
+presence or absence of the property:  true-false
+
+
+standard properties
+compatible = <stringlist>
+"manufacturer,model"
+model = <stringlist>
+phandle = <u32>
+status = <string>
+#address-cells = <u32>
+#size-cells = <u32>
+used in any device node that has children in the devicetree hierarchy
+describes how child device nodes should be addressed.
+#address-cells: the number of <u32> cells used to encode the address ﬁeld in a child node’s reg property
+#size-cells: the number of <u32> cells used to encode the size ﬁeld in a child node’s reg property
+The #address-cells and #size-cells properties are not inherited from ancestors in the devicetree. They shall be explicitly deﬁned.
+An DTSpec-compliant boot program shall supply #address-cells and #size-cells on all nodes that have children.
+If missing, a client program should assume a default value of 2 for #address-cells , and a value of 1
+reg = <prop-encoded-array>
+ ( address , length ) pairs
+
+Interrupts and Interrupt Mapping
+interrupts
+interrupt tree model, a directed acyclic graph
+Open Firmware Recommended Practice: Interrupt Mapping, Version 0.9
+
+ 
+interrupt-parent = <>
+The physical wiring of an interrupt source to an interrupt controller
+
+phandle
+
+Each interrupt generating device contains an interrupts property with a value describing one or more interrupt
+sources for that device.
+
+small http server: libmicrohttpd, lighttpd，shttpd，thttpd，boa，mathopd，minihttpd，appweb，goahead
+
+
+http://www.cnblogs.com/jobschu/archive/2013/02/25/2931978.html
+devicetree: describe system hardware
+
+It looks like cgi is just an executable file
+
+boa、cgi组合利用html到cgi的实现代码 
+http://www.cnblogs.com/jobschu/archive/2013/02/25/2931973.html
+
+CGIC库的移植及使用[转] 
+http://www.cnblogs.com/jobschu/archive/2013/02/25/2931978.html
+
+By way of perl
+http://hex.ro/wp/blog/running-native-cgi-scripts-perl-with-micro-httpd-on-android/
+
+perl: command not found on EC530
+/usr/flash/www/app/networkSetting/networkSettingView.html with some json files
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 04/16 MON
@@ -79,6 +227,28 @@ p1    0  1  2  3  4  5  6  7  8  9
 120: 00 00 00 00 00 00 00 00 
 
 ADC sample rate fs
+
+
+snarling traffic/a traffic snarl
+be in full swing
+viable
+
+AMD Radeon FreeSync Technology: 
+choppy gameplay and broken frames
+resolves the communication issues between processor and monitor
+
+FreeSync2
+dynamic refresh rate
+
+DisplayPort Adaptive-Sync is a new addition to the DisplayPort 1.2a specification
+VESA announced Adaptive-Sync as an ingredient component of the DisplayPort 1.2a specification
+
+https://en.wikipedia.org/wiki/FreeSync
+
+Her father gave her a piggyback. = Her father gave her a piggyback ride. [=her father carried her on his back]
+Other companies are trying to piggyback on our success. [=trying to use our success to help themselves]
+The legislation is being piggybacked on another bill. [=is being added to another bill so that they will both be passed together]
+
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -3111,4 +3281,424 @@ default demo board u-boot settings
 
 
 
+
+///////////////////////////////////////////////////////////////////////////////
+
+off the beaten track or US off the beaten path
+https://patchwork.kernel.org/patch/9705003/
+
+
+1 basics
+2 usb transfer
+3 transfer types
+4 enumeration
+5 control transfer
+6 chip choices
+7 device classes
+10 detecting devices
+11-13 HID
+14-15 windows drivers
+16 hubs
+17 power management
+19 packets
+21 embedded hosts
+
+SuperSpeed Device Design By Example - By John Hyde
+
+rebuild the preloader
+https://support.criticallink.com/redmine/boards/47/topics/5361
+
+
+
+買了ADV7513跟ADV7611兩塊開發板，已經寄到台灣了。
+可否請您給我發這兩塊板子的原理圖，跟STM32的源代碼？
+joel.ding@avermedia.com
+謝謝
+
+
+
+sudo nano /etc/update-manager/release-upgrades
+Prompt=never
+For version 13.04 (and later), the path has changed. So point 2. to get rid of the cached message is now:
+
+sudo rm /var/lib/ubuntu-release-upgrader/release-upgrade-available
+
+
+http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S123
+智慧財產權法導論- 臺大開放式課程(NTU OpenCourseWare)
+
+http://mooc.et.nthu.edu.tw/sharecourse/course/view/courseinfo/10
+
+mms://mdtvod.ncu.edu.tw/media/tldc/lc20110429.wmv
+
+DM6467的OV5642 Linux驱动程序开发（一）——V4L2框架结构
+http://blog.csdn.net/hyanglu1573/article/details/12874527
+
+嵌入式Linux驱动笔记(十七)------详解V4L2框架(UVC驱动)
+http://blog.csdn.net/Guet_Kite/article/details/78570059
+
+Overview of the V4L2 driver framework
+http://cocboso.com/subject/about/28687.html
+
+Chapter 1: SuperSpeed USB is More Than Just Higher Speed
+Dual bus architecture
+Review of USB 2.0 operation
+USB 3.0 enhancements
+USB 3.0 power management
+
+Chapter 2: A SuperSpeed Device Hardware Platform
+
+sockets:
+	* via which the DMA controller is attached to the internal devices
+	* are consistent interfaces to the DMA controller side
+	* via which all internal devices look like “standard” block I/ O devices
+	
+	
+AN76405 FX3 Boot Options
+
+
+ 
+Chapter 3 A Robust Software Base
+Multi-threading RTOS 101
+Operation from RESET
+API Overview
+Key ThreadX features
+Thread communication
+Thread communications using a Queu
+DMA Programming Model
+Power Aware Programming
+FX3 Power Mode Handling
+
+Chapter 4 FX3 Firmware Development 
+1 Project Template. 
+1 Adding Console_In. 
+1 Adding Paramter Input 
+1 Display Program Threads 
+1 Display Stack Usage. 
+1 Adding an Error Indicator 
+1 Adding RTOS Visibility. 
+
+1 Chapter 5 Exploring the FX3 Low Speed Peripherals 
+1 Connecting the CPLD board. 
+1 Dual Console Project 
+1 SPI Example.
+
+Chapter 6 SuperSpeed USB communications 
+1 Keyboard Example.
+CDC Example. 1 Debug Console Over USB. 1 Cypress USB examples 1 BulkLoop Firmware. 1 Streamer firmware. 1 Low speed IO examples 1 Other examples 1 
+
+Chapter 7 PC Host Software Development 1 CollectData. 1 Cypress PC Utilities 1 BulkLoop Utility. 1 Streamer utility. 1 USB Control Center 1 Commercial USB Port Tester 1 
+
+Chapter 8 FX3 Throughput Benchmark. 1 How Benchmark works 1 The Producer/ Consumer model 1 The Low Level unmanaged C + + level 1 Producers 1 Consumers
+OverlappedIO. 1 Mid-level Managed C + + layer 1 USB Engine. 1
+
+Chapter 9 Getting Started With High-Speed IO. 
+1 First GPIF Project 1 Setting up GPIF II 
+1 Setting up a DMA Channel 1 Design Stage 1. 1 Design stage 2. 1 Design stage 3. 1 Completed Design – a Logic Analyzer 1 
+
+Chapter 10 Moving Real Data, Part 1. 
+
+Chapter 11 Moving Real Data, Part 2. 1 Slave FIFO Design. 1 Third Party Products 1 FIFO Master Design. 1 Combined master read and write. 1 Master FX3 FIFO connected to a Slave FX3 FIFO. 
+
+1 Load and Run. 1 Programming the CPLD.
+How the CPLD Programmer Works 1 Developing your own CPLD Code. 
+1 Introduction To Verilog. 
+1 FX3 Lite (Boot) Firmware Library. 
+1 Building an I2C Debug Console. 
+1 FX3 Family Members 
+1 FX3S designed for storage application. 
+1 CX3 designed for video capture applications
+
+
+第一個版本：1998年經典傳訊出版的（繁體字）和2001年九州出版社出版的（簡體字） -90年代 內容：共22章，每章附有練習及答案。這兩者內容一樣，只不過字體和出版社不一樣而已 。都來源於旋元佑老師90年代在台灣的雜誌上連載的合集進行出版。 
+第二個版本：旋元佑英文文法書舊稿 -2010年前後 內容：共23章，每章附有練習及答案。這個版本是旋元佑老師在2010年左右重新寫的，也 就是在第一個版本的10年後重新寫的，最初在他的博客上發佈給他的補習班的學生看，用 心的網友複製內容下來整理而成的。 
+第三個版本：旋元佑進階文法 -2013年
+
+
+
+
+## Kernel Locking
+* Why?
+  * Synchronization in certain code paths in the kernel
+  * Locking issues arise from
+    * SMP (symmetric multiprocessing): True concurrency
+	* Interrupt handlers
+	* Preemptible kernel
+	* Any code can block (go to sleep)
+
+## Kernel Locking --- Semaphore
+  * Multi-process mutual exclusion
+  
+## Kernel Locking --- Spinlock
+  * Low level driver locking mechanism
+
+## Kernel Locking --- Atmoic
+  * Perform in one uninterruptible operation
+
+## Kernel Locking --- Caveats
+  * Semaphore:
+    * The lock-held time may be long.
+	* Can not synchronize the interrupt context.
+  * Spinlock:
+    * Do not to re-acquire a spinlock you already hold
+	* Do not hold for a long time.
+	* Do not do anything that will sleep.
+  * Atomic:
+    * Some architectures do not expect atomic_t to have more than 24 usable bits.
+	* Cannot pass anything to an atomic operator except an atomic_t.
+
+
+-------------------------------------------------------------------------------
+
+
+5.3　devfs 114
+
+5.4　udev用户空间设备管理 116
+
+5.4.1　udev与devfs的区别 116
+
+5.4.2　sysfs文件系统与Linux设备模型 119
+
+5.4.3　udev的组成 128
+
+5.4.4　udev规则文件 129
+
+5.5　总结 133
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+* 字符設備、塊設備體現「一切都是文件」的設計思想
+
+* 機制mechanism：做某樣事情的固定步驟、方法
+* 策略strategy：每個步驟所要採取不同的方式
+* 內核實現機制、不實現策略
+乐高积木的凸点与凹槽是机制，积木拼接出來的形狀是策略
+机制是泥坯，策略是可以定制的各种细节
+機制好比是一個人的道德、核心價值，例如不收受賄賂；策略是面對不同的事件，說什麼樣的話、用什麼樣的方法婉拒。
+-------------------------------------------------------------------------------
+
+## udev
+
+* Linux kernel 2.6系列的设备管理器，硬件添加／删除时，要处理/dev目录以及所有用户空间的行为，包括加载驱动、firmware
+* 功能：管理/dev目錄底下的设备节点
+* 用来接替devfs及hotplug的功能
+* 完全在用戶態工作
+* 依赖于Linux kernel 2.6.13的uevent接口的最新版本。使用新版本udev的系统不能在2.6.13以下版本启动，除非使用noudev参数来禁用udev并使用传统的/dev来进行设备读取。
+* 2012年4月，udev合併至systemd。
+
+https://zh.wikipedia.org/wiki/Udev
+https://zh.wikipedia.org/wiki/Netlink
+
+-------------------------------------------------------------------------------
+## sysfs文件系统
+
+* 把系統上的設備、總線，組成分級的虛擬文件，向用戶空間導出內核數據結構與屬性
+* /sys/bus集合所有總線，每個總線都是一個檔案夾。底下都有兩個檔案夾，分別為devices, drivers
+* /sys/dev分兩類：block, char，底下再symlink到/sys/devices
+* /sys/devices所有設備依照拓樸結構擺放
+* /sys/class所有設備按類擺放，設備symlink到/sys/devices
+* include/linux/device.h 表示總線的結構體：bus_type; 驅動的結構體：device_driver, 設備的結構體：device 
+* 驅動、設備分別獨立註冊，bus_type的match()捆綁兩者，驅動的probe()得以被呼叫
+* 寫一個腳本，遍歷/sys
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+     入门指南（初学者必看）：
+
+    http://wiki.t-firefly.com/index.php/Firefly-RK3399/Starter_guide
+
+    维基教程（入门教学、驱动开发教程、Android&Linux系统开发教程）：
+
+    http://wiki.t-firefly.com/index.php/Firefly-RK3399
+
+    资料下载（SDK源代码、升级工具、固件、硬件资料、视频教程、教学文档）：    
+
+    http://www.t-firefly.com/zh/firenow/Firefly-rk3399/download/
+
+    Firefly-RK3399百度云下载（源代码、工具、视频、文档、固件）：
+
+    https://pan.baidu.com/s/1o7Cdilk
+
+
+
+     入门指南（初学者必看）：
+
+    http://wiki.t-firefly.com/index.php/Firefly-RK3288/Starter_guide
+
+    维基教程（入门教学、驱动开发教程、Android&Linux系统开发教程）：
+
+    http://wiki.t-firefly.com
+
+    资料下载（SDK源代码、升级工具、固件、硬件资料、视频教程、教学文档）：    
+
+    http://www.t-firefly.com/zh/firenow/firefly_rk3288/download/
+
+    Firefly-RK3288全部资料下载（源代码、工具、视频、文档、固件）：
+
+    http://pan.baidu.com/s/1i5NofIl?qq-pf-to=pcqq.c2c#list/path=%2F
+
+
+
+
+
+
+
+
+iOS嵌入式軟體開發人才養成班
+資策會台中 http://taichung.iiiedu.org.tw/training/ios-mesa.html
+Swift 程式語言
+iOS 專案開發
+硬體控制
+跨平台應用程式設計
+物聯網應用與實作
+智慧感測與應用
+企業伺服端 應用開發
+
+
+Booting Linux Using Prebuilt SD Card Image
+
+https://s3.amazonaws.com/rocketboards/releases/2016.10/sockit-ghrd/bin/sockit-gsrd-16.0-sdcard.img.tar.gz
+
+http://releases.rocketboards.org/release/2016.10/gsrd/bin/linux-socfpga-gsrd-16.1-cv-bin.tar.gz
+IS NOT WORKING!
+
+GSRD Documentation - Arrow SoCKit Edition
+
+    GSRD User Manual https://rocketboards.org/foswiki/view/Documentation/GSRD
+    GHRD (Golden Hardware Reference Design) Overview
+    Booting Linux Using Prebuilt SD Card Image
+    Connecting to Board Web Server
+    Connecting to Board Using SSH
+    Running Sample Linux Applications
+    Compiling Linux - Arrow SoCKit Edition
+    GSRD v16.0 - SD Card - Arrow SoCKit Edition
+    Compiling the Hardware Design
+    FPGA Programming
+    Generating and Compiling the Preloader
+    Generating the Device Tree
+    Using System Console
+    Using Git Trees 
+	
+https://github.com/pturley0/bitbake-hello-world.git
+
+
+http://releases.rocketboards.org/release/2015.07/gsrd/tools/make_sdimage.py
+
+check the installed field in the output of apt-cache policy
+testdir:$ apt-cache policy coreutils
+
+$ dd if=sockit-gsrd-sd-card.img | pv | sudo dd of=/dev/sdf bs=1M
+
+DE0-Nano-SoC Kit : 5CSEMA4U23C6N
+SoCKit - the Development Kit for New SoC Device : 5CSXFC6D6F31C6N
+
+Windows 8.1 Professional
+GCRJD-8NW9H-F2CDX-CCM8D-9D6T9
+Windows 8.1 Professional N
+HMCNV-VVBFX-7HMBH-CTY9B-B4FXY
+Windows 8.1 Enterprise
+MHF9N-XY6XB-WVXMC-BTDCT-MKKG7
+Windows 8.1 Enterprise N
+TT4HM-HN7YT-62K67-RGRQJ-JFFXW
+Windows 8
+Windows 8 Professional
+NG4HW-VH26C-733KW-K6F98-J8CK4
+Windows 8 Professional N
+XCVCF-2NXM9-723PB-MHCB7-2RYQQ
+Windows 8 Enterprise
+32JNW-9KQ84-P47T8-D8GGY-CWCK7
+Windows 8 Enterprise N
+JMNMF-RHW7P-DMY6X-RF3DR-X2BQT
+Windows 7
+Windows 7 Professional
+FJ82H-XT6CR-J8D7P-XQJJ2-GPDD4
+Windows 7 Professional N
+MRPKT-YTG23-K7D7T-X2JMM-QY7MG
+Windows 7 Enterprise
+33PXH-7Y6KF-2VJC9-XBBR8-HVTHH
+Windows 7 Enterprise N
+YDRBP-3D83W-TY26F-D46B2-XCKRJ
+Windows 7 Enterprise E
+C29WB-22CC8-VJ326-GHFJW-H9DH4
+Windows Server 2012 R2
+Windows Server 2012 R2 Server Standard
+D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+Windows Server 2012 R2 Datacenter
+W3GGN-FT8W3-Y4M27-J84CP-Q3VJ9
+Windows Server 2012 R2 Essentials
+KNC87-3J2TX-XB4WP-VCPJV-M4FWM
+Windows Server 2012
+Windows Server 2012 Core
+BN3D2-R7TKB-3YPBD-8DRP2-27GG4
+Windows Server 2012 Core N
+8N2M2-HWPGY-7PGT9-HGDD8-GVGGY
+Windows Server 2012 Core Single Language
+2WN2H-YGCQR-KFX6K-CD6TF-84YXQ
+Windows Server 2012 Core Country Specific
+4K36P-JN4VD-GDC6V-KDT89-DYFKP
+Windows Server 2012 Server Standard
+XC9B7-NBPP2-83J2H-RHMBY-92BT4
+Windows Server 2012
+Standard Core
+XC9B7-NBPP2-83J2H-RHMBY-92BT4
+Windows Server 2012 Multipoint Standard
+HM7DN-YVMH3-46JC3-XYTG7-CYQJJ
+Windows Server 2012 Multipoint Premium
+XNH6W-2V9GX-RGJ4K-Y8X6F-QGJ2G
+Windows Server 2012 Datacenter
+48HP8-DN98B-MYWDG-T2DCC-8W83P
+Windows Server 2012 Datacenter Core
+48HP8-DN98B-MYWDG-T2DCC-8W83P
+Windows Server 2008 R2
+Windows Server 2008 R2 HPC Edition
+FKJQ8-TMCVP-FRMR7-4WR42-3JCD7
+Windows Server 2008 R2 Datacenter
+74YFP-3QFB3-KQT8W-PMXWJ-7M648
+Windows Server 2008 R2 Enterprise
+489J6-VHDMP-X63PK-3K798-CPX3Y
+Windows Server 2008 R2 for Itanium-Based Systems
+GT63C-RJFQ3-4GMB6-BRFB9-CB83V
+Windows Server 2008 R2 Standard
+YC6KT-GKW9T-YTKYR-T4X34-R7VHC
+Windows Web Server 2008 R2
+6TPJF-RBVHG-WBW2R-86QPH-6RTM4
+
+
+   http://www.youku.com/playlist_show/id_26281059.html   海思hi3516A芯片使用视频教程（专辑网址）
+http://v.youku.com/v_show/id_XMTM5MzgyNDkyNA==.html 
+ 
+   第一讲 海思芯片分析
+http://v.youku.com/v_show/id_XMTM5Mzg1MTk4MA==.html 
+ 
+   第二讲 hi3516A 硬件原理分析
+http://v.youku.com/v_show/id_XMTM5MzkxMjAzNg==.html 
+ 
+   第三讲_1 hi3516A SDK分析
+http://v.youku.com/v_show/id_XMTM5MzkyNDI5Ng==.html 
+ 
+   第三讲_2 hi3516A sdk 分析
+http://v.youku.com/v_show/id_XMTM5Mzk2MTM0NA==.html 
+ 
+   第四讲 设备采集发送视频
+http://v.youku.com/v_show/id_XMTM5Mzk4ODk5Mg==.html 
+ 
+   第五讲 pc解码显示
+http://v.youku.com/v_show/id_XMTM5NDAxNTA1Mg==.html 
+ 
+
+   移植Qt到Hi3531平台 
+
+ 
 
