@@ -6,6 +6,44 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+04/16 MON
+
+CGIWrap is a gateway program that allows general users to use CGI scripts and HTML forms without compromising the security of the http server. Scripts are run with the permissions of the user who owns the script. In addition, several security checks are performed on the script, which will not be executed if any checks fail. 
+
+CGIWrap is available from http://sourceforge.net/projects/cgiwrap/files/. 
+cgiwrap-4.1$ ./configure --host=arm-linux-gnueabihf
+
+ec530b$ grep -nr '\/usr\/flash\/www' .
+./src/angstrom-build/build/tmp-angstrom_v2015_12-glibc/work/armv7at2hf-vfp-neon-angstrom-linux-gnueabi/avermedia-ec530b-cm-main/1.0-r0/git/user/cm_main/web_api/include/webapi.h:26:#define WA_WWW_DIR   "/usr/flash/www"
+=> in libmicrohttpd, the path was defined in webapi.h instead of a config file.
+
+
+root@NDI_cd2e7c:/usr/flash/www#
+
+user/cm_main/web_api
+src/webapi.c:1110 MHD_start_daemon
+
+./cgiwrap-4.1/configure:1330:  --with-cgi-dir=PATH  (public_html/cgi-bin)
+
+
+./configure --host=arm-linux-gnueabihf --with-cgi-dir=/usr/flash/www/cgi-bin --with-httpd-user=root
+
+
+BOA
+boa-0.94.13/src$ ./configure --host=arm-linux-gnueabihf
+
+yacc in bison package: apt-get install bison
+
+lex in flex package: apt-get install flex
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
 04/12 THU
 
 p0    0  1  2  3  4  5  6  7  8  9
