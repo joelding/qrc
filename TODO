@@ -46,10 +46,6 @@ fSCLK max 133MHz
 
 avm_fx3_flash_info_set/get
 
-///////////////////////////////////////////////////////////////////////////////
-
-4/17 TUE
-
 CGI Library for C
 https://sourceforge.net/projects/libccgi/
 
@@ -60,7 +56,12 @@ http://bluelove1968.pixnet.net/blog/post/222286543-%E5%88%A9%E7%94%A8c%E8%AA%9E%
 FX3 gpio toggle speed
 https://community.cypress.com/thread/28648
 
-https://community.cypress.com/docs/DOC-10967
+
+
+FPGA更新的速度，看起來沒有可以大幅改進的地方。最大的瓶頸，在於GPIO模擬的SPI速度太慢。
+根據cyu3gpio.h的說明，GPIO toggle的速度最高可達SYS_CLK / 2。（fast clock的一半）
+而avm_gpio_init()，即使用CY_U3P_SYS_CLK與CY_U3P_GPIO_SIMPLE_DIV_BY_2來呼叫CyU3PGpioInit()。故設定已經開到最大。
+根據CYPRESS論壇討論(https://community.cypress.com/docs/DOC-10967)，同事設定GPIO hi/low使用的function CyU3PGpioSetValue()，僅達1MHz。也許換成 CyU3PGpioSimpleSetValue() 會快一點。
 
 ///////////////////////////////////////////////////////////////////////////////
 
