@@ -1,5 +1,9 @@
-How to improve the following code? 
+# C/C++
 
+This document collects ideas to improve the source code.
+
+---------------------------------------------------------------------------
+How to improve the following code? 
 How to specify the size of enum type in C so that the enum can fit into unsigned char STATE?
 
 ```
@@ -70,4 +74,13 @@ int main(int argc, char *argv[])
 	printf("sizeof(state_t) = %lu\n", sizeof(state_t));
 	return 0;
 }
+```
+The result looks like the following:
+```
+$ ./a.out 
+sizeof(char) = 1
+sizeof(int) = 4
+sizeof(struct _struct_t *) = 8
+sizeof(state_t) = 1
+sizeof(struct_t) = 14
 ```
