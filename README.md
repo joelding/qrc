@@ -2,6 +2,6 @@
 
 Collection of keynotes
 
-. cxx.md
-. irremote.md
-. cortexmcu.md
+* cxx.md
+* irremote.md
+* cortexmcu.md
