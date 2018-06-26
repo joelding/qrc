@@ -1,5 +1,5 @@
-#IR REMOTE 
-##History
+# IR REMOTE 
+## History
 * 2018/06/25 for auto-testing se5820
 
 ## Arduino 
