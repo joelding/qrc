@@ -2,6 +2,19 @@
 
 This document collects ideas to improve the source code.
 
+## Style
+
+* 0000000000000 can disable a section of codes and arouse attention. 18/06/29
+
+``````````````````````````````````````````````````````````````````````````
+#if 000000000000000000000000000000000
+for (i = 0; i < 100; ++i) {
+	i *= 2;
+}
+#endif /* 000000000000000000000000000000000 */
+``````````````````````````````````````````````````````````````````````````
+
+
 ---------------------------------------------------------------------------
 How to improve the following code? 
 How to specify the size of enum type in C so that the enum can fit into unsigned char STATE?
