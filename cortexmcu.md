@@ -25,3 +25,38 @@ really want to throw away Keil and have total control
   * start-up code for gcc, 
   * system initialization files
 
+## Keil assembly of startup
+ARM Compiler v5.06 for µVision armasm User Guide [link](www.keil.com/support/man/docs/armasm/)
+Unified Assembly Language (UAL) for both ARM and Thumb code
+two passes: read twice the source code before generating object code
+a load-store architecture: 
+	* only load and store instructions can access memory
+	* data processing instructions operate on register contents only
+
+ARM instruction: 32-b
+Thumb instruction: 16-bit instruction, better code density at the expence of performance
+
+NUC100/120xxxDN: ARMv6-M Thumb instruction set
+Thumb-2 technology
+available modes:
+* thread mode, the normal mode
+* handler mode, the mode to handle exceptions
+
+ARM processors provide general-purpose and special-purpose registers
+	* 13 general-purpose registers R0-R12.
+	* 1 Stack Pointer (SP).
+	* 1 Link Register (LR).
+	* 1 Program Counter (PC).
+	* 1 Application Program Status Register (APSR).
+
+http://www.keil.com/support/man/docs/armasm/armasm_pge1464343210583.png
+
+syntax
+{symbol} {instruction|directive|pseudo-instruction} {;comment}
+instruction mnemonics, pseudo-instructions, directives, and symbolic register names in either all uppercase or all lowercase - no mixed case.
+Labels and comments are OK with all 3 cases.
+
+semihosting: a mechanism in which an ARM target in code running can communicate with the debugger installed on the host PC
+
+Stack_Size	EQU	0x00000400
+#define Stack_Size 0x00000400
