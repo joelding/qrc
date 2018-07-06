@@ -1,17 +1,32 @@
 # CORTEX PROCESSORS
 
-## Target
-really want to throw away Keil and have total control
+### Target
+* to replace Keil with GNU
 
-## History
+### History
 * 2018/06/26 init
 
-## References
+### References
 1. Joseph Liu, The Definite Guide to ARM Cortex-M0 and Cortex-M0+ Processors, 2015 Elsevier Inc
-2. [Writing your own startup code for Cortex-M](https://community.arm.com/processors/b/blog/posts/writing-your-own-startup-code-for-cortex-m)
 
-## Tool Chain
-* [GNU Arm Embedded Toolchain](https://launchpad.net/gcc-arm-embedded) pre-built GNU toolchain from Arm Cortex-M & Cortex-R processors (Cortex-M0/M0+/M3/M4/M7/M23/M33, Cortex-R4/R5/R7/R8/R52)
+---------------------------------------------------------------------------
+
+### Write startup for Cortex-M series in assembly
+
+* comment
+	* from a semicolon to the end of the line
+
+references:
+
+1. Writing your own startup code for Cortex-M [link](https://community.arm.com/processors/b/blog/posts/writing-your-own-startup-code-for-cortex-m) In this article, the author uses Cortex-M3/M4. Some instructions are unavailable on M0.
+1. An introduction to the GNU Assembler [link](https://www.cse.unsw.edu.au/~cs3221/labs/assembler-intro.pdf)
+1. [link](http://www.ic.unicamp.br/~celio/mc404-2014/docs/gnu-arm-directives.pdf)
+1. Dr Y.Y. Chuang gave great lectures on "computer organization and assembly languages" [link](http://www.csie.ntu.edu.tw/~cyy/asm)
+
+---------------------------------------------------------------------------
+
+### Tool Chain
+* GNU Arm Embedded Toolchain on launchpad [link](https://launchpad.net/gcc-arm-embedded) pre-built GNU toolchain from Arm Cortex-M & Cortex-R processors (Cortex-M0/M0+/M3/M4/M7/M23/M33, Cortex-R4/R5/R7/R8/R52)
 * [GNU Arm Embedded Toolchain 4.9-2014q4-major](https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2)
 * The linker scripts and start-up codes may differ from a version to another of the prebuilt gcc tool chain.
 * In ref[1], version 4.9 2014q4 was used.
@@ -19,13 +34,22 @@ really want to throw away Keil and have total control
 * On Cortex-M-based system, uClinx might be used. Use arm-linux-*.
 * EABI, embedded application binary interface: a standard convention for file formats, data types, register usage, stack frame organization, and function parameter passing of an embedded program
 
-## Required files for a project
+---------------------------------------------------------------------------
+
+### Install GNU ARM Eclipse
+
+* CooCox died
+* GNU ARM Eclipse – A family of Eclipse CDT extensions and tools for GNU ARM development [link](https://gnu-mcu-eclipse.github.io/)
+
+---------------------------------------------------------------------------
+
+### Required files for a project
 * a microcontroller vendor should provide device-specific files: 
   * CMSIS header files,
   * start-up code for gcc, 
   * system initialization files
 
-## Keil assembly of startup
+### Keil assembly of startup
 ARM Compiler v5.06 for µVision armasm User Guide [link](www.keil.com/support/man/docs/armasm/)
 Unified Assembly Language (UAL) for both ARM and Thumb code
 two passes: read twice the source code before generating object code
