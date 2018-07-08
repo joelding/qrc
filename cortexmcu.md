@@ -22,6 +22,7 @@ references:
 1. An introduction to the GNU Assembler [link](https://www.cse.unsw.edu.au/~cs3221/labs/assembler-intro.pdf)
 1. [link](http://www.ic.unicamp.br/~celio/mc404-2014/docs/gnu-arm-directives.pdf)
 1. Dr Y.Y. Chuang gave great lectures on "computer organization and assembly languages" [link](http://www.csie.ntu.edu.tw/~cyy/asm)
+1. Cortex-M0+ Linker Script and Startup Code [link](https://stackoverflow.com/questions/27118795/cortex-m0-linker-script-and-startup-code)
 
 ---------------------------------------------------------------------------
 
