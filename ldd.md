@@ -11,6 +11,22 @@
 
 ---------------------------------------------------------------------------
 
+### i2c tools for linux
+
+* originally: lm-sensors package
+
+`````
+$ git clone git://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git
+`````
+or download from [link](https://www.kernel.org/pub/software/utils/i2c-tools/)
+
+* compile by
+````````
+$ CC=arm-hisiv500-linux-gcc make
+````````
+
+---------------------------------------------------------------------------
+
 ### How to create multiple instances, one for each device, with the same driver? 2018/07/13
 
 * similar to what Lenz Moser asked [link](http://www.linuxforums.org/forum/kernel/132637-how-load-kernel-module-twice.html)
