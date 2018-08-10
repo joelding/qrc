@@ -2,7 +2,7 @@
 
 開發筆記
 
-## 如何在嵌入式板子上使用PC Ubuntu的dhclient來得到IP？
+### 如何在嵌入式板子上使用PC Ubuntu的dhclient來得到IP？ 2018/08/10
 busybox可以使用udhcpc，即micro-hdcp-client。但udhcpc要到IP後，要寫向interface。Felix Lin給出了這樣的script
 `````````````
 #!/bin/sh
