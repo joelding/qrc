@@ -2,7 +2,7 @@
 
 開發筆記
 
-#####如何在板子上debug一個會發生segmentation fault的程序？
+##### 如何在板子上debug一個會發生segmentation fault的程序？
 * Download source code of gdb from official site (or mirror) GDB: The GNU Project Debugger [link](https://www.gnu.org/s/gdb/)
 * Example from hisilicon to build ncurses and gdb.
 ``````````````````````
