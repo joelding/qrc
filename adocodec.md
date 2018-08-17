@@ -1,6 +1,6 @@
 # AUDIO CODEC
 This file, starting from 2018-08-17, records user experience of operating audio codec chips.
-##### TDM mode
+#### TDM mode
 * Time-divide multiplexing mode
 * enabling data transfer over multiple codecs connecting to a single serial data bus
 * 256-clock bit-clock mode
