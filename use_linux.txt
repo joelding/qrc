@@ -124,6 +124,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'wesleyche/SrcExpl'
 Plugin 'taglist.vim'
 Plugin 'chazy/cscope_maps'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 運行 vim 再運行 :PluginInstall 或通過命令列直接安裝 vim +PluginInstall +qall
 
