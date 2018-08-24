@@ -3,9 +3,91 @@
 ------------------------------------------
 
 ````````````````````````````````````````````````````````````````````````
+2018/08/24 (FRI)
+
+[mount mtdblock3]
+jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00060000: 0xfe5a instead
+jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00060004: 0xcc0a instead
+jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00060008: 0x9c53 instead
+jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x0006000c: 0xe6fb instead
+jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00060010: 0xc419 instead
+jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00060014: 0xfa06 instead
+
+http://www.infradead.org/pipermail/linux-mtd/2003-May/007786.html
+http://www.linux-mtd.infradead.org/faq/jffs2.html#L_magicnfound
+
+Memory Technology Devices
+
+JFFS2
+* Journalling Flash File System Version 2
+* developer: Redhat
+* init with supporting NOR Flash only; version >= 2.6 supporting NAND Flash
+* actually resides on the Flash device and allows the user to read/write data to Flash
+  * not stored on the Flash device and then copied into RAM during boot (i.e. ramdisk)
+
+
+
+
+At least three file systems have been developed as JFFS2 replacements: LogFS, UBIFS, and YAFFS.
+
+
+
+On AM335x, JFFS2 support has been super-seeded by UBIFS.
+Reasons for disabling JFFS2 support
+
+    UBIFS file system is recommended for NAND File system over JFFS2 as it is seen as JFFS2 successor with significant improvements in scalability and NAND support.
+    Compatibility of ECC layout across all components. RBL, U-boot SPL all uses BCH8 ECC scheme. However supporting BCH8 with JFFS2 is not possible because of shortage of OOB area.
+        Total OOB Bytes - 64 Bytes (for every 2048 bytes (512 * 4))
+        JFFS2 clean marker requires 8 bytes ==> 64 - 8 = 56 bytes
+        ECC requires 14 bytes for every 512 bytes of data. Total ECC bytes = 14 * 4 = 56 Bytes. ==> 56 - 56 = 0 byte
+        Manufactures bad block marking requires 2 bytes ==> 0 - 2 = -2 bytes
+        This shortage (-2) is the main reason for switching to UBIFS
+
+http://processors.wiki.ti.com/index.php/AM335x_JFFS2_Support_Guide
+
+
+11:10 GIVE UP ON JFFS2. TOO MANY PROBLEMS THAT I CANNOT FIX!
+
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),56M(rootfs),3M(userfs),1M(boot1),4M(kernel1),56M(rootfs1),3M(userfs1) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/gstreamer
+export GST_PLUGIN_PATH=/lib/gstreamer/gstreamer-1.0
+export GST_PLUGIN_SCANNER=/usr/bin/gst-plugin-scanner
+
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hinand:1M(boot),4M(kernel),56M(rootfs),3M(userfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+
+
+setenv ipaddr 192.168.1.10;setenv serverip 192.168.1.103
+
+mw.b 82000000 ff 100000;tftp 82000000 u-boot_se5820v0.bin;nand erase 0 100000;nand write 82000000 0 100000
+
+mw.b 82000000 ff f00000;tftp 82000000 uImage;nand erase 100000 400000;nand write 82000000 100000 400000
+
+mw.b 82000000 ff 3000000;tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2;nand erase 500000 3000000;nand write.yaffs 82000000 500000 c0a680
+
+setenv bootcmd 'nand read 82000000 100000 400000;bootm 82000000'
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs)  ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+
+http://lists.busybox.net/pipermail/busybox/2005-February/013688.html
+
+ifconfig eth0 192.168.1.10; mount -t nfs -o nolock 192.168.1.103:/share /mnt
+
+# cp -f /mnt/libasound.so.2 /lib
+# cp -f /mnt/libmp3enc.so /lib
+# cp -r /mnt/bak/lib/gstreamer/ /lib
+# cp /mnt/bak/gst-plugin-scanner /usr/bin/
+# cp -f /mnt/bak/rcS /etc/init.d/
+# cp -f /mnt/bak/profile /etc/
+# cp -r /mnt/ko_se5820v0 .
+# cp /mnt/sample_demo .
+
+总之，先执行 /etc/inittab， 然后调用/etc/init.d/rcS， 最后是执行/etc/profile
+
+````````````````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````````````````
 2018/08/23
-
-
 
 $ cd osdrv/opensource/uboot/u-boot-2010.06
 $ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make hi3519v101_nand_config
@@ -191,6 +273,7 @@ setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=j
 
 avt_dailybuild/
 
+17:00 start using jffs2. saw a lot crc errors. the copied file crashed when start running (segmentation fault)
 
 ````````````````````````````````````````````````````````````````````````
 ````````````````````````````````````````````````````````````````````````
