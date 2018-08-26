@@ -3,6 +3,126 @@
 ------------------------------------------
 
 ````````````````````````````````````````````````````````````````````````
+2018/08/25 (SAT)
+
+     
+
+[免費下載] Windows 10 簡體/繁體中文版 ISO 光碟映像檔 v1803（官方正式版）
+
+Windows 10 Product Activation Keys (All Versions)
+62 Comments / By Maham Mukhtar / October 25, 2017 May 26, 2018 / Windows / Windows 10, Windows 10 Version 1607, Windows 10 Version 1703, Windows 10 Version 1709
+
+Windows 10 Operating System was welcome by almost all users quite warmly and happily. Users switched to Windows 10 in great numbers due to lots of exciting and new features introduced in this OS.
+
+Windows 10 comes in different versions that meet up with the needs of users in a different perspective. If you are a home and non-commercial user, then you may use Windows 10 Home, if you are a Pro and need Windows for your organization then you can use Windows 10 Enterprise or Pro version. There is a separate version for students which is Windows 10 Student.
+Activate Windows
+Activate Windows
+
+During installation, Windows 10 will ask you for a product activation key. You will not be able to go ahead further without entering a valid key. If you want to test Windows or install Windows without entering your purchased license key, you can easily use the following generic Windows 10 activation product keys which will let you successfully install Windows with 30 days expiry. You can extend the expiry up to 90 days.
+
+The Windows you installed on your system is s trial version and will expire after 90 days. And it is mandatory to activate your copy of Windows to avail all features of Windows properly. Keys are required for each version at the time of installation to activate your Windows for the lifetime.
+
+Quick Summary [hide]
+
+    1 Windows 10 Activation Keys
+        1.1 Windows Server 2016 All Versions
+        1.2 Windows 10 version 1607, version 1703, and version 1709
+    2 Product keys for Windows 10 Version 1803
+    3 Frequently asked questions for Windows 10 product keys
+        3.1 How do I activate Windows 10 Pro or Home editions?
+        3.2 How do I enter the product key for Windows 10?
+        3.3 What is Windows 10 N or Windows 10 KN?
+        3.4 How do I change the product key for Windows 10?
+        3.5 What is a product key anyway?
+        3.6 Must Read Articles:
+
+Scroll below and find the activation key for your required version of Windows 10.
+Windows 10 Activation Keys
+Windows Server 2016 All Versions
+
+Windows Server 2016 Datacenter
+
+CB7KF-BWN84-R7R2Y-793K2-8XDDG
+
+Windows Server 2016 Standard
+
+WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY
+
+Windows Server 2016 Essentials
+
+JCKRF-N37P4-C2D82-9YXRT-4M63B
+Windows 10 version 1607, version 1703, and version 1709
+
+These are the keys for all versions of Windows 10. You have to enter the key while installation when installation process will ask you to enter the relevant key.
+
+Your Windows will be activated as soon as you enter the activation key.
+
+Windows 10 Professional
+
+W269N-WFGWX-YVC9B-4J6C9-T83GX
+
+Windows 10 Professional N
+
+MH37W-N47XK-V7XM9-C7227-GCQG9
+
+Windows 10 Enterprise
+
+NPPR9-FWDCX-D2C8J-H872K-2YT43
+
+Windows 10 Enterprise N
+
+DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4
+
+Windows 10 Education
+
+NW6C2-QMPVW-D7KKK-3GKT6-VCFB2
+
+Windows 10 Education N
+
+2WH4N-8QGBV-H22JP-CT43Q-MDWWJ
+
+Windows 10 Enterprise 2015 LTSB
+
+WNMTR-4C88C-JK8YV-HQ7T2-76DF9
+
+Windows 10 Enterprise 2015 LTSB N
+
+2F77B-TNFGY-69QQF-B8YKP-D69TJ
+
+Windows 10 Enterprise 2016 LTSB
+
+DCPHK-NFMTC-H88MJ-PFHPY-QJ4BJ
+
+Windows 10 Enterprise 2016 LTSB N
+
+QFFDN-GRT3P-VKWWX-X7T3R-8B639
+Product keys for Windows 10 Version 1803
+
+Windows 10 Enterprise Evaluation
+
+MNXKQ-WY2CT-JWBJ2-T68TQ-YBH2V
+
+Windows 10 Enterprise
+
+XGVPP-NMH47-7TTHJ-W3FW7-8HV2C
+
+Windows 10 Professional Workstation
+
+WYPNQ-8C467-V2W6J-TX4WX-WT2RQ
+
+Windows 10 Education
+
+84NGF-MHBT6-FXBX8-QWJK7-DRR8H
+
+Windows 10 Professional
+
+VK7JG-NPHTM-C97JM-9MPGT-3V66T
+https://www.itechtics.com/windows-10-product-activation-keys-versions/
+
+Windows 10 Professional 	W269N-WFGWX-YVC9B-4J6C9-T83GX
+
+````````````````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````````````````
 2018/08/24 (FRI)
 
 [mount mtdblock3]
