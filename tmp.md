@@ -1,7 +1,62 @@
 # TEMP FILE
 
 ------------------------------------------
+TODO
+1. SIKULI
+1. KOCHA
+1. UDEV
 
+------------------------------------------
+
+````````````````````````````````````````````````````````````````````````
+2018/08/27 (MON)
+
+# mount -t nfs -o nolock 192.168.1.103:/share /mnt
+
+
+/***** TEST FOR SDI *****/
+
+diff --git a/drv/extdrv/mdin400/app400.c b/drv/extdrv/mdin400/app400.c
+index 734dd63..9550134 100755
+--- a/drv/extdrv/mdin400/app400.c
++++ b/drv/extdrv/mdin400/app400.c
+@@ -195,7 +195,7 @@ static void CreateMDIN400VideoInstance(void)
+        // set video path
+        stVideo.srcPATH = PATH_MAIN_A_AUX_B;//PATH_MAIN_A_AUX_B;//PATH_MAIN_A_AU
+        
+-       stVideo.auxPATH = AUX_OUT_PATH_MAIN; //AUX_OUT_PATH_VENC;       // set m
++       stVideo.auxPATH = AUX_OUT_PATH_VENC;    // AUX_OUT_PATH_MAIN; // set mai
+ #ifdef DEMO_CVBS_OUT
+        stVideo.auxPATH = AUX_OUT_PATH_VENC;    // KN01.1.A
+ #endif 
+@@ -783,6 +783,10 @@ void avm_input_position_offset_adjust(PMDIN_VIDEO_INFO pINF
+                        MDINAUX_SetSrcOffset(&stVideo, 0, 0); 
+                        break;
+                }
++^M
++       MDIN4xx_SetSrcOffset(&stVideo, 0, 0); ^M
++       MDINAUX_SetSrcOffset(&stVideo, 0, 0); ^M
++^M
+        SCALE_DBG_MES(("PORTA offset=%d,%d\n",offset_h_A,offset_v_A));
+        SCALE_DBG_MES(("PORTB offset=%d,%d\n",offset_h_B,offset_v_B));
+ }
+
+$ git diff mpp_big-little/sample/Makefile.param
+diff --git a/mpp_big-little/sample/Makefile.param b/mpp_big-little/sample/Makefi
+index cbc8124..54b8dac 100755
+--- a/mpp_big-little/sample/Makefile.param
++++ b/mpp_big-little/sample/Makefile.param
+@@ -141,6 +141,7 @@ INC_FLAGS += -I$(SDK_PATH)/$(EXTDRV)/tw2865
+ INC_FLAGS += -I$(SDK_PATH)/$(EXTDRV)/tlv320aic31
+ INC_FLAGS += -I$(SDK_PATH)/$(EXTDRV)/sensor_spi
+ INC_FLAGS += -I$(SDK_PATH)/$(EXTDRV)/ak7756en
++CFLAGS += -I$(SDK_PATH)/$(EXTDRV)/avt_7a50t
+ 
+ ifeq ($(GYRO_TYPE), GYRO_INVENSENSE)
+        INC_FLAGS += -I$(SDK_PATH)/$(EXTDRV)/gyro_invensense
+
+
+````````````````````````````````````````````````````````````````````````
 ````````````````````````````````````````````````````````````````````````
 2018/08/25 (SAT)
 
@@ -139,6 +194,7 @@ http://www.linux-mtd.infradead.org/faq/jffs2.html#L_magicnfound
 Memory Technology Devices
 
 JFFS2
+
 * Journalling Flash File System Version 2
 * developer: Redhat
 * init with supporting NOR Flash only; version >= 2.6 supporting NAND Flash
