@@ -5,9 +5,41 @@ TODO
 1. SIKULI
 1. KOCHA
 1. UDEV
+1. WINDOWS PROGRAMMING
 
 ------------------------------------------
 
+````````````````````````````````````````````````````````````````````````
+2018/08/28 (TUE)
+
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+
+
+
+Petzold, Programming Windows 5e, 1998
+
+Hart, Windows System Programming 4e, 2015
+
+Nasarre & Richter, Windows via C/C++, 2007
+
+Richter, Programming Applications for Microsoft Windows, 4e, 1999
+
+Prosise, Programming Windows with MFC, 2e, 1999
+
+刘歧 & 赵文杰, FFmpeg从入门到精通, 机械工业出版社 2018
+
+NET/XAML: Languages: C#, C++, F#, VB
+C++ and Win32: Win32 and COM API
+* Languages: C++ with COM
+  * the highest levels of performance or efficiency
+  * access native OS features
+  * DirectX technologies for low-level, high-performance graphics access
+
+
+Desktop Programming [link](https://docs.microsoft.com/en-us/windows/desktop/desktop-programming)
+
+
+````````````````````````````````````````````````````````````````````````
 ````````````````````````````````````````````````````````````````````````
 2018/08/27 (MON)
 
@@ -250,13 +282,10 @@ http://lists.busybox.net/pipermail/busybox/2005-February/013688.html
 
 ifconfig eth0 192.168.1.10; mount -t nfs -o nolock 192.168.1.103:/share /mnt
 
-# cp -f /mnt/libasound.so.2 /lib
-# cp -f /mnt/libmp3enc.so /lib
-# cp -r /mnt/bak/lib/gstreamer/ /lib
-# cp /mnt/bak/gst-plugin-scanner /usr/bin/
-# cp -f /mnt/bak/rcS /etc/init.d/
-# cp -f /mnt/bak/profile /etc/
-# cp -r /mnt/ko_se5820v0 .
+# cp -f /mnt/libasound.so.2 /lib; cp -f /mnt/libmp3enc.so /lib; cp -r /mnt/bak/lib/gstreamer/ /lib; cp /mnt/bak/gst-plugin-scanner /usr/bin/; 
+
+# cp -f /mnt/bak/rcS /etc/init.d/; cp -f /mnt/bak/profile /etc/; cp -r /mnt/ko_se5820v0 .
+
 # cp /mnt/sample_demo .
 
 总之，先执行 /etc/inittab， 然后调用/etc/init.d/rcS， 最后是执行/etc/profile
