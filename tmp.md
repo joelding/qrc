@@ -9,7 +9,76 @@ TODO
 
 ------------------------------------------
 
-````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````
+2018/08/29 WED
+
+libphy: hisi_gemac_mii_bus: probed
+hi_gmac_v200 10050000.ethernet (unnamed net_device) (uninitialized): using random MAC address b6:94:d0:cb:26:e7
+attached PHY 1 to driver Generic PHY, PHY_ID=0x1cc916
+higmac: ETH MAC supporte CCI.
+Higmac dma_sg_phy: 0x8eb00000
+ETH: rgmii, phy_addr=1
+
+of_get_mac_address
+is_valid_ether_addr
+
+/**
+ * Search the device tree for the best MAC address to use.  'mac-address' is
+ * checked first, because that is supposed to contain to "most recent" MAC
+ * address. If that isn't set, then 'local-mac-address' is checked next,
+ * because that is the default address.  If that isn't set, then the obsolete
+ * 'address' is checked, just in case we're using an old device tree.
+ *
+ * Note that the 'address' property is supposed to contain a virtual address of
+ * the register set, but some DTS files have redefined that property to be the
+ * MAC address.
+ *
+ * All-zero MAC addresses are rejected, because those could be properties that
+ * exist in the device tree, but were not set by U-Boot.  For example, the
+ * DTS could define 'mac-address' and 'local-mac-address', with zero MAC
+ * addresses.  Some older U-Boots only initialized 'local-mac-address'.  In
+ * this case, the real MAC is in 'local-mac-address', and 'mac-address' exists
+ * but is all zeros.
+*/
+
+在device_get_mac_address 中一次检查mac-address/local-mac-address/address 这三个字串。
+https://blog.csdn.net/tiantao2012/article/details/73658061
+
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=dhcp eth=${ethaddr}
+
+ethaddr=${ethaddr} ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+
+
+
+$ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make menuconfig
+$ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make uImage -j8
+hi_gmac_v200 10050000.ethernet (unnamed net_device) (uninitialized): using random MAC address
+
+setenv bootargs mem=512M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hi_sfc:1M(boot),3M(kernel),28M(rootfs) ip=dhcp
+
+
+a003257@a003257:~/avm/se5820/src/osdrv/opensource/uboot/u-boot-2010.06$ ARCH=arm CROSS_COMPILE=arm-hisiv500-linux- make env
+http://shyuanliang.blogspot.com/2013/12/uboot-fwprintenv-fwsetenv.html
+
+mount -t nfs -o nolock 192.168.1.100:/share /mnt
+/mnt # ifconfig eth0 hw ether 00:18:1A:FF:A1:08
+/mnt # ifconfig eth0 up
+
+tmp=`/root/fw_printenv ethaddr`
+tmp2=`echo $str | tr "=" "\n"`
+for tmp3 in $tmp2
+do
+echo $tmp3
+done
+ifconfig eth0 down
+ifconfig eth0 hw ether $tmp3
+ifconfig eth0 up
+
+
+
+
+```````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````
 2018/08/28 (TUE)
 
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
@@ -267,7 +336,7 @@ setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=y
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hinand:1M(boot),4M(kernel),56M(rootfs),3M(userfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
 
 
-setenv ipaddr 192.168.1.10;setenv serverip 192.168.1.103
+setenv ipaddr 192.168.1.10;setenv serverip 192.168.1.100
 
 mw.b 82000000 ff 100000;tftp 82000000 u-boot_se5820v0.bin;nand erase 0 100000;nand write 82000000 0 100000
 
@@ -276,7 +345,10 @@ mw.b 82000000 ff f00000;tftp 82000000 uImage;nand erase 100000 400000;nand write
 mw.b 82000000 ff 3000000;tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2;nand erase 500000 3000000;nand write.yaffs 82000000 500000 c0a680
 
 setenv bootcmd 'nand read 82000000 100000 400000;bootm 82000000'
-setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs)  ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) eth=00:18:1A:FF:A1:08 
+
+ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off
+ip=dhcp
 
 http://lists.busybox.net/pipermail/busybox/2005-February/013688.html
 
