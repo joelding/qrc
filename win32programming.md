@@ -6,7 +6,7 @@
 1. Prosise, Programming Windows with MFC, 2e, Microsoft Press 1999
 1. Richter & Nasarre, Windows via C/C++, Microsoft Press 2007
 1. Hart, Windows System Programming, 4e, Addison-Wesley 2015
-
+1. wikibooks Windows Programming [link](https://en.wikibooks.org/wiki/Windows_Programming)
 ---------------------------------------------------------------------------
 * microsoft "get started with Win32 and C++" [link](https://docs.microsoft.com/en-us/windows/desktop/learnwin32/your-first-windows-program)
 
