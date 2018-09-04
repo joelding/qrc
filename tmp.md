@@ -20,23 +20,68 @@ c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 
 * Hi3519v101 soc
 	* use hitool to program the first bootloader
-	* program nand flash
+	* programming nand flash
 ```````````````````````````````````````````````````````````````````````````
 # update u-boot
 setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; mw.b 82000000 ff 100000; tftp 82000000 u-boot_se5820v0.bin; nand erase 0 100000; nand write 82000000 0 100000; reset
 
 # modify u-boot parameters
-setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; setenv bootcmd 'nand read 82000000 100000 400000; bootm 82000000'; setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off; saveenv; reset
+setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; setenv bootcmd 'nand read 82000000 100000 400000; bootm 82000000'; 
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=:::::eth0:off; saveenv; reset
+
+ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off; saveenv; reset
+ip=:::::eth0:off; saveenv; reset
 
 # kernel & file system
 mw.b 82000000 ff f00000; tftp 82000000 uImage; nand erase 100000 400000; nand write 82000000 100000 400000; mw.b 82000000 ff 3000000; tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2; nand erase 500000 3000000; nand write.yaffs 82000000 500000 c0a680; reset
 
+# set ip
 ifconfig eth0 192.168.1.10; mount -t nfs -o nolock 192.168.1.100:/share /mnt
 
+# copy files
 cp -f /mnt/New0903/libasound.so.2 /lib; cp -f /mnt/New0903/libmp3enc.so /lib; cp -r /mnt/bak/lib/gstreamer/ /lib; cp /mnt/bak/gst-plugin-scanner /usr/bin/; cp -f /mnt/bak/rcS /etc/init.d/; cp -f /mnt/bak/profile /etc/; cp -r /mnt/ko_se5820v0 .; cp /mnt/New0903/sample_demo .; reboot
 ```````````````````````````````````````````````````````````````````````````
-* nuc100
-* 
+* programming nuc100
+* programming AX88
+```````````````````````````````````````````````````````````````````````````
+# set mac address
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=:::::eth0:off
+setenv ethaddr 00:18:1A:00:A1:08
+saveenv
+reset
+ 
+
+ifconfig eth0 192.168.1.10
+ 
+
+mount -t nfs -o nolock 192.168.1.100:/share /mnt
+cp -f /mnt/New0903/S80network /etc/init.d/
+cp -f /mnt/New0903/fw_printenv /root/
+cp -f /mnt/New0903/fw_env.config /etc/
+ 
+
+rmmod ax88179_178a
+insmod /mnt/New0903/ax88179_178a.ko
+cd /mnt/New0903/
+./ioctl weeprom 0 eeprom 512
+ 
+
+./ioctl chgmac 0 00:18:1A:01:A1:08 512
+ 
+
+
+ifconfig eth0 192.168.1.10
+mount -t nfs -o nolock 192.168.1.100:/share /mnt
+cp -f /mnt/ko_se5820v0/loadse5820v0 /root/ko_se5820v0/
+reboot
+ 
+sample code: Documentation/spi/spidev_test.c
+tools hi_spi.h
+
+
+
+```````````````````````````````````````````````````````````````````````````
+* programming fpga
 
 
 ```````````````````````````````````````````````````````````````````````````
