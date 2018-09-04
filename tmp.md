@@ -1,7 +1,7 @@
 # TEMP FILE
 
 ------------------------------------------
-TODO
+## TODO
 1. SIKULI
 1. WINDOWS PROGRAMMING
 
@@ -16,21 +16,28 @@ c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * kocha_primary.c
 * kocha_internal.h
 
-```````````````````````````````````````````````````````````````````````````
-2018/09/03 MON
+## SOP for SE5820 DEMO BOARDS
 
+* Hi3519v101 soc
+	* use hitool to program the first bootloader
+	* program nand flash
+```````````````````````````````````````````````````````````````````````````
+# update u-boot
 setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; mw.b 82000000 ff 100000; tftp 82000000 u-boot_se5820v0.bin; nand erase 0 100000; nand write 82000000 0 100000; reset
 
+# modify u-boot parameters
 setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; setenv bootcmd 'nand read 82000000 100000 400000; bootm 82000000'; setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off; saveenv; reset
 
-mw.b 82000000 ff f00000; tftp 82000000 uImage; nand erase 100000 400000; nand write 82000000 100000 400000; reset
+# kernel & file system
+mw.b 82000000 ff f00000; tftp 82000000 uImage; nand erase 100000 400000; nand write 82000000 100000 400000; mw.b 82000000 ff 3000000; tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2; nand erase 500000 3000000; nand write.yaffs 82000000 500000 c0a680; reset
 
-mw.b 82000000 ff 3000000; tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2; nand erase 500000 3000000; nand write.yaffs 82000000 500000 c0a680
+ifconfig eth0 192.168.1.10; mount -t nfs -o nolock 192.168.1.100:/share /mnt
 
-setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off video="hifb:vram0_size:4200"
-
-
+cp -f /mnt/New0903/libasound.so.2 /lib; cp -f /mnt/New0903/libmp3enc.so /lib; cp -r /mnt/bak/lib/gstreamer/ /lib; cp /mnt/bak/gst-plugin-scanner /usr/bin/; cp -f /mnt/bak/rcS /etc/init.d/; cp -f /mnt/bak/profile /etc/; cp -r /mnt/ko_se5820v0 .; cp /mnt/New0903/sample_demo .; reboot
 ```````````````````````````````````````````````````````````````````````````
+* nuc100
+* 
+
 
 ```````````````````````````````````````````````````````````````````````````
 2018/08/31 FRI
@@ -388,9 +395,7 @@ ip=dhcp
 
 http://lists.busybox.net/pipermail/busybox/2005-February/013688.html
 
-ifconfig eth0 192.168.1.10; mount -t nfs -o nolock 192.168.1.100:/share /mnt
 
-cp -f /mnt/libasound.so.2 /lib; cp -f /mnt/libmp3enc.so /lib; cp -r /mnt/bak/lib/gstreamer/ /lib; cp /mnt/bak/gst-plugin-scanner /usr/bin/; cp -f /mnt/bak/rcS /etc/init.d/; cp -f /mnt/bak/profile /etc/; cp -r /mnt/ko_se5820v0 .; cp /mnt/sample_demo .
 
 总之，先执行 /etc/inittab， 然后调用/etc/init.d/rcS， 最后是执行/etc/profile
 
