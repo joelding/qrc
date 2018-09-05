@@ -6,10 +6,14 @@
 1. WINDOWS PROGRAMMING
 1. [KOCHA and UDEV](#KOCHA-and-UDEV)
 1. [JFFS2](#JFFS2)
+1. [SOP for SE5820 DEMO BOARDS](#SOP-for-SE5820-DEMO-BOARDS)
 
 ------------------------------------------
 
-## KOCHA and UDEV {#KOCHA-and-UDEV}
+* programming fpga
+
+
+## KOCHA and UDEV
 
 c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * kocha_debug.h
@@ -83,7 +87,6 @@ tools hi_spi.h
 
 
 ```````````````````````````````````````````````````````````````````````````
-* programming fpga
 
 
 ```````````````````````````````````````````````````````````````````````````
@@ -390,7 +393,7 @@ http://www.linux-mtd.infradead.org/faq/jffs2.html#L_magicnfound
 
 Memory Technology Devices
 
-JFFS2 {#JFFS2}
+## JFFS2
 
 * Journalling Flash File System Version 2
 * developer: Redhat
