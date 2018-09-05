@@ -4,9 +4,9 @@
 ## TODO
 1. SIKULI
 1. WINDOWS PROGRAMMING
-1. [KOCHA and UDEV](#KOCHA-and-UDEV)
-1. [JFFS2](#JFFS2)
-1. [SOP for SE5820 DEMO BOARDS](#SOP-for-SE5820-DEMO-BOARDS)
+1. [KOCHA and UDEV](#kocha-and-udev)
+1. [JFFS2](#jffs2)
+1. [SOP for SE5820 DEMO BOARDS](#sop-for-se5820-demo-boards)
 
 ------------------------------------------
 
