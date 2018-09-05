@@ -1,17 +1,22 @@
 # TEMP FILE
 
-------------------------------------------
+---------------------------------------------------------------------------
 ## TODO
 1. SIKULI
 1. WINDOWS PROGRAMMING
 1. [KOCHA and UDEV](#kocha-and-udev)
 1. [JFFS2](#jffs2)
 1. [SOP for SE5820 DEMO BOARDS](#sop-for-se5820-demo-boards)
+1. [HI3519V101 SPI PORT](#hi3519v101-spi-port)
 
-------------------------------------------
+---------------------------------------------------------------------------
 
-* programming fpga
+## HI3519V101 SPI PORT
+* 2018/09/04 ~
+* adopt low level driver src code from mxic website
 
+sample code: Documentation/spi/spidev_test.c
+tools hi_spi.h
 
 ## KOCHA and UDEV
 
@@ -81,8 +86,6 @@ mount -t nfs -o nolock 192.168.1.100:/share /mnt
 cp -f /mnt/ko_se5820v0/loadse5820v0 /root/ko_se5820v0/
 reboot
  
-sample code: Documentation/spi/spidev_test.c
-tools hi_spi.h
 
 
 
@@ -377,6 +380,25 @@ https://www.itechtics.com/windows-10-product-activation-keys-versions/
 Windows 10 Professional 	W269N-WFGWX-YVC9B-4J6C9-T83GX
 
 ````````````````````````````````````````````````````````````````````````
+
+## JFFS2
+
+* Journalling Flash File System Version 2
+* developer: Redhat
+* init with supporting NOR Flash only; version >= 2.6 supporting NAND Flash
+* actually resides on the Flash device and allows the user to read/write data to Flash
+* not stored on the Flash device and then copied into RAM during boot (i.e. ramdisk)
+
+Memory Technology Devices
+
+
+At least three file systems have been developed as JFFS2 replacements: LogFS, UBIFS, and YAFFS.
+
+On AM335x, JFFS2 support has been super-seeded by UBIFS.
+Reasons for disabling JFFS2 support
+
+    UBIFS file system is recommended for NAND File system over JFFS2 as it is seen as JFFS2 successor with significant improvements in scalability and NAND support.
+
 ````````````````````````````````````````````````````````````````````````
 2018/08/24 (FRI)
 
@@ -391,27 +413,7 @@ jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00060014: 0x
 http://www.infradead.org/pipermail/linux-mtd/2003-May/007786.html
 http://www.linux-mtd.infradead.org/faq/jffs2.html#L_magicnfound
 
-Memory Technology Devices
 
-## JFFS2
-
-* Journalling Flash File System Version 2
-* developer: Redhat
-* init with supporting NOR Flash only; version >= 2.6 supporting NAND Flash
-* actually resides on the Flash device and allows the user to read/write data to Flash
-  * not stored on the Flash device and then copied into RAM during boot (i.e. ramdisk)
-
-
-
-
-At least three file systems have been developed as JFFS2 replacements: LogFS, UBIFS, and YAFFS.
-
-
-
-On AM335x, JFFS2 support has been super-seeded by UBIFS.
-Reasons for disabling JFFS2 support
-
-    UBIFS file system is recommended for NAND File system over JFFS2 as it is seen as JFFS2 successor with significant improvements in scalability and NAND support.
     Compatibility of ECC layout across all components. RBL, U-boot SPL all uses BCH8 ECC scheme. However supporting BCH8 with JFFS2 is not possible because of shortage of OOB area.
         Total OOB Bytes - 64 Bytes (for every 2048 bytes (512 * 4))
         JFFS2 clean marker requires 8 bytes ==> 64 - 8 = 56 bytes
