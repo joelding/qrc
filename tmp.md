@@ -9,7 +9,7 @@
 
 ------------------------------------------
 
-## KOCHA and UDEV
+## KOCHA and UDEV {#KOCHA-and-UDEV}
 
 c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * kocha_debug.h
@@ -313,7 +313,9 @@ W269N-WFGWX-YVC9B-4J6C9-T83GX
 
 Windows 10 Professional N
 
-MH37W-N47XK-V7XM9-C7227-GCQG9
+MH37W-N47XK-V7XM9-C7227-GCQG9 be the correct markdown syntax to jump to the anchor point named pookie.
+
+
 
 Windows 10 Enterprise
 
@@ -388,7 +390,7 @@ http://www.linux-mtd.infradead.org/faq/jffs2.html#L_magicnfound
 
 Memory Technology Devices
 
-JFFS2
+JFFS2 {#JFFS2}
 
 * Journalling Flash File System Version 2
 * developer: Redhat
