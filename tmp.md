@@ -11,6 +11,15 @@
 
 ---------------------------------------------------------------------------
 
+## Dave's burn-in
+vlc rtmp 
+./sample_demo 1 0 rtmp n n n 
+
+
+
+
+
+
 ## HI3519V101 SPI PORT
 * 2018/09/04 ~
 * adopt low level driver src code from mxic website
@@ -57,6 +66,7 @@ cp -f /mnt/New0903/libasound.so.2 /lib; cp -f /mnt/New0903/libmp3enc.so /lib; cp
 ```````````````````````````````````````````````````````````````````````````
 # set mac address
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=:::::eth0:off
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=dhcp
 setenv ethaddr 00:18:1A:00:A1:08
 saveenv
 reset
