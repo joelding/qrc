@@ -36,6 +36,17 @@ c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * kocha_primary.c
 * kocha_internal.h
 
+### NETLINK
+* Netlink socket family
+* Linux核心介面（Linux kernel interfaces）
+* 可用於行程間通訊，Linux内核与用户空间的进程间、用户进程间的通讯
+* 不可像网络套接字用于主机间通讯
+* 只能用于同一主机上进程通讯，并通过PID来标识它们
+
+```````````````````````````````````````````````````````````````````````````
+# udevadm monitor --kernel --property --udev
+```````````````````````````````````````````````````````````````````````````
+
 ## SOP for SE5820 DEMO BOARDS
 
 * Hi3519v101 soc
