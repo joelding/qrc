@@ -1,6 +1,5 @@
 # TEMP FILE
 
----------------------------------------------------------------------------
 ## TODO
 1. SIKULI
 1. WINDOWS PROGRAMMING
@@ -8,8 +7,19 @@
 1. [JFFS2](#jffs2)
 1. [SOP for SE5820 DEMO BOARDS](#sop-for-se5820-demo-boards)
 1. [HI3519V101 SPI PORT](#hi3519v101-spi-port)
+1. [MEMORY LEAK](#memory-leak)
 
----------------------------------------------------------------------------
+
+
+## MEMORY LEAK
+* history: 2018/09/11 ~
+
+### references
+1. wiki [link](https://en.wikipedia.org/wiki/Memory_leak)
+
+
+
+
 
 ## HI3519V101 SPI PORT
 * 2018/09/04 ~
