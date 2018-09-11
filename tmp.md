@@ -11,15 +11,6 @@
 
 ---------------------------------------------------------------------------
 
-## Dave's burn-in
-vlc rtmp 
-./sample_demo 1 0 rtmp n n n 
-
-
-
-
-
-
 ## HI3519V101 SPI PORT
 * 2018/09/04 ~
 * adopt low level driver src code from mxic website
@@ -36,6 +27,11 @@ c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * kocha_primary.c
 * kocha_internal.h
 
+### mdev_mount2.sh
+* a script brought up by mdev; just like disk-hotplug.sh and usbdev-hotplug.sh in udev of hi3519v101 SDK
+* /etc/mdev.conf calls mdev_mount2.sh
+* check NTFS for dirty
+
 ### NETLINK
 * Netlink socket family
 * Linux核心介面（Linux kernel interfaces）
@@ -43,9 +39,71 @@ c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * 不可像网络套接字用于主机间通讯
 * 只能用于同一主机上进程通讯，并通过PID来标识它们
 
+### UDEVADM
+* udev的管理工具
 ```````````````````````````````````````````````````````````````````````````
 # udevadm monitor --kernel --property --udev
 ```````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````
+# udevadm info --query=path --name=/dev/sda
+# udevadm info -q path -n /dev/sda
+/devices/soc/10120000.ehci/usb3/3-1/3-1.1/3-1.1:1.0/host0/target0:0:0/0:0:0:0/bl
+ock/sda
+```````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````
+# udevadm info -a -p `udevadm info -q path -n /dev/sda`
+```````````````````````````````````````````````````````````````````````````
+* /etc/udev/rules.d/11-usb-hotplug.rules
+```````````````````````````````````````````````````````````````````````````
+#
+# Create By Czy
+#
+
+KERNEL=="sd*", SUBSYSTEM=="block", RUN+="/etc/udev/disk-hotplug.sh"
+KERNEL=="usbdev*", SUBSYSTEM=="usb_device", RUN+="/etc/udev/usbdev-hotplug.sh"
+```````````````````````````````````````````````````````````````````````````
+
+/lib/udev/rules.d$ grep -nr 'sd' .
+./80-drivers.rules:6:SUBSYSTEM=="tifm", ENV{TIFM_CARD_TYPE}=="SD", RUN{builtin}="kmod load tifm_sd"
+./60-persistent-storage.rules:41:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", SUBSYSTEMS=="scsi", ATTRS{vendor}=="ATA", IMPORT{program}="ata_id --export $devnode"
+./60-persistent-storage.rules:43:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", SUBSYSTEMS=="scsi", ATTRS{type}=="5", ATTRS{scsi_level}=="[6-9]*", IMPORT{program}="ata_id --export $devnode"
+./60-persistent-storage.rules:46:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", ATTR{removable}=="0", SUBSYSTEMS=="usb", IMPORT{program}="ata_id --export $devnode"
+./60-persistent-storage.rules:48:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", SUBSYSTEMS=="usb", IMPORT{builtin}="usb_id"
+./60-persistent-storage.rules:51:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", IMPORT{program}="scsi_id --export --whitelisted -d $devnode", ENV{ID_BUS}="scsi"
+./60-persistent-storage.rules:53:KERNEL=="sd*|sr*|cciss*", ENV{DEVTYPE}=="disk", ENV{ID_SERIAL}=="?*", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}"
+./60-persistent-storage.rules:54:KERNEL=="sd*|cciss*", ENV{DEVTYPE}=="partition", ENV{ID_SERIAL}=="?*", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}-part%n"
+./60-persistent-storage.rules:57:KERNEL=="sd*[!0-9]|sr*", ATTRS{ieee1394_id}=="?*", SYMLINK+="disk/by-id/ieee1394-$attr{ieee1394_id}"
+./60-persistent-storage.rules:58:KERNEL=="sd*[0-9]", ATTRS{ieee1394_id}=="?*", SYMLINK+="disk/by-id/ieee1394-$attr{ieee1394_id}-part%n"
+./60-persistent-storage.rules:72:ENV{DEVTYPE}=="disk", KERNEL!="sd*|sr*", ATTR{removable}=="1", GOTO="persistent_storage_end"
+./40-usb_modeswitch.rules:854:# Qisda H21 Flying Beetle
+a003257@a003257:/lib/udev/rules.d$ less 60-persistent-storage.rules
+
+
+
+```````````````````````````````````````````````````````````````````````````
+# blkid /dev/sda1
+/dev/sda1: UUID="6A2E-6397"
+```````````````````````````````````````````````````````````````````````````
+
+
+
+Mounting Partitions Automatically[link](https://help.ubuntu.com/community/AutomaticallyMountPartitions)
+
+ntfsprogs [link](https://en.wikipedia.org/wiki/Ntfsprogs)
+
+
+NTFS-3G Read-Write NTFS Driver [link](https://www.tuxera.com/community/open-source-ntfs-3g/)
+The latest stable version is ntfs-3g_ntfsprogs-2017.3.23, released on March 28, 2017.
+ntfs-3g_ntfsprogs-2017.3.23$ ./configure CC=arm-hisiv500-linux-gcc --host=arm-hisiv500-linux
+
+reading c285 code from dvsdk-demos_4_02_00_01/dm365/interface
+
+kocha_main_thread()
+* avm/kocha_primary.c
+* a thread function
+
+
+
 
 ## SOP for SE5820 DEMO BOARDS
 
@@ -108,6 +166,7 @@ cp -f /mnt/ko_se5820v0/loadse5820v0 /root/ko_se5820v0/
 reboot
  
 
+# cp ~/avm/se5820/src/osdrv/pub/rootfs_uclibc_big-little/share/alsa/alsa.conf to [board] /share/alsa
 
 
 ```````````````````````````````````````````````````````````````````````````
