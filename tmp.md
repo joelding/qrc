@@ -2,13 +2,84 @@
 
 ## TODO
 1. SIKULI
-1. WINDOWS PROGRAMMING
-1. [KOCHA and UDEV](#kocha-and-udev)
-1. [JFFS2](#jffs2)
-1. [SOP for SE5820 DEMO BOARDS](#sop-for-se5820-demo-boards)
-1. [HI3519V101 SPI PORT](#hi3519v101-spi-port)
-1. [MEMORY LEAK](#memory-leak)
+2. WINDOWS PROGRAMMING
+3. [KOCHA and UDEV](#kocha-and-udev)
+4. [JFFS2](#jffs2)
+5. [SOP for SE5820 DEMO BOARDS](#sop-for-se5820-demo-boards)
+6. [HI3519V101 SPI PORT](#hi3519v101-spi-port)
+7. [MEMORY LEAK](#memory-leak)
+8. [時間管理黃金法則](#時間管理黃金法則) 呂宗昕 商周出版 2008
+9. [GSTREAMER BASIC TUTORIAL](#gstreamer-basic-tutorial)
+10. HOW TO DETERMINE [WHICH MODE THE SD CARD IS RUNNING] (#which-mode-the-sd-card-is-running)
 
+## GSTREAMER BASIC TUTORIAL
+#### 11. debug [link](https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html)
+* GST_DEBUG
+  * 0: none
+  * 1: ERROR
+  * 2: WARNING
+  * 3: FIXME
+  * 4: INFO
+  * 5: DEBUG
+```
+#export GST_DEBUG=2 #print both errors and warnings
+```
+#### Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
+
+
+## 時間管理黃金法則
+第一章  掌握時間，增加財富
+1. 富人工作者與窮人工作者—大前研一的M型社會
+2. 上班族的三大時間策略—郭台銘的鴻海帝國
+3. 不疾而速的時間法則—李嘉誠的四句箴言
+4. 時間管理的迷思與陷阱—彼得．杜拉克的時間管理
+   * 杜拉克將時間管理的基本，整理成簡明的三個步驟： (1) 記錄並分析時間 (2) 管理時間 (3) 整合時間
+   * Time is the scarcest resource and unless it is managed nothing else can be managed. Peter Drucker
+6. 追求正值的休閒時間成長率—打敗負利率時代
+7. 成功上班族必備的三大能力—銀行理專的九宮格
+1．掌握時間，增加財富的通關測驗
+
+第二章 時間管理策略
+7三抓三放，簡化工作—熱愛時間的比爾蓋茲
+8時間管理的微笑曲線—施振榮的微笑曲線
+9重要與緊急的四象限圖—巴菲特的投資哲學
+10同心圓的N字型法則—半導體業新人的四怕
+11時間管理的四P與四C理念—企管行銷的四P與四C
+12時間管理的微分與積分法則—何飛鵬的快速工作祕訣
+．時間管理策略的通關測驗
+
+第三章 提升工作效率
+13工作效率與環境干擾度—嚴長壽的提前一小時上班
+14高效率的工作日程表—上班時間的乾坤大挪移
+15提升工作效率的祕密武器—澳洲國家公園的螢火蟲
+16工作飛輪的四大動力—王建民的隧道視野
+17提升工作效率的「SMART」法則—希臘神話的普羅米修斯
+18職場達人的工作導電材—Google張成秀的時間競賽
+．提升工作效率的通關測驗
+
+第四章 控管上班時間
+19控管時間的「CSDA」原則—侯文詠的怪盜大床
+20管理時間的「辦公室三幫手」—星巴克總經理的時間筆記
+21減少開會的「四制」概念—張忠謀的三類會議
+22正向應對會議的四大法則—哈佛大學的心理測驗
+23縮短開會時間的方法—穿著Prada的惡魔
+．控管上班時間的通關測驗
+
+第五章 製造上班時間
+24製造生命與工作的時間—挑戰命運的最後演講
+25製造藍海時間的方法—時間管理的「藍海策略」
+26善用零碎時間的祕訣—何薇玲董事長的時間管理
+27重疊時間配置法—《關鍵下一秒》的分身
+28時間與金錢的巧妙轉換—謝震武的寶貴時間
+．製造上班時間的通關測驗
+
+第六章 節省上班時間
+29同類法則的應用概念—《星際大戰》的絕地武士
+30節省時間的四象限圖—夏韻芬的三把刀
+31電子郵件及雜務的處理原則—Wii的「減法策略」
+32節約無效益的等待時間—時間差攻擊法
+33節約時間的真正人生意義—成功鑽石商人的圓圈日
+．節省上班時間的通關測驗
 
 
 ## MEMORY LEAK
@@ -16,7 +87,7 @@
 
 ### references
 1. wiki [link](https://en.wikipedia.org/wiki/Memory_leak)
-
+### how to debug? tools?
 
 
 
@@ -27,6 +98,7 @@
 
 sample code: Documentation/spi/spidev_test.c
 tools hi_spi.h
+
 
 ## KOCHA and UDEV
 
@@ -48,20 +120,31 @@ c285/src/dvsdk-demos_4_02_00_01/dm365/interface/avm/
 * 可用於行程間通訊，Linux内核与用户空间的进程间、用户进程间的通讯
 * 不可像网络套接字用于主机间通讯
 * 只能用于同一主机上进程通讯，并通过PID来标识它们
+* communication between kernel and user space (AF_NETLINK)
 
+**libudev** — API for enumerating and introspecting local devices
+  * libudev Reference Manual [link](http://presbrey.scripts.mit.edu/doc/libudev/)
+  * sample code [link](https://github.com/robertalks/udev-examples) example 2 talks about block devices
+  * **Can programs writen in libudev work with mdev?** 
+    * Yes. 
+    * refer to section 19.8.1 busybox mdev - Hallinan, Embedded Linux Primer 2e
+    * how to replace udev in Linux with mdev [link](https://wiki.gentoo.org/wiki/Mdev)
+* references:
+  * Linux Programmer's Manual               NETLINK(7)
+  * 
 ### UDEVADM
 * udev的管理工具
-```````````````````````````````````````````````````````````````````````````
+``````````````````````````````````````````````````````````````````````````
 # udevadm monitor --kernel --property --udev
-```````````````````````````````````````````````````````````````````````````
-```````````````````````````````````````````````````````````````````````````
+``````````````````````````````````````````````````````````````````````````
+``````````````````````````````````````````````````````````````````````````
 # udevadm info --query=path --name=/dev/sda
 # udevadm info -q path -n /dev/sda
 /devices/soc/10120000.ehci/usb3/3-1/3-1.1/3-1.1:1.0/host0/target0:0:0/0:0:0:0/bl
 ock/sda
-```````````````````````````````````````````````````````````````````````````
-```````````````````````````````````````````````````````````````````````````
-# udevadm info -a -p `udevadm info -q path -n /dev/sda`
+```
+```
+# udevadm info -a -p `udevadm info -q path -n /dev/sda
 ```````````````````````````````````````````````````````````````````````````
 * /etc/udev/rules.d/11-usb-hotplug.rules
 ```````````````````````````````````````````````````````````````````````````
@@ -72,24 +155,6 @@ ock/sda
 KERNEL=="sd*", SUBSYSTEM=="block", RUN+="/etc/udev/disk-hotplug.sh"
 KERNEL=="usbdev*", SUBSYSTEM=="usb_device", RUN+="/etc/udev/usbdev-hotplug.sh"
 ```````````````````````````````````````````````````````````````````````````
-
-/lib/udev/rules.d$ grep -nr 'sd' .
-./80-drivers.rules:6:SUBSYSTEM=="tifm", ENV{TIFM_CARD_TYPE}=="SD", RUN{builtin}="kmod load tifm_sd"
-./60-persistent-storage.rules:41:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", SUBSYSTEMS=="scsi", ATTRS{vendor}=="ATA", IMPORT{program}="ata_id --export $devnode"
-./60-persistent-storage.rules:43:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", SUBSYSTEMS=="scsi", ATTRS{type}=="5", ATTRS{scsi_level}=="[6-9]*", IMPORT{program}="ata_id --export $devnode"
-./60-persistent-storage.rules:46:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", ATTR{removable}=="0", SUBSYSTEMS=="usb", IMPORT{program}="ata_id --export $devnode"
-./60-persistent-storage.rules:48:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", SUBSYSTEMS=="usb", IMPORT{builtin}="usb_id"
-./60-persistent-storage.rules:51:KERNEL=="sd*[!0-9]|sr*", ENV{ID_SERIAL}!="?*", IMPORT{program}="scsi_id --export --whitelisted -d $devnode", ENV{ID_BUS}="scsi"
-./60-persistent-storage.rules:53:KERNEL=="sd*|sr*|cciss*", ENV{DEVTYPE}=="disk", ENV{ID_SERIAL}=="?*", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}"
-./60-persistent-storage.rules:54:KERNEL=="sd*|cciss*", ENV{DEVTYPE}=="partition", ENV{ID_SERIAL}=="?*", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_SERIAL}-part%n"
-./60-persistent-storage.rules:57:KERNEL=="sd*[!0-9]|sr*", ATTRS{ieee1394_id}=="?*", SYMLINK+="disk/by-id/ieee1394-$attr{ieee1394_id}"
-./60-persistent-storage.rules:58:KERNEL=="sd*[0-9]", ATTRS{ieee1394_id}=="?*", SYMLINK+="disk/by-id/ieee1394-$attr{ieee1394_id}-part%n"
-./60-persistent-storage.rules:72:ENV{DEVTYPE}=="disk", KERNEL!="sd*|sr*", ATTR{removable}=="1", GOTO="persistent_storage_end"
-./40-usb_modeswitch.rules:854:# Qisda H21 Flying Beetle
-a003257@a003257:/lib/udev/rules.d$ less 60-persistent-storage.rules
-
-
-
 ```````````````````````````````````````````````````````````````````````````
 # blkid /dev/sda1
 /dev/sda1: UUID="6A2E-6397"
@@ -97,7 +162,7 @@ a003257@a003257:/lib/udev/rules.d$ less 60-persistent-storage.rules
 
 
 
-Mounting Partitions Automatically[link](https://help.ubuntu.com/community/AutomaticallyMountPartitions)
+Mounting Partitions Automatically [link](https://help.ubuntu.com/community/AutomaticallyMountPartitions)
 
 ntfsprogs [link](https://en.wikipedia.org/wiki/Ntfsprogs)
 
@@ -113,6 +178,8 @@ kocha_main_thread()
 * a thread function
 
 
+## HOW TO DETERMINE [WHICH MODE THE SD CARD IS RUNNING
+* history: 2018/09/13 In SI test, Bill asked which SD card mode he was testing and observing on oscilloscope. hi3519v101 supports several. But which one 
 
 
 ## SOP for SE5820 DEMO BOARDS
@@ -809,3 +876,11 @@ u-boot-2010.06/include/configs/hi3519v101.h:171:#define CONFIG_BOOTARGS "mem=96M
 irtx/main.c : Not working for now 11:52
 
 ````````````````````````````````````````````````````````````````````````
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTEyMzkxMjQ3OTgsODA3NjE4MTY1LDE0MD
+AxNTEzODgsOTMzODEyMjI2LC0yNzA3NjQ2OSwtMzg3NzM2NzQz
+LC0xNDg2OTgzMTkzLDE4MzgwNTQwMDUsMTk1MDcyMTcyMiwtMT
+c1MDI1ODk5OSwtNzQxODc0Nzk2LDU3MzM3NDU0OSwxNDY2OTc4
+ODQzLC0xMzg3NjcwNTE4LC04ODEyNTczNDksLTEyOTcxNzEyMC
+wtMTI5NzE3MTIwXX0=
+-->
