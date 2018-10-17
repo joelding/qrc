@@ -1,0 +1,10 @@
+# H265
+
+## Version
+## References
+
+Generational Implementations of HEVC in the recent generations of Intel processors:
+* 4th Generation Intel Core processors (Haswell CPU 2- 3.5GHz, 4 Cores): Includes an HEVC Software Decoder capable of real time decode of HEVC 4K streams.
+* 5th Generation Intel Core processors (Broadwell): Supports HEVC 8-bit software/hybrid encode.
+* 6th Generation Intel Core processors (Skylake) Supports hardware accelerated HEVC 8-bit decode and encode.
+* reference: https://software.intel.com/en-us/blogs/2015/12/11/codecs-are-they-slowing-you-down

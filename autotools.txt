@@ -1,0 +1,220 @@
+
+###########################################################################
+
+			A U T O T O O L S
+
+###########################################################################
+
+HISTORY
+
+	2017/10/16 init
+
+///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////
+
+REFERENCES:
+
+[1] GNU AUTOCONF, AUTOMAKE, AND LIBTOOL, by Gary V. Vaughan, Ben Elliston, Tom Tromey and Ian Lance Taylor, New Riders publishing, 2000, http://www.sourceware.org/autobook/
+[2] GNU Make, Autotools, CMake 簡介 by Wen Liao, https://www.slideshare.net/zzz00072/gnu-make-autotools-cmake
+[3] GNU Build System, https://en.wikipedia.org/wiki/GNU_Build_System
+[4] GNU Autoconf - Creating Automatic Configuration Scripts, https://www.gnu.org/software/autoconf/manual/autoconf.html
+[5] Automake manual, https://www.gnu.org/software/autoconf/manual/automake.html
+[6] Libtool manual, https://www.gnu.org/software/libtool/manual/libtool.html
+How to comment out multiple lines in a Makefile?
+
+No such a thing like C /* */. Go for
+
+ifeq ("x","y")
+	things you don't want
+endif
+
+///////////////////////////////////////////////////////////////////////////
+
+In Makefile, the statement
+
+	$(info $$var is [${var}]) 
+
+can print out variables.
+
+reference: https://stackoverflow.com/questions/16467718/how-to-print-out-a-variable-in-makefile
+
+///////////////////////////////////////////////////////////////////////////
+
+MAKEFILE ASSIGNMENTS =, :=, +=, ?=
+
+= 連動型
+是最基本的賦值 values within it are recursively expanded when the variable is used, not when it's declared
+
+:= 立刻生效型
+會覆蓋變數之前的值 values within it are expanded at declaration time
+
+?= 預設型
+變數為空時才給值，不然則維持之前的值
+
+
++= 加碼型
+將值附加到變數的後面
+
+```       
+	x = hello
+	y = $(x) world!
+	x = hi
+all:
+	@echo $(y)
+```
+result: hi world!
+```
+	x := hello
+	y := $(x) world!
+	x := hi
+all:
+	@echo $(y)
+```
+result: hello world!
+
+REFERENCES:
+Makefile的賦值運算符(=, :=, +=, ?=) [link](http://dannysun-unknown.blogspot.tw/2015/03/makefile.html)
+
+
+///////////////////////////////////////////////////////////////////////////
+
+SOP: see https://upload.wikimedia.org/wikipedia/commons/8/84/Autoconf-automake-process.svg
+, where oval: tool/command; square: generated file 
+
+
+$ sudo apt-get install autotools-dev #install autoconf libtool and etc
+
+Require modification: configure.ac, Makefile.am
+
+$ autoscan #step 1
+$ cp configure.scan configure.ac #step 2
+$ tree -df >> configure.ac #step 3
+$ vim configure.ac #step 4. See an example as following
+
+##################################################################
+
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.69])
+#AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+AC_INIT([ADV7842_LIB], [Rel1.4], [joel.ding@avermedia.com])
+AM_INIT_AUTOMAKE([subdir-objects])
+AC_CONFIG_SRCDIR([ATV_SW/TX/tx_lib.h])
+AC_CONFIG_HEADERS([config.h])
+
+# Checks for programs.
+AC_PROG_CC
+
+# Checks for libraries.
+AC_PROG_LIBTOOL
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+#AC_CHECK_FUNCS([memset])
+
+# Checks for system services
+AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_FILES([Makefile \
+				RX/Makefile \
+				RX/LIB/Makefile \
+				RX/HAL/Makefile \
+				RX/HAL/4G/Makefile \
+				RX/HAL/4G/ADV7842/Makefile \
+				RX/HAL/4G/ADV7842/HAL/Makefile])
+
+AC_OUTPUT
+
+##################################################################
+
+$ aclocal #step 5
+$ autoheader #step 6
+$ touch Makefile.am #step 7. describing all nodes of the tree as following
+$ tree -f | grep '\.h' >> Makefile.am #for top Makefile.am AM_CFLAGS
+                                      #for nobase_include_HEADERS
+$ tree -f | grep '\.c' >> Makefile.am #for top Makefile.am *_la_SOURCES
+
+##################################################################
+# Makefile.am with subdirectories
+
+SUBDIRS = ...
+
+##################################################################
+# Makefile.am at the tree top
+
+lib_LTLIBRARIES = libadv7604-1.55.2.la
+AM_CFLAGS = 	-I.	\
+		-I./...
+libadv7604_1_55_2_la_SOURCES =	path/to/somefile.c \
+				path/to/someotherfile.c \
+				path/to/somemorefile.c
+
+# the following installs into a folder called "include" under the path --prefix is set
+nobase_include_HEADERS = path/to/a_header.h \
+			path/to/b_header.h \
+			path/to/c_header.h
+		
+# the following installs into a folder called "inc" under the path --prefix is set
+incdir = $(prefix)/inc
+nobase_inc_HEADERS = path/to/a_header.h \
+			path/to/b_header.h \
+			path/to/c_header.h
+	
+###########################################################################
+
+
+$ autoreconf -i #step 8. generate configure
+$ automake -a -c #step 9. keep running 'automake' until all errors are fixed
+
+
+
+Cross-Compilation
+
+	--build=build: The system on which the package is built. (No need to specify)
+	--host=host: The system where built programs and libraries will run. 
+	--target=target: When building compiler tools: the system for which the tools will create output. 
+
+$ ./configure --host=arm-hisiv500-linux --prefix=<install directory>
+
+
+
+    The build machine, where the toolchain is built.
+    The host machine, where the toolchain will be executed.
+    The target machine, where the binaries created by the toolchain are executed.
+
+Four common build types are possible for toolchains are:
+
+    Native build i.e. BUILD==HOST==TARGET
+    Used to build normal gcc for workstation. e.g. BUILD==HOST==TARGET==x86
+
+    Cross-build i.e. BUILD==HOST!=TARGET
+    Used to build toolchain that works on your workstation but generates binary for target. e.g. BUILD==HOST==x86 TARGET==arm
+
+    Cross-native build i.e. BUILD!=HOST==TARGET
+    Used to toolchain that works on your target and generates binary for target. e.g BUILD==x86 HOST==TARGET==ARM
+
+    Canadian toolchain i.e. BUILD!=HOST!=TARGET
+    Used to build ARCHITECTURE A a toolchain runs on B and generates binary for architecture C. e.g.BUILD==x86 HOST==mac TARGET==arm
+    
+    You will find above so depending on what you want to do, you need to set it for cross compiling. If all options are available, then you want to execute on arm target then set --host={your toolchain triplet} --target={your toolchain triplet}.
+
+For example, if you are using arm-none-linux-gnueabi-gcc, set --host=arm-none-linux-gnueabi --target=arm-none-linux-gnueabi. This will write to your makefile. Finally, generated executable will run on target. For --build this will be automatically set, no need to worry.
+
+How to determine host value for configure when using cross compiler, https://stackoverflow.com/questions/21990021/how-to-determine-host-value-for-configure-when-using-cross-compiler
+
+############################################################
+#!/bin/sh
+# autogen.sh
+
+autoreconf -i || exit 1
+./configure --host=arm-hisiv500-linux --prefix=`pwd`/..
+############################################################
+
+make CFLAGS+=-DRX_DEVICE=7842
+
+
+

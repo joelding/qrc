@@ -1,0 +1,410 @@
+
+ +-+-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+
+ |U|S|E| |U|B|U|N|T|U| |L|I|N|U|X|
+ +-+-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+
+
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY
+
+	2017/05/06	init
+
+///////////////////////////////////////////////////////////////////////////
+
+安裝結束後的設定
+
+CHECK UBUNTU VERSION
+$ lsb_release -a
+
+使用bash不要dash
+$ sudo dpkg-reconfigure dash
+$ # choose NO
+
+不要開機畫面 
+$ sudo nano /etc/default/grub # comment GRUB_CMDLINE_LINUX_DEFAULT
+$ sudo update-grub
+
+不要自動更新、不要提醒更新
+$ sudo nano /etc/update-manager/release-upgrades
+$ # modify "Prompt=lts" as "never"
+$ sudo rm /var/lib/ubuntu-release-upgrader/release-upgrade-available
+
+新增使用者
+$ sudo adduser a003257
+
+mount SMB
+$ sudo apt-get install cifs-utils
+$ sudo mount -t cifs //[ip address]/path /[mount point] -o username=[USERNAME],password=[PASSWD]
+
+///////////////////////////////////////////////////////////////////////////
+
+LIST INSTALLED PACKAGES
+$ apt list --installed
+
+///////////////////////////////////////////////////////////////////////////
+
+x64操作系統相容x86軟體
+$ sudo apt-get install multiarch-support #16.04
+# LUBUNTU 14.04.5 automatically have --add-architecture, libc6:i386, libstdc++6:i386
+#$ sudo dpkg --add-architecture i386 #14.04
+#$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 #14.04
+
+使用tty裝置
+$ groups second_user
+$ sudo adduser second_user dialout
+
+///////////////////////////////////////////////////////////////////////////
+
+慣用軟體與設定 $ sudo apt-get install 
+
+編程：vim vim-gtk git gitk ctags cscope build-essential manpages-dev manpages-posix-dev
+
+vim-gtk for 
+copying to clipboard "+y
+pasting from clipboard "+p
+
+GStreamer編程：libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools
+
+字型：fonts-inconsolata
+
+虛擬機：virtualbox
+$ sudo usermod -a -G vboxsf <username> # add an existing user to vbox group
+
+///////////////////////////////////////////////////////////////////////////
+
+固定 IP
+
+$ sudo vim /etc/network/interfaces
+
+auto eth1
+iface eth1 inet static
+address 192.168.1.2
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+///////////////////////////////////////////////////////////////////////////
+
+虛擬機 Guest 設定 Host Only + NAT 網卡連通內外網路
+* reference: http://www.arthurtoday.com/2013/07/ubuntu-guest-enables-nat-and-hostonly-adapter.html
+* VirtualBox 的 Host Only 網卡的預設網段是 192.168.56.0
+
+$ lspci
+00:03:0 Ethernet controller ... => enp0s3
+00:08:0 Ethernet controller ... => enp0s8
+
+$ sudo vim /etc/network/interfaces
+
+auto enp0s8
+iface enp0s8 inet static
+address 192.168.56.88
+netmask 255.255.255.0
+#network 192.168.56.0
+#broadcast 192.168.56.255
+#gateway 192.168.56.1
+#dns-nameservers 168.95.192.1 168.95.1.1
+
+讓別台電腦可用ssh登錄
+$ sudo apt-get install openssh-server
+$ sudo nano /etc/hosts.allow
+$ #加一行 ALL:
+$ sudo service ssh restart
+
+ssh登錄別台電腦
+$ ssh username@remote_host
+
+///////////////////////////////////////////////////////////////////////////
+
+VIM
+
+plugins安裝：
+
+$ sudo apt-get install curl
+#安裝Vundle: Vim bundle, Vim 插件管理器
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ cp ~/.vim/bundle/Vundle.vim/test/minirc.vim(or vimrc) ~/.vimrc
+
+Add the following between "call vundle#begin()", "Plugin 'VundleVim/Vundle.vim'"
+and "call vundle#end()"
+Plugin 'tpope/vim-pathogen'
+Plugin 'scrooloose/nerdtree'
+Plugin 'wesleyche/SrcExpl'
+Plugin 'taglist.vim'
+Plugin 'chazy/cscope_maps'
+Plugin 'craigemery/vim-autotag'
+
+運行 vim 再運行 :PluginInstall 或通過命令列直接安裝 vim +PluginInstall +qall
+
+[obsolete]
+$ mkdir -p ~/.vim/autoload ~/.vim/bundle
+$ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+$ git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+
+$ git clone https://github.com/wesleyche/SrcExpl.git
+$ rsync -a ./SrcExpl/plugin/ ~/.vim/plugin/
+$ rsync -a ./SrcExpl/doc/ ~/.vim/doc/
+$ #cp -r ./SrcExpl/plugin ~/.vim/
+$ #cp -r ./SrcExpl/doc ~/.vim/
+
+$ git clone https://github.com/vim-scripts/taglist.vim.git
+$ rsync -a ./taglist.vim/plugin/ ~/.vim/plugin/
+$ rsync -a ./taglist.vim/doc/ ~/.vim/doc/
+$ #cp -r ./taglist.vim/plugin ~/.vim/
+$ #cp -r ./taglist.vim/doc ~/.vim/
+
+$ wget http://cscope.sourceforge.net/cscope_maps.vim
+$ cp cscope_maps.vim ~/.vim/plugin/
+
+設定：.vimrc
+
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+set mouse=a
+set nu
+set hlsearch
+"set colorcolumn=80
+"set textwidth=76
+set cino=(0
+set foldmethod=syntax
+set foldlevel=99
+set clipboard=unnamed
+set csre
+colo desert
+"set tabstop=4
+"set shiftwidth=4
+"set softtabstop=0 noexpandtab
+
+nmap <F5> :TlistToggle<CR>
+nmap <F6> :SrcExplToggle<CR>
+let g:NERDTreeWinPos="right"
+nmap <F7> :NERDTreeToggle<CR>
+
+使用：
+	zm/zr: foldlevel-1/foldleve+1
+	zM/zR: close all/open all
+
+Vim folding commands
+---------------------------------
+zf#j creates a fold from the cursor down # lines.
+zf/ string creates a fold from the cursor to string .
+zj moves the cursor to the next fold.
+zk moves the cursor to the previous fold.
+za toggle a fold at the cursor.
+zo opens a fold at the cursor.
+zO opens all folds at the cursor.
+zc closes a fold under cursor. 
+zm increases the foldlevel by one.
+zM closes all open folds.
+zr decreases the foldlevel by one.
+zR decreases the foldlevel to zero -- all folds will be open.
+zd deletes the fold at the cursor.
+zE deletes all folds.
+[z move to start of open fold.
+]z move to end of open fold.
+
+	:e ++ff=dos # to remove ^M
+	reference: http://vim.wikia.com/wiki/File_format
+
+Ctrl+] - go to definition
+Ctrl+T - Jump back from the definition.
+Ctrl+W Ctrl+] - Open the definition in a horizontal split 
+Ctrl+Left MouseClick - Go to definition
+Ctrl+Right MouseClick - Jump back from definition 
+
+Add these lines in vimrc
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+Ctrl+\ - Open the definition in a new tab
+Alt+] - Open the definition in a vertical split
+
+https://stackoverflow.com/questions/563616/vim-and-ctags-tips-and-tricks
+
+
+To undo recent changes, from normal mode use the undo command:
+u: undo last change (can be repeated to undo preceding commands)
+Ctrl-R: Redo changes which were undone (undo the undos). Compare to . to repeat a previous change, at the current cursor position. Ctrl-R (hold down Ctrl and press r) will redo a previously undone change, wherever the change occurred. 
+http://vim.wikia.com/wiki/Undo_and_Redo
+
+
+///////////////////////////////////////////////////////////////////////////
+
+## Install a window manager
+
+$ sudo apt-get install lubuntu-desktop 
+$ sudo apt-get install lubuntu-core
+$ sudo apt-get install openbox xinit
+$ exec openbox-session; startx
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
+
+$ sudo apt-get install curl
+
+
+
+
+## sudo 出現 unable to resolve host 錯誤解法
+* https://blog.longwin.com.tw/2008/11/linux-sudo-unable-to-resolve-host-2008/
+
+$ sudo vim /etc/hosts
+
+add 127.0.0.1 <hostname>
+
+///////////////////////////////////////////////////////////////////////////
+
+## Ubuntu 安裝 TFTP Server
+
+$ sudo apt-get install xinetd tftpd tftp
+$ sudo vim /etc/xinetd.d/tftp 
+
+service tftp
+{
+    protocol        = udp
+    port            = 69
+    socket_type     = dgram
+    wait            = yes
+    user            = nobody
+    server          = /usr/sbin/in.tftpd
+    server_args     = /tftpsvr
+    disable         = no
+}
+
+$ sudo mkdir /tftpsvr
+$ sudo chmod -R 777 /tftpsvr
+$ sudo chown nobody:nogroup -R /tftpsvr
+
+$ sudo service xinetd restart
+$ #sudo /etc/init.d/xinetd restart
+
+SELF-TEST
+$ tftp [ip address]
+tftp> get [filename]
+Received xxx bytes in 0.0 seconds
+tftp> quit
+$ ls -lh [filename]
+
+///////////////////////////////////////////////////////////////////////////
+
+## Ubuntu 安裝 NFS Server
+
+$ sudo apt-get install nfs-kernel-server
+$ mkdir /nfs_share
+$ chmod -R 777 /nfs_share
+$ sudo chown nobody:nogroup -R /nfs_share
+$ sudo vim /etc/exports
+
+## 目錄可讀寫，同步寫入，用戶進入後即變為root
+
+/nfs_share 203.68.230.*(rw,sync,no_root_squash,no_subtree_check)
+$ sudo exportfs -r #更新
+$ sudo /etc/init.d/nfs-kernel-server restart #重啟nfs服務
+$ sudo service nfs-kernel-server restart #重啟nfs服務
+
+SELF-TEST
+$ mount -t nfs -o nolock [ip address]:/nfs_share /mnt
+
+
+## 客戶端下指令：
+
+$ mount -t nfs -o nolock 10.1.9.158:/nfs_share /mnt
+
+
+///////////////////////////////////////////////////////////////////////////
+
+## Openbox
+
+$ cp /etc/xdg/openbox/menu.xml ~/.config/openbox/ #for menu
+
+<item label="virtualbox">
+<action name="Execute"><execute>virtualbox</execute></action>
+</item>
+
+$ cp /etc/xdg/openbox/rc.xml ~/.config/openbox/ #for hotkey/keybind
+
+<!-- Keybindings for running applications -->
+
+<keybind key="W-e">
+<action name="Execute">
+<command>firefox</command> 
+</action>
+</keybind>
+<!-- or x-www-browser -->
+
+<keybind key="C-A-t">
+<action name="Execute">
+<command>lxterminal</command>
+</action>
+</keybind>
+
+<!-- Keybindings for windows -->
+
+<keybind key="W-s">
+	<keybind key="x">
+		<action name="ToggleMaximizeFull"></action>
+	</keybind>
+	<keybind key="m">
+		<action name="Iconify"></action>
+	</keybind>
+</keybind>
+
+
+
+ref: The Debian menu [link](http://openbox.org/wiki/Help:Menus#The_Debian_menu)
+
+///////////////////////////////////////////////////////////////////////////
+
+SET USER'S PRIVATE PATH
+$ vim ~/.profile
+$ #insert PATH=$PATH:[user's private path]
+
+CONSIDER USING ~/bin
+In ~/.profile, the script said it would automatically include ~/bin in PATH.
+
+///////////////////////////////////////////////////////////////////////////
+
+$ scp username@[IP ADDRESS]:[PATH]/[FILE] [DEST] 由遠端主機複製檔案至本機
+$ scp [FILE] username@[IP ADDRESS]:[PATH] 將檔案由本機複製到遠端主機
+
+Ubuntu 64位元系統執行32位元程式
+$ sudo dpkg --add-architecture i386
+$ sudo apt-get update
+$ sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386
+$ sudo apt-get install zlib1g-dev:i386 # if necessary
+
+$ du -sh ./folder_path #estimate file space usage in human readable format
+
+$ scp username@[IP ADDRESS]:[PATH]/[FILE] [DEST]
+
+Setup NFS server
+$ sudo apt-get install nfs-kernel-server
+$ sudo mkdir -m 777 /nfs
+$ sudo cat "/nfs *(rw,sync,no_root_squash,subtree_check)" > /etc/exports
+$ sudo service nfs-kernel-server restart
+
+Create a md5sum file for downloaded files placed in a directory
+$ md5sum * > MD5SUM
+
+
+///////////////////////////////////////////////////////////////////////////
+
+MAKE A BOOTABLE USB TO INSTALL A BRAND NEW SYSTEM
+4/26 tested working for mini.cd
+
+<?> stands for a letter
+$ sudo dd if=input.iso of=/dev/sd<?> bs=4M conv=fdatasync
+
+
+///////////////////////////////////////////////////////////////////////////
+
+$ ctags -R --exclude=.git --exclude=<folders>'
+$ find <folders> -name '*.[c|h]' >> cscope.files
+$ cscope -f cscope.files
+
+
+

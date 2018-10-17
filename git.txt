@@ -1,0 +1,100 @@
+This quick reference card records usage of GIT.
+
+///////////////////////////////////////////////////////////////////////////
+
+History
+	17/04/13	init
+
+///////////////////////////////////////////////////////////////////////////
+
+Clone a repository into a new directory
+
+$ git clone <repository> [<destination directory>]
+
+///////////////////////////////////////////////////////////////////////////
+
+Checkout a branch or paths to the working tree
+
+$ git checkout -b <new_branch> [<start_point>]
+
+
+[<start_point>]: default HEAD. For example: origin/HEAD, origin/xxx, origin/yyy
+
+git am path
+
+///////////////////////////////////////////////////////////////////////////
+
+取消已被暫存的檔案
+
+$ git reset HEAD <file>
+
+REFERENCES:
+	[1] .4 Git 基礎 - 復原, https://git-scm.com/book/zh-tw/v1/Git-%E5%9F%BA%E7%A4%8E-%E5%BE%A9%E5%8E%9F
+	
+///////////////////////////////////////////////////////////////////////////
+
+Q: How do I do a 'git status' so it doesn't display untracked files?
+
+$ git status -uno
+$ git status --untracked-files=no
+
+REFERENCES:
+	[1] https://stackoverflow.com/questions/594757/how-do-i-do-a-git-status-so-it-doesnt-display-untracked-files-without-using
+
+///////////////////////////////////////////////////////////////////////////
+
+Q: How to list staged files? How to remove the staged file?
+$ git diff --name-only --cached
+$ git rm --cached <filename>
+
+Q: How to remove all staged files?
+$ git reset
+
+///////////////////////////////////////////////////////////////////////////
+
+如何使用git 生成patch 和打入patch
+http://blog.csdn.net/liuhaomatou/article/details/54410361
+
+$ git format-patch <commit>
+$ mkdir patch
+$ mv *.path patch/
+$ cd <dest dir>
+$ git am --abort
+$ git am patch/*.patch
+
+///////////////////////////////////////////////////////////////////////////
+
+# 提交检出均不转换
+git config --global core.autocrlf false
+
+# 提交时转换为LF，检出时转换为CRLF
+git config --global core.autocrlf true
+
+# 提交时转换为LF，检出时不转换
+git config --global core.autocrlf input
+
+# 拒绝提交包含混合换行符的文件
+git config --global core.safecrlf true
+
+# 允许提交包含混合换行符的文件
+git config --global core.safecrlf false
+
+# 提交包含混合换行符的文件时给出警告
+git config --global core.safecrlf warn
+
+
+如果把 autocrlf 设置为 false 时，那另一个配置项 safecrlf 最好设置为 ture。
+
+
+
+
+
+
+
+
+
+
+
+
+
+

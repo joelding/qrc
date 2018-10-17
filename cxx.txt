@@ -1,0 +1,173 @@
+
+C/C++
+
+This document collects summaries of C computer language and C++, CObject.
+
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY
+	2017/05/02	init
+
+///////////////////////////////////////////////////////////////////////////
+
+REFERENCES
+
+高等 C 語言 -- (專業限定版) http://ccckmit.wikidot.com/cp:main
+
+///////////////////////////////////////////////////////////////////////////
+
+## Codes for Formated I/O: "%-+ 0w,pmc"
+  %#x,X hexadecimal with head 0x/X
+
+
+C style pass-by-reference
+C++ style pass-by-reference
+
+## GNU C features: attributes
+* not found in ISO standard
+* An attribute specifier is of the form as following. An attribute list is a possibly empty comma-separated sequence of attributes.
+```
+__attribute__ ((attribute-list))
+```
+* defined for functions, variables, types
+* attributes of types
+  * total 7: aligned, packed, transparent_union, unused, deprecated, visibility, and may_alias
+  * examples for aligned: specifying a minimum alignment in bytes, increasing the alignment only
+```
+struct S { short f[3]; } __attribute__ ((aligned (8)));
+typedef int more_aligned_int __attribute__ ((aligned (8)));
+```
+  * examples for packed: minimizing the required memory, decreasing the alignment only
+
+TODO: functions, variables 
+
+references:
+* GCC online manual [link](https://gcc.gnu.org/onlinedocs)
+
+///////////////////////////////////////////////////////////////////////////
+# Debug Macros
+
+* strip absolute path: make use of the last occurrence of '/' 
+```
+#define __FILENAME__ \
+	(strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+```
+
+///////////////////////////////////////////////////////////////////////////
+
+GCC DIRECTIVE
+
+#error : 在編譯時，輸出錯誤訊息，警告使用者某些錯誤，編譯在巨集處理階段就會停止。
+#warning:在編譯時，輸出警告訊息，警告使用者某些注意事項，但不會中止編譯，仍然會繼續編譯出目的檔。
+Example:
+#warning "This section is compiled"
+#error "Compiling stops here"
+
+#pragma: 用來告知編譯器某些特殊指示，例如不要輸出錯誤訊息，抑制警告訊息，或者加上記憶體漏洞檢查機制等。
+
+references: 
+1. C 語言中的編譯時期函數http://ccckmit.wikidot.com/cp:macrofunc
+2. Diagnostics https://gcc.gnu.org/onlinedocs/cpp/Diagnostics.html
+3. Pragmas https://gcc.gnu.org/onlinedocs/cpp/Pragmas.html#Pragmas#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+static void fmt(const char *data, ...)
+{
+	int d;
+	char c, *s;
+	va_list args;
+	
+	va_start(args, data);
+	while (*data) {
+		switch (*data++) {
+			case 's':
+				s = va_arg(args, char *);
+				printf("%s", s);
+				break;
+			case 'd':
+			case 'u':
+				d = va_arg(args, int);
+				printf("%d", d);
+				break;
+			case 'c':
+				c = va_arg(args, int);
+				printf("%c", c);
+				break;
+			case 'x':
+			case 'p':
+				d = va_arg(args, int);
+				printf("%x",d);
+				break;
+			default:
+				break;
+		}
+	}
+	va_end(args);
+}
+
+int main(int argc, 
+		 char *argv[])
+{
+	fmt("%s %d\n", __func__, (int)getpid());
+	return 0;
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
+Q: HOW TO USE COMMAND LINE such as ./a.out -n -t 92
+
+#include <stdio.h>
+#include <unistd.h> //getopt
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+	int opt, flags, nsecs, tfnd;
+
+	if (argc < 2) {
+		printf("Example:\n");
+		printf("\t%s -n\n", argv[0]);
+		printf("\t%s -t val\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+
+	while ((opt = getopt(argc, argv, "nt:")) != -1) {
+		switch (opt) {
+			case 'n':
+				flags = 1;
+				break;
+			case 't':
+				nsecs = atoi(optarg);
+				tfnd = 1;
+				break;
+			default:
+				break;
+		}
+	}
+
+	printf("flags=%d\n", flags);
+	printf("tfnd=%d\n", tfnd);
+	printf("nsecs=%d\n", nsecs);
+	printf("optind=%d; %s\n", optind, argv[optind]);
+	
+	return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+#define dbg(s, b...) \
+{	\
+	printf(__FILE__"@%d,%s()" s, __LINE__, __func__, ##b);	\
+	fflush(stdout);	\
+}
+
+#define round_down(f)	\
+({	\
+	int __ret = 0;	\
+	__ret = (int) f;	\
+	__ret;	\
+})

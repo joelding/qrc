@@ -1,0 +1,98 @@
+
+SHELL
+
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY:
+	2018/01/11 init
+
+///////////////////////////////////////////////////////////////////////////
+
+[Q] Saw in load3519v101 script a line "insert_isp;" ended with a semicolon.
+Is it necessary? 2018/01/12
+
+Single semicolons at the end of a line are superfluous, since the newline is also a command separator. 
+
+[reference]: https://stackoverflow.com/questions/7507038/semicolons-superfluous-at-the-end-of-a-line-in-shell-scripts
+
+///////////////////////////////////////////////////////////////////////////
+
+"Here Documents"
+This type of redirection instructs the shell to read input from the 
+current ... until a line containing delimiter.
+
+format:
+<<[-]word
+	here-document
+delimiter
+
+redirection operator <<- : all leading tab characters are stripped
+
+references:
+. $ man bash
+
+
+
+########## exercise.sh { ##########
+#!/bin/sh
+
+while read FILE COMMENT ; do
+	case $FILE in
+		""|\#*) continue ;;
+	esac
+
+	echo $COMMENT
+	touch $FILE
+
+done <<- EOF
+	# Start data
+	test-0 ; comment-0
+	test-1 ; comment-1
+	test-2 ; comment-2
+	test-3 ; comment-3
+	test-4 ; comment-4
+	test-5 ; comment-5
+	test-6 ; comment-6
+	test-7 ; comment-7
+	test-8 ; comment-8
+	test-9 ; comment-9
+	# End data
+EOF
+########## } exercise ##########
+
+########## testi2c.sh { ##########
+#!/bin/sh
+
+PORT=2
+
+while read ADDR REG VAL COMMENT ; do
+	case $ADDR in
+		""|\#*) continue ;;
+	esac
+
+	echo $COMMENT
+	./i2c_write $PORT 0x$ADDR 0x$REG 0x$VAL
+
+done <<- EOF
+	# Start data
+	72 01 00 ; init
+	72 02 00 
+	72 03 00 
+	72 10 55 ; do something
+	72 1a ff 
+	# End data
+EOF
+########## } ##########
+
+########## i2c_write { ##########
+#!/bin/sh
+
+echo i2c_write $1 $2 $3 $4
+########## } ##########
+
+########## i2c_read { ##########
+#!/bin/sh
+
+echo i2c_read $1 $2 $3 $4
+########## } ##########
+

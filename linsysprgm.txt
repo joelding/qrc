@@ -1,0 +1,126 @@
+
+LINUX SYSTEM PROGRAMMING
+
+Notes of system programming on Linux
+
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY
+
+	2017/06/01 init
+
+///////////////////////////////////////////////////////////////////////////
+
+REFERENCES
+
+[1] Kerrisk, The Linux Programming Interface: A Linux and UNIX System Programming Handbook, No Starch Press, 2010
+[2] Love, Linux System Programming: Talking Directly to the Kernel and C Library, 2/e, O'Reilly, 2013
+[3] Buttlar, PThreads Programming: A POSIX Standard for Better Multiprocessing, O'Reilly, 1996
+[4] Butenhof, Programming with POSIX Threads, Addison-Wesley, 1997
+[5] Robbins, Linux Programming by Example: The Fundamentals, Prentice Hall 2004
+[6] Wall, Linux Programming by Example, Que 1999
+
+///////////////////////////////////////////////////////////////////////////
+
+SIGNALS
+
+- a one-way async notification
+	- from kernel to a process
+	- from a process to another
+	- from a process to itself
+- to alert a process to some event
+- interrupt an executing process: stop an process and execute 
+	predetermined action, "signal handler" function
+- A process can control what to do when receiving signals except SIGKILL and SIGSTOP
+- SIGKILL always terminates the process
+- SIGSTOP always stops the process
+- 
+
+
+///////////////////////////////////////////////////////////////////////////
+
+PTHREAD 
+
+```````````````````````````````````````````````````````````````````````````
+#include <pthread.h>
+
+void do_one_thing(int *);
+void do_another_thing(int *);
+void do_wrap_up(int, int);
+int r1 = 0, r2 = 0;
+
+int main(int argc, char *argv[])
+{
+	pthread_t thread1, thread2;
+	pthread_create(	&thread1,
+					NULL, /* thread attribute object */
+					(void *) do_one_thing,
+					(void *) &r1);
+	pthread_create(	&thread2,
+					NULL,
+					(void *) do_another_thing,
+					(void *) &r2);
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
+	do_wrap_up(r1, r2);
+
+	return 0;
+}
+
+```````````````````````````````````````````````````````````````````````````
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+ 
+QUESTIONS WHILE READING SOURCE CODES
+
+### What is the effect of usleep(0)
+
+  usleep(0) appears in libvisca.c. The usleep() function suspends execution of the calling thread for __at least__ given microseconds. The value passed is used as a minimum. The system is free to use the smallest possible interval instead. [link](https://stackoverflow.com/questions/12823598/effect-of-usleep0-in-c-on-linux)
+
+### What is the difference between ioctl/FIONREAD and select?
+
+  In VISCA library, \_VISCA\_get\_packet() uses ioctl/FIONREAD. But why not use select? 
+```
+int bytes;
+unsighed char buf[256];
+ioctl(fd, FIONREAD, &bytes);
+```
+returns the number of bytes in the input buffer. This can be useful when polling a serial port and waiting for data, as your program can determine the number of bytes in the input buffer before attempting a read. UNIX provides this capability through the select(2) system call. This system call allows your program to check for input, output, or error conditions on one or more file descriptors. The file descriptors can point to serial ports, regular files, other devices, pipes, or sockets. You can poll to check for pending input, wait for input indefinitely, or timeout after a specific amount of time, making the select system call extremely __flexible__. [ref](https://www.cmrr.umn.edu/~strupp/serial.html)
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+HOW TO GET TIME IN MILLISECONDS SINCE LAST BOOT?
+
+/* uptime.c */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+	float uptime;
+	FILE *fp = fopen("/proc/uptime", "r");
+
+
+	fscanf(fp, "%f", &uptime);
+
+	system("cat /proc/uptime");
+
+	printf("uptime=%f\n", uptime);
+	fclose(fp);
+	return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////

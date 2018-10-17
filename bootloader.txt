@@ -1,0 +1,26 @@
+///////////////////////////////////////////////////////////////////////////////
+BOOTLOADER
+
+Books relating to this topic were collected. 
+///////////////////////////////////////////////////////////////////////////////
+references:
+1. 胡尔佳, 深入理解BootLoader, 机械工业出版社2016
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+Q: why u-boot shows "dirty" on the title?
+Q: What make a u-boot image "dirty"?
+  The tree contains uncommitted modifications. Read the script file "setlocalversion". 
+
+# Check for uncommitted changes
+if git diff-index --name-only HEAD | grep -v "^scripts/package" \
+	| read dummy; then
+	printf '%s' -dirty
+fi
+
+This script asked the git for modifications. If anywhere in the git contained modifications, "dirty" would be added to the revision.
+
+reference:
+1. [U-Boot-Users] What causes a 'dirty' revision? [link](https://lists.denx.de/pipermail/u-boot/2008-May/034702.html)
+///////////////////////////////////////////////////////////////////////////////
