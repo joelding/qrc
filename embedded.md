@@ -1,6 +1,6 @@
 # EMBEDDED LINUX
 
- 1. I always dream that I can unlock the shackle of KEIL ...
+ 1. I always dream that I can become free from the shackles of KEIL ...
 
 ## Building a Root Filesystem
 **How to make a jffs2/ubifs read-only filesystem?**
@@ -16,5 +16,5 @@
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjIxMTY5NTkxLDQ4Nzg2NjU1OV19
+eyJoaXN0b3J5IjpbLTk3MjYzODU3Myw0ODc4NjY1NTldfQ==
 -->
