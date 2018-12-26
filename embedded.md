@@ -1,4 +1,7 @@
 # EMBEDDED LINUX
+
+ 1. I always dream that I can unlock the shackle of KEIL ...
+
 ## Building a Root Filesystem
 **How to make a jffs2/ubifs read-only filesystem?**
 2018/11/21 while handling 0x1985 issue**
@@ -13,5 +16,5 @@
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDg3ODY2NTU5XX0=
+eyJoaXN0b3J5IjpbMjIxMTY5NTkxLDQ4Nzg2NjU1OV19
 -->
