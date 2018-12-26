@@ -1,4 +1,4 @@
-# FLASH MEMORY ON EMBEDDED SYSTEMS
+# FLASH MEMORY AND EMBEDDED FILE SYSTEMS
 2018年12月，SE5820板子陸續發生檔案系統毀損的現象。先前使用JFFS2時，就發生過問題。當時沒搞清楚問題所在。當必須面對問題時，發現認識不夠清楚。希望藉著這份筆記，釐清基本常識。
 ## Outline
 
@@ -204,6 +204,6 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODE5MDczODMyLDE2NTc2NTY3MzUsMTA0ND
-c5MzU4NiwtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbMTc4MjQyNTgzNCwxNjU3NjU2NzM1LDEwND
+Q3OTM1ODYsLTE0NDIxMTA1NTJdfQ==
 -->
