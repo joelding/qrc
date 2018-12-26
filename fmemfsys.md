@@ -7,7 +7,10 @@
  3. MTD
  4. 驅動
 
+![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
+
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xND
+QyMTEwNTUyXX0=
 -->
