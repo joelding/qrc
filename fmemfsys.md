@@ -9,7 +9,8 @@
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
-- ==density== 1G bit/128M byte
+- __density__ 1G bit/128M byte
+- __page size
 
 ## Temp
 ```
@@ -207,7 +208,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzQxMDU5MjM2LDc5MDExODc0NCwxNzgyND
+eyJoaXN0b3J5IjpbMTE0NjYwNjQ1LDc5MDExODc0NCwxNzgyND
 I1ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1
 Ml19
 -->
