@@ -26,6 +26,11 @@ W29N01HV
 U-boot can read out nand 
 # mw.b 82000000 ff 20 #just 32 bytes
 # nand read 82000000 500000 20
+# md 82000000 20
+# nand read.oob 82000000 500000 20
+# md 82000000 20
+
+
 
 /**************************
  * 12/26
@@ -221,7 +226,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTc3OTM5NDg5LC0xMTY3NzA3MzQ4LC0xNz
-gzOTE1ODIyLDc5MDExODc0NCwxNzgyNDI1ODM0LDE2NTc2NTY3
-MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLT
+E3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1
+NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
 -->
