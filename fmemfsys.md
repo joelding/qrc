@@ -7,7 +7,8 @@
  3. MTD
  4. 驅動
  5. Hamming code, reed-solomum, binary BCH
- 6. Why Hisilicon's fmc so special that it requires its own tools to make
+ 6. Why Hisilicon's fmc so special that it requires its own tools to make image?
+ 7. Software vs hardware ECC? How to play with software ECC?
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
@@ -230,8 +231,8 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzQxNTgzNTY2LC0yMDIzNjE3MTIyLC0xMT
-Y3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDExODc0NCwxNzgyNDI1
-ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml
-19
+eyJoaXN0b3J5IjpbMTE0ODE2NjIwOSwtMjAyMzYxNzEyMiwtMT
+E2NzcwNzM0OCwtMTc4MzkxNTgyMiw3OTAxMTg3NDQsMTc4MjQy
+NTgzNCwxNjU3NjU2NzM1LDEwNDQ3OTM1ODYsLTE0NDIxMTA1NT
+JdfQ==
 -->
