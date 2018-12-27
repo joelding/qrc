@@ -17,8 +17,16 @@ W29N01HV
 - __page program__ 250us
 - __block erase__ 2ms
 
+
 ## Temp
 ```
+/***
+ * 12/27
+ */
+U-boot can read out nand 
+# mw.b 82000000 ff 20 #just 32 bytes
+# nand read 
+
 /**************************
  * 12/26
  **************************/
@@ -213,7 +221,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjc3MDczNDgsLTE3ODM5MTU4MjIsNz
-kwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNSwxMDQ0Nzkz
-NTg2LC0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbLTEwNTQ1NzIxNjIsLTExNjc3MDczNDgsLT
+E3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1
+NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
 -->
