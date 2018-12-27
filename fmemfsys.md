@@ -9,7 +9,7 @@
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
-- __density__ 1G bit/128M byte
+- __density__ 1G bit/128M byte, address 28
 - __page size__ 2048+64 bytes
 - __block size__ 64 pages/128K+4K bytes)
 - __random read__ 25us
@@ -213,7 +213,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3OD
-I0MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEw
-NTUyXX0=
+eyJoaXN0b3J5IjpbLTExNjc3MDczNDgsLTE3ODM5MTU4MjIsNz
+kwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNSwxMDQ0Nzkz
+NTg2LC0xNDQyMTEwNTUyXX0=
 -->
