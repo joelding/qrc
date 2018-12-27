@@ -30,6 +30,8 @@ U-boot can read out nand
 # nand read.oob 82000000 500000 20
 # md 82000000 20
 
+http://cmchao.logdown.com/posts/60216
+出廠時即有問題的block，每個nand chip 都會標明這個型別的顆粒至少有多少block是可以用的，而且保証第一個block一定是好的，且第一個block在某個erase/program次數不會出問題(這是為了nand boot)。
 
 
 /**************************
@@ -226,7 +228,8 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLT
-E3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1
-NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbLTEyMDkwOTgwNjksLTIwMjM2MTcxMjIsLT
+ExNjc3MDczNDgsLTE3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0
+MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNT
+UyXX0=
 -->
