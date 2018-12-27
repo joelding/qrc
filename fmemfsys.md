@@ -12,6 +12,10 @@ W29N01HV
 - __density__ 1G bit/128M byte
 - __page size__ 2048+64 bytes
 - __block size__ 64 pages/128K+4K bytes)
+- __random read__ 25us
+- __sequential read cycle__ 25us
+- __page program__ 250us
+- __block erase__ 2ms
 
 ## Temp
 ```
@@ -209,7 +213,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNzM1NTg4NTEsNzkwMTE4NzQ0LDE3OD
+eyJoaXN0b3J5IjpbLTE3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3OD
 I0MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEw
 NTUyXX0=
 -->
