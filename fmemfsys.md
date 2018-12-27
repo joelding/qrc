@@ -9,7 +9,7 @@
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
-- 1G bit, 128M bytes
+- ==density== 1G bit/128M byte
 
 ## Temp
 ```
@@ -207,7 +207,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDI3OTE1NjIsNzkwMTE4NzQ0LDE3ODI0Mj
-U4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUy
-XX0=
+eyJoaXN0b3J5IjpbNzQxMDU5MjM2LDc5MDExODc0NCwxNzgyND
+I1ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1
+Ml19
 -->
