@@ -7,7 +7,8 @@
  3. MTD
  4. 驅動
 
-![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)-----
+![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
+
 ## Temp
 ```
 /**************************
@@ -204,6 +205,6 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ2OTkyMDczOSwxNzgyNDI1ODM0LDE2NT
-c2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1Nz
+Y1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
 -->
