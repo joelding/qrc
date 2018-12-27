@@ -8,6 +8,8 @@
  4. 驅動
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
+W29N01HV
+- 1G bit, 128M bytes
 
 ## Temp
 ```
@@ -205,6 +207,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1Nz
-Y1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbNDI3OTE1NjIsNzkwMTE4NzQ0LDE3ODI0Mj
+U4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUy
+XX0=
 -->
