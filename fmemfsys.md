@@ -6,6 +6,8 @@
  2. 檔案系統
  3. MTD
  4. 驅動
+ 5. Hamming code, reed-solomum, binary BCH
+ 6. Why Hisilicon's fmc so special that it requires its own tools to make
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
@@ -228,8 +230,8 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMDkwOTgwNjksLTIwMjM2MTcxMjIsLT
-ExNjc3MDczNDgsLTE3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0
-MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNT
-UyXX0=
+eyJoaXN0b3J5IjpbNzQxNTgzNTY2LC0yMDIzNjE3MTIyLC0xMT
+Y3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDExODc0NCwxNzgyNDI1
+ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml
+19
 -->
