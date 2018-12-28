@@ -28,7 +28,9 @@ W29N01HV
  */
 MLC壽命比較短： UBI wear-leveling threadhold: SLC用4096； MLC則用256
 進入操作系統：
+# ----- format MTD devices and flash UBI image
 # ubiformat /dev/mtd3
+# ----- attach MTD device to UBI -----
 # ubiattach /dev/ubi_ctrl -m MTD_NUM [-d UBI_NUM] /dev/ubi_ctrl
 # ----- create UBI volume -----
 # ubimkvol UBI_DEVICE -N NAME -s SIZE 
@@ -241,7 +243,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODM3MTM2MTMwLDY3MTU0OTY0MCwxMTQ4MT
+eyJoaXN0b3J5IjpbNDQzODcxNDI1LDY3MTU0OTY0MCwxMTQ4MT
 Y2MjA5LC0yMDIzNjE3MTIyLC0xMTY3NzA3MzQ4LC0xNzgzOTE1
 ODIyLDc5MDExODc0NCwxNzgyNDI1ODM0LDE2NTc2NTY3MzUsMT
 A0NDc5MzU4NiwtMTQ0MjExMDU1Ml19
