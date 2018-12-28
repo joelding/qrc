@@ -27,6 +27,8 @@ W29N01HV
  * 12/28
  */
 MLC壽命比較短： UBI wear-leveling threadhold: SLC用4096； MLC則用256
+進入操作系統：
+# ubiformat /dev/mtd3
 
 /***
  * 12/27
@@ -236,8 +238,8 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjcxNTQ5NjQwLDExNDgxNjYyMDksLTIwMj
-M2MTcxMjIsLTExNjc3MDczNDgsLTE3ODM5MTU4MjIsNzkwMTE4
-NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC
-0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbLTE1NDA1NjA0MjcsNjcxNTQ5NjQwLDExND
+gxNjYyMDksLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLTE3ODM5
+MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNS
+wxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
 -->
