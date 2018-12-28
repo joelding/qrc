@@ -10,7 +10,7 @@
  6. Why Hisilicon's fmc so special that it requires its own tools to make image?
  7. Software vs hardware ECC? How to play with software ECC?
  8. How to make an image using UBIFS
- 9. What is NAND subpage
+ 9. What is NAND subpage? https://www.crifan.com/what_is_subpage__sub-page_sub-pages_for_nand_flash/
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
@@ -245,8 +245,8 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODM5MjYxNzgsNDQzODcxNDI1LDY3MT
-U0OTY0MCwxMTQ4MTY2MjA5LC0yMDIzNjE3MTIyLC0xMTY3NzA3
-MzQ4LC0xNzgzOTE1ODIyLDc5MDExODc0NCwxNzgyNDI1ODM0LD
-E2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbLTM0Mzc0OTU4OSw0NDM4NzE0MjUsNjcxNT
+Q5NjQwLDExNDgxNjYyMDksLTIwMjM2MTcxMjIsLTExNjc3MDcz
+NDgsLTE3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMT
+Y1NzY1NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
 -->
