@@ -23,7 +23,7 @@ W29N01HV
 - __block erase__ 2ms
 
 ## References
-
+[^1]: UBIFS User Guide, 2018-05-20, HISILICON
 
 ## Temp
 ```
@@ -247,7 +247,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0Nzk0MzUyOSwtMzQzNzQ5NTg5LDQ0Mz
+eyJoaXN0b3J5IjpbMTIyMTIyNjAwOCwtMzQzNzQ5NTg5LDQ0Mz
 g3MTQyNSw2NzE1NDk2NDAsMTE0ODE2NjIwOSwtMjAyMzYxNzEy
 MiwtMTE2NzcwNzM0OCwtMTc4MzkxNTgyMiw3OTAxMTg3NDQsMT
 c4MjQyNTgzNCwxNjU3NjU2NzM1LDEwNDQ3OTM1ODYsLTE0NDIx
