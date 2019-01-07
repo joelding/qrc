@@ -5,6 +5,9 @@ ref:  [Getting user process pid when writing Linux Kernel Module](https://stacko
 ```
 pid_nr(get_task_pid(current, PIDTYPE_PID));
 ```
+Q: (continue the previous question) Is it possible to know which command or program  called the driver? 2019/01/07
+A: __[ close ]__
+ref: 
 
 ## Chapter 1 设备驱动简介
 ### 驱动程序的角色
@@ -42,5 +45,6 @@ pid_nr(get_task_pid(current, PIDTYPE_PID));
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIzNDkwNjMwNSwtMTEyODA2MDIyN119
+eyJoaXN0b3J5IjpbLTE3MDczMTI1NTgsLTIzNDkwNjMwNSwtMT
+EyODA2MDIyN119
 -->
