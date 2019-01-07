@@ -1,5 +1,6 @@
 # LINUX DEVICE DRIVERS
 Q: How to know which user process called the ioctl of the driver so that I can trace the application program? 2019/01/07
+A: ref https://stackoverflow.com/questions/11915728/getting-user-process-pid-when-writing-linux-kernel-module/15541638
 
 ## Chapter 1 设备驱动简介
 ### 驱动程序的角色
@@ -37,5 +38,5 @@ Q: How to know which user process called the ioctl of the driver so that I can t
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE5OTg3OTUsLTExMjgwNjAyMjddfQ==
+eyJoaXN0b3J5IjpbLTc5NjIwOTc5OSwtMTEyODA2MDIyN119
 -->
