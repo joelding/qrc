@@ -8,7 +8,7 @@ pid_nr(get_task_pid(current, PIDTYPE_PID));
 Q: (continue the previous question) Is it possible to know which command or program  called the driver? 2019/01/07
 A: __[ close ]__
 ref: # [How does the Linux kernel knows which process made a system call?](https://unix.stackexchange.com/questions/364502/how-does-the-linux-kernel-knows-which-process-made-a-system-call)
-maybe using `find_pid_ns()`
+maybe using `find_pid_ns()`. This is not verified.
 
 ## Chapter 1 设备驱动简介
 ### 驱动程序的角色
@@ -46,6 +46,6 @@ maybe using `find_pid_ns()`
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDQwMjMxMjI3LC0yMzQ5MDYzMDUsLTExMj
+eyJoaXN0b3J5IjpbNjU3MjE4MTUwLC0yMzQ5MDYzMDUsLTExMj
 gwNjAyMjddfQ==
 -->
