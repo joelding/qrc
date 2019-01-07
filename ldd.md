@@ -1,13 +1,13 @@
 # LINUX DEVICE DRIVERS
 Q: How to know which user process called the ioctl of the driver so that I can trace the application program? 2019/01/07
 A: __[ closed ]__
-ref:  [Getting user process pid when writing Linux Kernel Module](https://stackoverflow.com/questions/11915728/getting-user-process-pid-when-writing-linux-kernel-module)
+ref: [Getting user process pid when writing Linux Kernel Module](https://stackoverflow.com/questions/11915728/getting-user-process-pid-when-writing-linux-kernel-module)
 ```
 pid_nr(get_task_pid(current, PIDTYPE_PID));
 ```
 Q: (continue the previous question) Is it possible to know which command or program  called the driver? 2019/01/07
 A: __[ close ]__
-ref: # [How does the Linux kernel knows which process made a system call?](https://unix.stackexchange.com/questions/364502/how-does-the-linux-kernel-knows-which-process-made-a-system-call)
+ref: [How does the Linux kernel knows which process made a system call?](https://unix.stackexchange.com/questions/364502/how-does-the-linux-kernel-knows-which-process-made-a-system-call)
 maybe using `find_pid_ns()`. This is not verified.
 
 ## Chapter 1 设备驱动简介
@@ -46,6 +46,6 @@ maybe using `find_pid_ns()`. This is not verified.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjU3MjE4MTUwLC0yMzQ5MDYzMDUsLTExMj
+eyJoaXN0b3J5IjpbMTg5MTI4NTk1LC0yMzQ5MDYzMDUsLTExMj
 gwNjAyMjddfQ==
 -->
