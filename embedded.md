@@ -12,9 +12,14 @@
  3. Yaghmour et al. (2008) *Building Embedded Linux Systems: Concepts, Techniques, Tricks, and Traps*, Second Edition, O'Reilly 
  4. jffs2_scan_inode_node(): Data CRC failed on node at … Read … calculated … https://www.crifan.com/question_jffs2_scan_inode_node__data_crc_failed_on_node_at__read__calculated_/
 
-
+Q: Linux如何查看与/dev/input目录下的event对应的设备 2019/01/10
+ref: [link](https://blog.csdn.net/MyArrow/article/details/10582667)
+```
+# cat /proc/bus/input/devices
+```
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk3MjYzODU3Myw0ODc4NjY1NTldfQ==
+eyJoaXN0b3J5IjpbLTE4NzMwNzk3MjYsLTk3MjYzODU3Myw0OD
+c4NjY1NTldfQ==
 -->
