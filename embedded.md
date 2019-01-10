@@ -17,9 +17,10 @@ ref: [link](https://blog.csdn.net/MyArrow/article/details/10582667)
 ```
 # cat /proc/bus/input/devices
 ```
+code snippet for reading the /proc/bus/input/devices [link](https://github.com/kernc/logkeys/issues/89)
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NzMwNzk3MjYsLTk3MjYzODU3Myw0OD
-c4NjY1NTldfQ==
+eyJoaXN0b3J5IjpbLTI3NzQ1OTQ1NSwtOTcyNjM4NTczLDQ4Nz
+g2NjU1OV19
 -->
