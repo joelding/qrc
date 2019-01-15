@@ -5,12 +5,12 @@
  1. NAND 是怎樣運作？
  2. 檔案系統
  3. MTD
- 4. 驅動
+ 4. 驅動 `TODO: https://www.kernel.org/doc/html/v4.14/driver-api/mtdnand.html`
  5. Hamming code, reed-solomum, binary BCH
  6. Why Hisilicon's fmc so special that it requires its own tools to make image?
  7. Software vs hardware ECC? How to play with software ECC?
  8. How to make an image using UBIFS
- 9. What is NAND subpage? https://www.crifan.com/what_is_subpage__sub-page_sub-pages_for_nand_flash/
+ 9. What is NAND subpage? `https://www.crifan.com/what_is_subpage__sub-page_sub-pages_for_nand_flash/`
 
 ![enter image description here](http://wiki.csie.ncku.edu.tw/Flash_Construction_1.jpg)
 W29N01HV
@@ -247,9 +247,9 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIyMTIyNjAwOCwtMzQzNzQ5NTg5LDQ0Mz
-g3MTQyNSw2NzE1NDk2NDAsMTE0ODE2NjIwOSwtMjAyMzYxNzEy
-MiwtMTE2NzcwNzM0OCwtMTc4MzkxNTgyMiw3OTAxMTg3NDQsMT
-c4MjQyNTgzNCwxNjU3NjU2NzM1LDEwNDQ3OTM1ODYsLTE0NDIx
-MTA1NTJdfQ==
+eyJoaXN0b3J5IjpbLTY1MjcyOTg3MCwxMjIxMjI2MDA4LC0zND
+M3NDk1ODksNDQzODcxNDI1LDY3MTU0OTY0MCwxMTQ4MTY2MjA5
+LC0yMDIzNjE3MTIyLC0xMTY3NzA3MzQ4LC0xNzgzOTE1ODIyLD
+c5MDExODc0NCwxNzgyNDI1ODM0LDE2NTc2NTY3MzUsMTA0NDc5
+MzU4NiwtMTQ0MjExMDU1Ml19
 -->
