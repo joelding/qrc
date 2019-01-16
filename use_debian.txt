@@ -11,7 +11,7 @@ HISTORY
 
 安裝 
 $ su
-# apt-get install vim vim git gitk ctags cscope build-essential fonts-inconsolata curl
+# apt-get install vim git gitk ctags cscope build-essential fonts-inconsolata curl
 
 # vim /etc/apt/sources.list/joel.list/joel
 
