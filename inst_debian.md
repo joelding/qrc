@@ -23,20 +23,13 @@ $ su
 ```
 ```
 # (identifier) (location, eg sda5) (format, eg ext3 or ext4) (some settings)
-
-UUID=???????? /media/home ext4 defaults 0 2
-
-# mkdir /media/home
-
+UUID=xxxxx-xxxx-xxxx /media/home ext4 defaults 0 2
+```
+```
+# mkdir /media/home # make a mount point
 # mount -a
-
-### Copy /home to the New Partition ###
-
-# rsync -aXS --progress --exclude='/*/.gvfs' /home/. /media/home/.
-
-### Check Copying Worked ###
-
-# diff -r /home /media/home -x ".gvfs/*"
+# rsync -aXS --progress --exclude='/*/.gvfs' /home/. /media/home/. # sync data
+# diff -r /home /media/home -x ".gvfs/*" # Check Copying Worked ###
 
 ### Preparing fstab for the switch ###
 
@@ -50,6 +43,6 @@ UUID=???????? /home ext4 defaults 0 2
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU3MTk1ODQ5OCw5MjU4MDA3NDYsLTgxND
-cxOTc5Niw3MzA5OTgxMTZdfQ==
+eyJoaXN0b3J5IjpbLTIwMzM3NTYyNzgsOTI1ODAwNzQ2LC04MT
+Q3MTk3OTYsNzMwOTk4MTE2XX0=
 -->
