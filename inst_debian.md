@@ -6,13 +6,19 @@ Installing Debian as development host.
 $ su
 # apt-get install vim git gitk ctags cscope build-essential fonts-inconsolata curl
 ```
-## Hotkey
+## Setup hotkeys
 |Hotkey|Command|
 |--|--|
 | `<Alt>t`|lxterminal|
 
+## Format a new disk
+```
+cfdisk
+```
+
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgxNDcxOTc5Niw3MzA5OTgxMTZdfQ==
+eyJoaXN0b3J5IjpbNzUyMzIxNjQxLC04MTQ3MTk3OTYsNzMwOT
+k4MTE2XX0=
 -->
