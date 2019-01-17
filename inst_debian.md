@@ -12,13 +12,11 @@ $ su
 | `<Alt>t`|lxterminal|
 
 ## Format a new disk
-```
-cfdisk
-```
+Use `# cfdisk` to partition a new disk. Run `# mkfs.ext4 /dev/sda1` to format as ext4 file system.
 
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzUyMzIxNjQxLC04MTQ3MTk3OTYsNzMwOT
-k4MTE2XX0=
+eyJoaXN0b3J5IjpbLTY0Mjg3Njg4NiwtODE0NzE5Nzk2LDczMD
+k5ODExNl19
 -->
