@@ -36,10 +36,27 @@ UUID=xxxxx-xxxx-xxxx /media/home ext4 defaults 0 2
 # (identifier) (location, eg sda5) (format, eg ext3 or ext4) (some settings)
 UUID=???????? /home ext4 defaults 0 2
 ```
+## How to remove GParted disk?
+[ref](https://askubuntu.com/questions/211477/how-to-remove-gpt-from-hdd)
+
+`# gdisk /dev/sdX`
+```
+Command (? for help): x # for expert options
+
+Expert command (? for help): z
+About to wipe out GPT on /dev/sdx. Proceed? (Y/N): y
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+Blank out MBR? (Y/N): y
+```
+
+
+
+
 
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxMDMzMzk1MSw5MjU4MDA3NDYsLTgxND
-cxOTc5Niw3MzA5OTgxMTZdfQ==
+eyJoaXN0b3J5IjpbMTYyNDU3MTg2MCwtMzEwMzMzOTUxLDkyNT
+gwMDc0NiwtODE0NzE5Nzk2LDczMDk5ODExNl19
 -->
