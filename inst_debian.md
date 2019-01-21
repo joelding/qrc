@@ -49,7 +49,9 @@ GPT data structures destroyed! You may now partition the disk using fdisk or
 other utilities.
 Blank out MBR? (Y/N): y
 ```
-
+```
+# usermod -aG sudo username
+```
 
 
 
@@ -57,6 +59,7 @@ Blank out MBR? (Y/N): y
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYyNDU3MTg2MCwtMzEwMzMzOTUxLDkyNT
-gwMDc0NiwtODE0NzE5Nzk2LDczMDk5ODExNl19
+eyJoaXN0b3J5IjpbMjA3MDE2NDA5MCwxNjI0NTcxODYwLC0zMT
+AzMzM5NTEsOTI1ODAwNzQ2LC04MTQ3MTk3OTYsNzMwOTk4MTE2
+XX0=
 -->
