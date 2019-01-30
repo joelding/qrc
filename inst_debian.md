@@ -49,6 +49,9 @@ GPT data structures destroyed! You may now partition the disk using fdisk or
 other utilities.
 Blank out MBR? (Y/N): y
 ```
+
+## How to create Gparted disk?
+
 ```
 # usermod -aG sudo username
 ```
@@ -59,7 +62,7 @@ Blank out MBR? (Y/N): y
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA3MDE2NDA5MCwxNjI0NTcxODYwLC0zMT
-AzMzM5NTEsOTI1ODAwNzQ2LC04MTQ3MTk3OTYsNzMwOTk4MTE2
-XX0=
+eyJoaXN0b3J5IjpbOTMyNTQyMjM2LDIwNzAxNjQwOTAsMTYyND
+U3MTg2MCwtMzEwMzMzOTUxLDkyNTgwMDc0NiwtODE0NzE5Nzk2
+LDczMDk5ODExNl19
 -->
