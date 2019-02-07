@@ -24,6 +24,19 @@ W29N01HV
 ---
 ## Add UBIFS support to u-boot
 
+Refer to [u-boot: load a kernel that's in a ubi volume](https://lists.ozlabs.org/pipermail/openbmc/2017-August/008630.html)
+
+Added the following to u-boot/include/configs/xxx.h, But no extra commands were added to u-boot.
+```
+#define CONFIG_CMD_UBI
+#define CONFIG_CMD_UBIFS
+#define CONFIG_RBTREE
+#define CONFIG_MTD_DEVICE
+#define CONFIG_MTD_PARTITIONS
+#define CONFIG_CMD_MTDPARTS
+#define CONFIG_LZO
+```
+
 ---
 ## References
 [^1]: UBIFS User Guide, 2018-05-20, HISILICON
@@ -250,10 +263,10 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODQ4MDIwMTQ4LC01Mzc4NjE2OTYsLTY1Mj
-cyOTg3MCwxMjIxMjI2MDA4LC0zNDM3NDk1ODksNDQzODcxNDI1
-LDY3MTU0OTY0MCwxMTQ4MTY2MjA5LC0yMDIzNjE3MTIyLC0xMT
-Y3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDExODc0NCwxNzgyNDI1
-ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml
-19
+eyJoaXN0b3J5IjpbLTE4NzQyNTEwNzYsODQ4MDIwMTQ4LC01Mz
+c4NjE2OTYsLTY1MjcyOTg3MCwxMjIxMjI2MDA4LC0zNDM3NDk1
+ODksNDQzODcxNDI1LDY3MTU0OTY0MCwxMTQ4MTY2MjA5LC0yMD
+IzNjE3MTIyLC0xMTY3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDEx
+ODc0NCwxNzgyNDI1ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4Ni
+wtMTQ0MjExMDU1Ml19
 -->
