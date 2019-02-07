@@ -22,8 +22,9 @@ W29N01HV
 - __page program__ 250us
 - __block erase__ 2ms
 ---
-## Add UBIFS support to u-boot
+## Add UBIFS support to u-boot (TODO)
 
+reference: [UBIFS Support](http://processors.wiki.ti.com/index.php/UBIFS_Support)
 Refer to [u-boot: load a kernel that's in a ubi volume](https://lists.ozlabs.org/pipermail/openbmc/2017-August/008630.html)
 
 Added the following to u-boot/include/configs/xxx.h, But no extra commands were added to u-boot.
@@ -286,10 +287,10 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjYwNDI0NTY4LDg0ODAyMDE0OCwtNTM3OD
-YxNjk2LC02NTI3Mjk4NzAsMTIyMTIyNjAwOCwtMzQzNzQ5NTg5
-LDQ0Mzg3MTQyNSw2NzE1NDk2NDAsMTE0ODE2NjIwOSwtMjAyMz
-YxNzEyMiwtMTE2NzcwNzM0OCwtMTc4MzkxNTgyMiw3OTAxMTg3
-NDQsMTc4MjQyNTgzNCwxNjU3NjU2NzM1LDEwNDQ3OTM1ODYsLT
-E0NDIxMTA1NTJdfQ==
+eyJoaXN0b3J5IjpbMTA5NzU2NDA3Myw4NDgwMjAxNDgsLTUzNz
+g2MTY5NiwtNjUyNzI5ODcwLDEyMjEyMjYwMDgsLTM0Mzc0OTU4
+OSw0NDM4NzE0MjUsNjcxNTQ5NjQwLDExNDgxNjYyMDksLTIwMj
+M2MTcxMjIsLTExNjc3MDczNDgsLTE3ODM5MTU4MjIsNzkwMTE4
+NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC
+0xNDQyMTEwNTUyXX0=
 -->
