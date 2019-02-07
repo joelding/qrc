@@ -36,6 +36,7 @@ Added the following to u-boot/include/configs/xxx.h, But no extra commands were 
 #define CONFIG_CMD_MTDPARTS
 #define CONFIG_LZO
 ```
+According to [README](https://github.com/lentinj/u-boot/blob/master/doc/README.ubi), 
 
 ---
 ## References
@@ -263,7 +264,7 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NzQyNTEwNzYsODQ4MDIwMTQ4LC01Mz
+eyJoaXN0b3J5IjpbLTEwOTQ2MDM1NTQsODQ4MDIwMTQ4LC01Mz
 c4NjE2OTYsLTY1MjcyOTg3MCwxMjIxMjI2MDA4LC0zNDM3NDk1
 ODksNDQzODcxNDI1LDY3MTU0OTY0MCwxMTQ4MTY2MjA5LC0yMD
 IzNjE3MTIyLC0xMTY3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDEx
