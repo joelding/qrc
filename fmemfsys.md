@@ -36,7 +36,29 @@ Added the following to u-boot/include/configs/xxx.h, But no extra commands were 
 #define CONFIG_CMD_MTDPARTS
 #define CONFIG_LZO
 ```
-According to [README](https://github.com/lentinj/u-boot/blob/master/doc/README.ubi), 
+According to [README](https://github.com/lentinj/u-boot/blob/master/doc/README.ubi), the following commands should become available.
+```
+-------------------
+
+UBI usage in U-Boot
+
+-------------------
+Here the list of the currently implemented UBI commands:
+=> help ubi
+ubi - ubi commands
+Usage:
+ubi part [part] [offset]
+- Show or set current partition (with optional VID header offset)
+ubi info [l[ayout]] - Display volume and ubi layout information
+ubi create[vol] volume [size] [type] - create volume name with size
+ubi write[vol] address volume size - Write volume from address with size
+ubi read[vol] address volume [size] - Read volume to address with size
+ubi remove[vol] volume - Remove volume
+[Legends]
+volume: character name
+size: specified in bytes
+type: s[tatic] or d[ynamic] (default=dynamic)
+```
 
 ---
 ## References
@@ -264,10 +286,10 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTQ2MDM1NTQsODQ4MDIwMTQ4LC01Mz
-c4NjE2OTYsLTY1MjcyOTg3MCwxMjIxMjI2MDA4LC0zNDM3NDk1
-ODksNDQzODcxNDI1LDY3MTU0OTY0MCwxMTQ4MTY2MjA5LC0yMD
-IzNjE3MTIyLC0xMTY3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDEx
-ODc0NCwxNzgyNDI1ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4Ni
-wtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbMjYwNDI0NTY4LDg0ODAyMDE0OCwtNTM3OD
+YxNjk2LC02NTI3Mjk4NzAsMTIyMTIyNjAwOCwtMzQzNzQ5NTg5
+LDQ0Mzg3MTQyNSw2NzE1NDk2NDAsMTE0ODE2NjIwOSwtMjAyMz
+YxNzEyMiwtMTE2NzcwNzM0OCwtMTc4MzkxNTgyMiw3OTAxMTg3
+NDQsMTc4MjQyNTgzNCwxNjU3NjU2NzM1LDEwNDQ3OTM1ODYsLT
+E0NDIxMTA1NTJdfQ==
 -->
