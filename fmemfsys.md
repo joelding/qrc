@@ -21,7 +21,8 @@ W29N01HV
 - __sequential read cycle__ 25us
 - __page program__ 250us
 - __block erase__ 2ms
-
+---
+---
 ## References
 [^1]: UBIFS User Guide, 2018-05-20, HISILICON
 
@@ -247,9 +248,9 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY1MjcyOTg3MCwxMjIxMjI2MDA4LC0zND
-M3NDk1ODksNDQzODcxNDI1LDY3MTU0OTY0MCwxMTQ4MTY2MjA5
-LC0yMDIzNjE3MTIyLC0xMTY3NzA3MzQ4LC0xNzgzOTE1ODIyLD
-c5MDExODc0NCwxNzgyNDI1ODM0LDE2NTc2NTY3MzUsMTA0NDc5
-MzU4NiwtMTQ0MjExMDU1Ml19
+eyJoaXN0b3J5IjpbLTUzNzg2MTY5NiwtNjUyNzI5ODcwLDEyMj
+EyMjYwMDgsLTM0Mzc0OTU4OSw0NDM4NzE0MjUsNjcxNTQ5NjQw
+LDExNDgxNjYyMDksLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLT
+E3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1
+NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
 -->
