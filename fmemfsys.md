@@ -22,6 +22,8 @@ W29N01HV
 - __page program__ 250us
 - __block erase__ 2ms
 ---
+## Add UBIFS support to u-boot
+
 ---
 ## References
 [^1]: UBIFS User Guide, 2018-05-20, HISILICON
@@ -248,9 +250,10 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUzNzg2MTY5NiwtNjUyNzI5ODcwLDEyMj
-EyMjYwMDgsLTM0Mzc0OTU4OSw0NDM4NzE0MjUsNjcxNTQ5NjQw
-LDExNDgxNjYyMDksLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLT
-E3ODM5MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1
-NjczNSwxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbODQ4MDIwMTQ4LC01Mzc4NjE2OTYsLTY1Mj
+cyOTg3MCwxMjIxMjI2MDA4LC0zNDM3NDk1ODksNDQzODcxNDI1
+LDY3MTU0OTY0MCwxMTQ4MTY2MjA5LC0yMDIzNjE3MTIyLC0xMT
+Y3NzA3MzQ4LC0xNzgzOTE1ODIyLDc5MDExODc0NCwxNzgyNDI1
+ODM0LDE2NTc2NTY3MzUsMTA0NDc5MzU4NiwtMTQ0MjExMDU1Ml
+19
 -->
