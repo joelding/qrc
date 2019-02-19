@@ -66,6 +66,10 @@ type: s[tatic] or d[ynamic] (default=dynamic)
 [^1]: UBIFS User Guide, 2018-05-20, HISILICON
 
 ## Temp
+2/19 cross compile util-linux
+```
+```
+
 ```
 /***
  * 12/28
@@ -287,10 +291,10 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5NzU2NDA3Myw4NDgwMjAxNDgsLTUzNz
-g2MTY5NiwtNjUyNzI5ODcwLDEyMjEyMjYwMDgsLTM0Mzc0OTU4
-OSw0NDM4NzE0MjUsNjcxNTQ5NjQwLDExNDgxNjYyMDksLTIwMj
-M2MTcxMjIsLTExNjc3MDczNDgsLTE3ODM5MTU4MjIsNzkwMTE4
-NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNSwxMDQ0NzkzNTg2LC
-0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbMTY5MzM3MjgxOCwxMDk3NTY0MDczLDg0OD
+AyMDE0OCwtNTM3ODYxNjk2LC02NTI3Mjk4NzAsMTIyMTIyNjAw
+OCwtMzQzNzQ5NTg5LDQ0Mzg3MTQyNSw2NzE1NDk2NDAsMTE0OD
+E2NjIwOSwtMjAyMzYxNzEyMiwtMTE2NzcwNzM0OCwtMTc4Mzkx
+NTgyMiw3OTAxMTg3NDQsMTc4MjQyNTgzNCwxNjU3NjU2NzM1LD
+EwNDQ3OTM1ODYsLTE0NDIxMTA1NTJdfQ==
 -->
