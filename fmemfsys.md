@@ -1,4 +1,4 @@
-# FLASH MEMORY AND EMBEDDED FILE SYSTEMS
+﻿# FLASH MEMORY AND EMBEDDED FILE SYSTEMS
 2018年12月，SE5820板子陸續發生檔案系統毀損的現象。先前使用JFFS2時，就發生過問題。當時沒搞清楚問題所在。當必須面對問題時，發現認識不夠清楚。希望藉著這份筆記，釐清基本常識。
 
 ## Outline
@@ -66,6 +66,9 @@ type: s[tatic] or d[ynamic] (default=dynamic)
 [^1]: UBIFS User Guide, 2018-05-20, HISILICON
 
 ## Temp
+2/20
+* how to read a single sector from a partition https://stackoverflow.com/questions/1753067/read-a-single-sector-from-a-disk
+
 2/19 cross compile util-linux
 ```
 git checkout v2.33.1 #checkout by tag
@@ -294,11 +297,3 @@ available as user space programs as well as kernel modules.
 ```
 
 > Written with [StackEdit](https://stackedit.io/).
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMTM4ODcyMTMsMTA5NzU2NDA3Myw4ND
-gwMjAxNDgsLTUzNzg2MTY5NiwtNjUyNzI5ODcwLDEyMjEyMjYw
-MDgsLTM0Mzc0OTU4OSw0NDM4NzE0MjUsNjcxNTQ5NjQwLDExND
-gxNjYyMDksLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLTE3ODM5
-MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNS
-wxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
--->
