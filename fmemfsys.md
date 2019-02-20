@@ -71,7 +71,7 @@ type: s[tatic] or d[ynamic] (default=dynamic)
 git checkout v2.33.1 #checkout by tag
 git checkout -b v2.33.1 #checkout branch
 $ ./configure --host=arm-hisiv500-linux --prefix=`pwd`/../install --without-tinfo --disable-rpath
-$ make -L
+$ make -L `pwd`/.libs
 ```
 
 ```
@@ -295,10 +295,10 @@ available as user space programs as well as kernel modules.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMTM4ODcyMTMsMTA5NzU2NDA3Myw4ND
-gwMjAxNDgsLTUzNzg2MTY5NiwtNjUyNzI5ODcwLDEyMjEyMjYw
-MDgsLTM0Mzc0OTU4OSw0NDM4NzE0MjUsNjcxNTQ5NjQwLDExND
-gxNjYyMDksLTIwMjM2MTcxMjIsLTExNjc3MDczNDgsLTE3ODM5
-MTU4MjIsNzkwMTE4NzQ0LDE3ODI0MjU4MzQsMTY1NzY1NjczNS
-wxMDQ0NzkzNTg2LC0xNDQyMTEwNTUyXX0=
+eyJoaXN0b3J5IjpbMTczMjU1MzUzOSwxMDk3NTY0MDczLDg0OD
+AyMDE0OCwtNTM3ODYxNjk2LC02NTI3Mjk4NzAsMTIyMTIyNjAw
+OCwtMzQzNzQ5NTg5LDQ0Mzg3MTQyNSw2NzE1NDk2NDAsMTE0OD
+E2NjIwOSwtMjAyMzYxNzEyMiwtMTE2NzcwNzM0OCwtMTc4Mzkx
+NTgyMiw3OTAxMTg3NDQsMTc4MjQyNTgzNCwxNjU3NjU2NzM1LD
+EwNDQ3OTM1ODYsLTE0NDIxMTA1NTJdfQ==
 -->
