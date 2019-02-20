@@ -74,7 +74,7 @@ type: s[tatic] or d[ynamic] (default=dynamic)
 git checkout v2.33.1 #checkout by tag
 git checkout -b v2.33.1 #checkout branch
 $ ./configure --host=arm-hisiv500-linux --prefix=`pwd`/../install --without-tinfo --disable-rpath
-$ make -L
+$ make -L `pwd`/.libs
 ```
 
 ```
@@ -297,3 +297,4 @@ available as user space programs as well as kernel modules.
 ```
 
 > Written with [StackEdit](https://stackedit.io/).
+
