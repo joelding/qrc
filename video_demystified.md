@@ -1,4 +1,4 @@
-# VIDEO DEMYSTIFIED
+﻿# VIDEO DEMYSTIFIED
 溫習、筆記、2018/11/01起
 
 ## SDI
@@ -11,6 +11,14 @@
 
 **references**
 1. HDMI spec 2.1 overview [link](https://hdmiforum.org/wp-content/uploads/2017/01/HDMI_Forum_2.1SpecOverview_Jan2017_English.pdf)
+
+Gamma correction
+ref: [link](https://en.wikipedia.org/wiki/Gamma_correction)
+* a nonlinear operation used to encode and decode __luminance__
+* $V$~out~$=$$AV$~in~$^\gamma$
+* 
+
+
 ## 1. Introduction to Video
  - Analog vs. Digital 
  - Video Data : RGB; composite video signal: Y, R-Y, G-Y; S-Video: Y or gray-scale, C or chroma; YPbPr
@@ -167,6 +175,3 @@ References
  3. Encyclopedia of Graphics File Formats, by James Murray [link](https://resources.oreilly.com/examples/9781565920583/tree/beb34c319e422d01ee485c5d423aad3bc8a69ce0)
 
 > Written with [StackEdit](https://stackedit.io/).
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI3ODU2NzUzOF19
--->
