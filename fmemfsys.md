@@ -74,7 +74,7 @@ type: s[tatic] or d[ynamic] (default=dynamic)
 git checkout v2.33.1 #checkout by tag
 git checkout -b v2.33.1 #checkout branch
 $ ./configure --host=arm-hisiv500-linux --prefix=`pwd`/../install --without-tinfo --disable-rpath
-$ make -L `pwd`/.libs
+$ make -L
 ```
 
 ```
@@ -295,6 +295,10 @@ available as user space programs as well as kernel modules.
 原文：https://blog.csdn.net/gp_scoprius/article/details/53257056 
 版权声明：本文为博主原创文章，转载请附上博文链接！
 ```
+```
+How to remove GPT?
+https://askubuntu.com/questions/211477/how-to-remove-gpt-from-hdd
+Use gdisk /expert mode
+```
 
 > Written with [StackEdit](https://stackedit.io/).
-
