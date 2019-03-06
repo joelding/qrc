@@ -298,7 +298,36 @@ available as user space programs as well as kernel modules.
 ```
 How to remove GPT?
 https://askubuntu.com/questions/211477/how-to-remove-gpt-from-hdd
-Use gdisk /expert mode
+Use gdisk expert mode
+$ sudo gdisk /dev/sdc
+GPT fdisk (gdisk) version 0.8.8
+
+Partition table scan:
+  MBR: protective
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid GPT with protective MBR; using GPT.
+
+Command (? for help): x
+Expert command (? for help): z
+About to wipe out GPT on /dev/sdc. Proceed? (Y/N): y
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+Blank out MBR? (Y/N): Y
+```
+Remove all filesystems
+```
+$ sudo wipefs --all /dev/sdc
+```
+Create a partion-less FAT32
+```
+$ sudo mkfs.vfat -n 'TRANSCEND' -I /dev/sdc
+mkfs.fat 3.0.26 (2014-03-07)
+
 ```
 
 > Written with [StackEdit](https://stackedit.io/).

@@ -19,6 +19,13 @@ ref: [link](https://blog.csdn.net/MyArrow/article/details/10582667)
 ```
 code snippet for reading the /proc/bus/input/devices [link](https://github.com/kernc/logkeys/issues/89)
 
+---------------------------------------------------------------------------
+Q: What causes a 'dirty' revision?
+A: tools/setlocalversion said as long as there exists uncommitted changes, the version will be appended with 'dirty'.
+reference: [link](https://lists.denx.de/pipermail/u-boot/2008-May/034701.html)
+
+---------------------------------------------------------------------------
+
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTI3NzQ1OTQ1NSwtOTcyNjM4NTczLDQ4Nz
