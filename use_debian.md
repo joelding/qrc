@@ -1,15 +1,14 @@
 
-# INSTALL DEBIAN
-Installing Debian as development host.
+# USE DEBIAN
+Install, setup, and use Debian as development host.
 ## Install
 ```
 $ su
 # apt-get install vim git gitk ctags cscope build-essential fonts-inconsolata curl
 ```
-## Setup hotkeys
-|Hotkey|Command|
-|--|--|
-| `<Alt>t`|lxterminal|
+## Default Hotkeys
+* lxterminal `<Alt>t`
+* Modify `~/.config/openbox/lxde-rc.xml`. Search for word "keybind".
 
 ## Format a new disk and move data
 Umount the disk. Use `# cfdisk` to partition a new disk. Run `# mkfs.ext4 /dev/sda1` to format as ext4 file system.
