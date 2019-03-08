@@ -41,7 +41,8 @@ __倉庫註冊伺服器 （ Registry ）__
  * 在 Windows 、 macOS 、 Linux 上都可以使用Docker 。但對不同版本的操作系統，有不同的要求。例如在 Linux 上安裝 Docker 的條件，一定要 64 位元 Linux 、核心 3.10 以上。 
  * 準備
 	* Ubuntu 14.04
- ```
+
+```
 $ sudo apt-get update
 $ sudo apt-get install \
     linux-image-extra-$(uname -r) \
@@ -60,6 +61,8 @@ $ sudo apt-get update
 $ sudo apt-get install docker-ce # 安裝最新版本、或者
 $ #apt-cache madison docker-ce # 列出可下的版本
 $ #sudo apt-get install docker-ce=<VERSION> # 安裝指定版本
+```
+```
 $ ##### 安裝後設定 #####
 $ sudo usermod -aG docker $USER # 准許一般用戶使用 Docker，不必使用sudo。logout 後生效
 $ sudo service docker start # 啟動 Docker 服務
@@ -73,12 +76,26 @@ Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
 
+避免使用SSD做為docker的存儲裝置
+`$ sudo vi /etc/systemd/system/docker.service.d/docker.root.conf`
+```
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -g /new/docker/root -H fd://
+```
+```
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+$ sudo docker info - verify the root dir has updated
+```
+reference: [link](https://github.com/IronicBadger/til/blob/master/docker/change-docker-root.md) Friday, 08. March 2019 04:58PM 
+
 
 ## COMMONLY USED COMMANDS
 |說明|指令  |
 |--|--|
 |查詢版本、組態|`$ docker info`|
-|modify "Docker Root Dir: /var/lib/docker" to somewhere else|`$ rsync -aXS --progress /var/lib/docker/. /new/path/to/docker/.`<br>modify /etc/default/docker:<br> `# User DOCKER_OPTS to modify the daemon startup options`<br>`#DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"`<br>`DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 -g /new/path/to/docker"`<br> reference: [link](https://bobcares.com/blog/how-to-change-docker-directory/)<br>|
+|~~modify "Docker Root Dir: /var/lib/docker" to somewhere else~~|`$ rsync -aXS --progress /var/lib/docker/. /new/path/to/docker/.`<br>modify /etc/default/docker:<br> `# User DOCKER_OPTS to modify the daemon startup options`<br>`#DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"`<br>`DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 -g /new/path/to/docker"`<br> reference: [link](https://bobcares.com/blog/how-to-change-docker-directory/)<br>|
 |查詢指令|`$ docker COMMAND --help`|
 |用字串搜尋映像檔| `$ docker search NAME` |
 |按前十名搜尋| `$ docker search -s 10 NAME` <br>例如：搜尋i386<br>`$ docker search i386/ubuntu` <br> `$ docker search 32bit/ubuntu`|
