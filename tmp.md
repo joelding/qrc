@@ -189,20 +189,36 @@ kocha_main_thread()
 	* programming nand flash
 ```````````````````````````````````````````````````````````````````````````
 # update u-boot
-setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; mw.b 82000000 ff 100000; tftp 82000000 u-boot_se5820v0.bin; nand erase 0 100000; nand write 82000000 0 100000; reset
+setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; mw.b 82000000 ff 100000; tftp 82000000 u-boot_se5820v0.bin
+nand erase 0 100000; nand write 82000000 0 100000 
+reset
 
 # modify u-boot parameters
 setenv ipaddr 192.168.1.10; setenv serverip 192.168.1.100; setenv bootcmd 'nand read 82000000 100000 400000; bootm 82000000'; 
+
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=:::::eth0:off; saveenv; reset
+
+setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=dhcp
 
 ip=192.168.1.10:192.168.1.103:192.168.1.1:255.255.255.0::eth0:off; saveenv; reset
 ip=:::::eth0:off; saveenv; reset
 
-# kernel & file system
-mw.b 82000000 ff f00000; tftp 82000000 uImage; nand erase 100000 400000; nand write 82000000 100000 400000; mw.b 82000000 ff 3000000; tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2; nand erase 500000 3000000; nand write.yaffs 82000000 500000 c0a680; reset
+# kernel
+mw.b 82000000 ff f00000; tftp 82000000 uImage
+nand erase 100000 400000; nand write 82000000 100000 400000
+
+# file system
+mw.b 82000000 ff 3000000; tftp 82000000 rootfs_hi3519v101_2k_4bit.yaffs2
+nand erase 500000 3000000; nand write.yaffs 82000000 500000 c0a680
+
+mw.b 82000000 ff 3000000; tftp 82000000 rootfs_uclibc_128k.jffs2
+nand erase 500000 3000000; nand write.jffs2 82000000 500000 4c0000
+
 
 # set ip
-ifconfig eth0 192.168.1.10; mount -t nfs -o nolock 192.168.1.100:/share /mnt
+ifconfig eth0 192.168.1.10; ifconfig
+ifconfig lo 127.0.0.1
+mount -t nfs -o nolock 192.168.1.100:/share /mnt
 
 # copy files
 cp -f /mnt/New0903/libasound.so.2 /lib; cp -f /mnt/New0903/libmp3enc.so /lib; cp -r /mnt/bak/lib/gstreamer/ /lib; cp /mnt/bak/gst-plugin-scanner /usr/bin/; cp -f /mnt/bak/rcS /etc/init.d/; cp -f /mnt/bak/profile /etc/; cp -r /mnt/ko_se5820v0 .; cp /mnt/New0903/sample_demo .; reboot
@@ -212,8 +228,14 @@ cp -f /mnt/New0903/libasound.so.2 /lib; cp -f /mnt/New0903/libmp3enc.so /lib; cp
 ```````````````````````````````````````````````````````````````````````````
 # set mac address
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=:::::eth0:off
+
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) ip=dhcp
-setenv ethaddr 00:18:1A:00:A1:08
+
+bootargs=mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw mtdparts=hinand:1M(
+boot),4M(kernel),52M(rootfs),7M(userfs),1M(boot1),4M(kernel1),52M(rootfs1),7M(userfs1) ip=192.168.1.
+10::192.168.1.1:255.255.255.0::eth0:off
+
+setenv ethaddr 00:18:1A:00:A1:01
 saveenv
 reset
  
@@ -246,6 +268,39 @@ reboot
 # cp ~/avm/se5820/src/osdrv/pub/rootfs_uclibc_big-little/share/alsa/alsa.conf to [board] /share/alsa
 
 
+# /etc/init.d/rcS
+
+PATH="/usr/bin:/usr/sbin:/bin:/sbin"
+LD_LIBRARY_PATH="/lib:/usr/local/lib:/usr/lib:/lib/gstreamer"
+
+export PATH
+export LD_LIBRARY_PATH
+export GST_PLUGIN_PATH=/lib/gstreamer/gstreamer-1.0
+export GST_PLUGIN_SCANNER=/usr/bin/gst-plugin-scanner
+
+telnet &
+cd /root/ko_se5820v0; ./loadse5820v0 -i 
+insmod hi3519v101_rtc.ko
+cd /root; ./sample_demo 0 0
+
+
+# /etc/profile
+
+LD_LIBRARY_PATH="/lib:/usr/local/lib:/usr/lib:/lib/gstreamer"
+
+export PATH
+export LD_LIBRARY_PATH
+
+export GST_PLUGIN_PATH=/lib/gstreamer/gstreamer-1.0
+export GST_PLUGIN_SCANNER=/usr/bin/gst-plugin-scanner
+export GST_DEBUG=2
+
+./sample_demo 1 0 N N rtmp N
+./sample_demo 1 0 tcp N N N 
+./sample_demo 1 0 mp4 ... N mp4 ... N 
+
+
+
 ```````````````````````````````````````````````````````````````````````````
 
 
@@ -263,6 +318,9 @@ http://sikulix.com/
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) init=/sbin/init.sh ip=dhcp
 
 
+cd /root/ko_se5820v0; ./loadse5820v0 -i 
+insmod hi3519v101_rtc.ko
+cd /root; ./sample_demo 0 0
 
 
 ```````````````````````````````````````````````````````````````````````````
