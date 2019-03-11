@@ -329,5 +329,25 @@ $ sudo mkfs.vfat -n 'TRANSCEND' -I /dev/sdc
 mkfs.fat 3.0.26 (2014-03-07)
 
 ```
+---------------------------------------------------------------------------
+# KM 講稿 2019H1 2019/04/10
+
+## REVIEW C285 KOCHA
+
+C285 磁碟偵測系統命名為 Kocha。命名由來是當時的經理 Mr Stylon Wang 說，他曾經到日本旅行，行經一地名叫 Kocha。日文 Kocha 也是紅茶的意思。後來幾位同事 Mr Williams Chang、Mr Dave Shau、Mr Leo Lin 等可能都修改維護過這套系統。以上是記憶中的印象。目前留下來的 KM，撰寫人 是Mr Williams Chang。
+
+C285使用mdev，即busybox自帶、一個簡化版的udev。當裝置插拔時，daemon(常駐程式) mdev 從 config (組態)檔 mdev.conf得知呼叫 script(腳本)檔 mdev_mount2.sh 來處理插入的裝置。
+
+當裝置插入時，mdev_mount2.sh 將資訊`Add@/dev/sd[a..][1..]`印列在 `/tmp/my_fifo`檔裡。拔出時，則是`Remove@/dev/sd[a..][1..]`。`my_fifo` 只是一個暫時的文字檔，當作FIFO使用。另外一個 thread運行 `kocha_main_thread()` ，等著看 `my_fifo` 有無資料。一旦有新的資料，就取出資料，放在一個大小為 513 bytes 的 buffer (暫存區)，再進行處理。
+
+當裝置插入，mdev_mount2.sh 試著使用 "fdisk -l" 得知檔案系統是 NTFS 抑或是 FAT32。若是 NTFS，則檢查 NTFS 裝置是否曾經不正常移除。檢查 NTFS 的方法，是呼叫 `fsutil dirty query /dev/sd[a..][1..]`。修復 NTFS，則呼叫 chkntfs。若是 FAT，則不檢查，直接呼叫 fsck.vfat 檢查修復。fsck.vfat 則連接到 dosfsck 。
+
+mdev_mount2.sh 的工作止於檢查、修復檔案系統，其餘的工作全部交給 kocha 處理，包括偵測、mount/umount 、取得詳細資訊。
+
+Kocha 把 `kocha_main_thread()`放在 pthread 裡啟動。這個 pthread 的用途，是從 `/tmp/my_fifo`取出資訊，寫入buffer，然後處理。
+
+其他有許多細節，可能很難逐一讀清楚。但所有操作的目的，不外乎把操作系統寫在`/proc`的資訊取出。所以很大量的代碼，都在parse字串。這些代碼到另外一個平台上是否能繼續沿用，取決於`/proc`的資訊是否格式仍舊相同。
+
+---------------------------------------------------------------------------
 
 > Written with [StackEdit](https://stackedit.io/).
