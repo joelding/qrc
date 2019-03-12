@@ -77,8 +77,17 @@ Proceed? (Y/N): y
 ```
 # usermod -aG sudo username
 ```
+## 安裝中文輸入法
+```
+$ su
+# dpkg-reconfigure locales
+[*] zh_TW.UTF-i UTF-8
+```
+* 中文輸入法框架有很多種，如 ibus, uim, scim, fctix 。`$ sudo apt-get install ibus ibus-chewing im-config` 
+* 似乎沒有安裝字型的需要
+* Reboot or log out the user.  
 
-
+reference: [link](https://wiki.debian.org/gnome-chinese-input)
 
 
 
