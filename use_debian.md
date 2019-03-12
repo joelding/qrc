@@ -36,7 +36,7 @@ UUID=xxxxx-xxxx-xxxx /media/home ext4 defaults 0 2
 UUID=???????? /home ext4 defaults 0 2
 ```
 ## How to remove GParted disk?
-[ref](https://askubuntu.com/questions/211477/how-to-remove-gpt-from-hdd)
+reference: [link](https://askubuntu.com/questions/211477/how-to-remove-gpt-from-hdd)
 
 `# gdisk /dev/sdX`
 ```
@@ -88,6 +88,11 @@ $ su
 * Reboot or log out the user.  
 
 reference: [link](https://wiki.debian.org/gnome-chinese-input)
+
+## Install Docker
+* Reference: [link](https://docs.docker.com/install/linux/docker-ce/debian/)
+* Follow instructions written in [install using the repository](https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-repository) Friday, 08. March 2019 03:10PM 
+
 
 
 

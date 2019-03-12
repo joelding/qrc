@@ -41,7 +41,8 @@ __倉庫註冊伺服器 （ Registry ）__
  * 在 Windows 、 macOS 、 Linux 上都可以使用Docker 。但對不同版本的操作系統，有不同的要求。例如在 Linux 上安裝 Docker 的條件，一定要 64 位元 Linux 、核心 3.10 以上。 
  * 準備
 	* Ubuntu 14.04
- ```
+
+```
 $ sudo apt-get update
 $ sudo apt-get install \
     linux-image-extra-$(uname -r) \
@@ -60,6 +61,8 @@ $ sudo apt-get update
 $ sudo apt-get install docker-ce # 安裝最新版本、或者
 $ #apt-cache madison docker-ce # 列出可下的版本
 $ #sudo apt-get install docker-ce=<VERSION> # 安裝指定版本
+```
+```
 $ ##### 安裝後設定 #####
 $ sudo usermod -aG docker $USER # 准許一般用戶使用 Docker，不必使用sudo。logout 後生效
 $ sudo service docker start # 啟動 Docker 服務
@@ -73,30 +76,42 @@ Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
 
+避免使用SSD做為docker的存儲裝置
+`$ sudo vi /etc/systemd/system/docker.service.d/docker.root.conf`
+```
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -g /new/docker/root -H fd://
+```
+```
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+$ sudo docker info - verify the root dir has updated
+```
+reference: [link](https://github.com/IronicBadger/til/blob/master/docker/change-docker-root.md) Friday, 08. March 2019 04:58PM 
+
 
 ## COMMONLY USED COMMANDS
-|說明|指令  |
-|--|--|
-|查詢版本、組態|`$ docker info`|
-|modify "Docker Root Dir: /var/lib/docker" to somewhere else|`$ rsync -aXS --progress /var/lib/docker/. /new/path/to/docker/.`<br>modify /etc/default/docker:<br> `# User DOCKER_OPTS to modify the daemon startup options`<br>`#DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"`<br>`DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 -g /new/path/to/docker"`<br> reference: [link](https://bobcares.com/blog/how-to-change-docker-directory/)<br>|
-|查詢指令|`$ docker COMMAND --help`|
-|用字串搜尋映像檔| `$ docker search NAME` |
-|按前十名搜尋| `$ docker search -s 10 NAME` <br>例如：搜尋i386<br>`$ docker search i386/ubuntu` <br> `$ docker search 32bit/ubuntu`|
-|search tags for a given image|__*TODO*__ log in https://hub.docker.com|and search|
-|下載映像檔| `$ docker pull NAME:TAG`<br>例 `$ docker pull i386/ubuntu:trusty #14.04`|
-|列出電腦上已有的映像檔| `$ docker images`|
-|移除電腦上的映像檔| `$ docker rmi IMAGE`|
-|利用 Dockerfile 全新建立映像檔| `$ docker build --no-cache -t="REPOSITORY:TAG" .`|
-|利用 Dockerfile 建立映像檔，使用 cache 加速。（注意，套件更新可能會造成問題）| `$ docker build -t="REPOSITORY:TAG" .`|
-|列出所有容器| `$ docker ps -a`|
-|新建、啟動容器、並掛載host volume<br>在容器中下 exit 命令來退出終端時，所建立的容器立刻終止。 |`$ docker run -v HOST_DIRECTORY:GUEST_DIRECTORY -t -i REPOSITORY:TAG /bin/bash`|
-|新建並啟動容器| `$ docker run -t -i REPOSITORY:TAG /bin/bash`|
-|若Dockerfile先寫好使用者，則新建、啟動容器、並掛載host volume，可用一般使用者而非root| `$ docker run -v HOST_DIRECTORY:GUEST_DIRECTORY -u <name|UID>[:<group|GID>] -w /home/<name|UID> -ti REPOSITORY:TAG /bin/bash`|
-|用一般使用者login|先用root啟動一個容器，執行<br>`# useradd <name>`<br>`# mkdir -p /home/<name>`<br>`# cp /root/* /home/<name>/ #copy.bashrc .profile`<br>`# chown -R <name>:<group>`<br>`# usermod -a -G sudo <name>`<br>再開另一個視窗用使用者login `$ docker exec -u <name|UID> -it CONTAINER_ID /bin/bash`|
-|Log in a started container|`$ docker exec -it CONTAINER_ID /bin/bash`|
-|停止一個容器| `$ docker stop CONTAINER_ID`|
-|啟動執行一個已經終止的容器| `$ docker start -ia CONTAINER_ID`|
-|移除電腦上的容器| `$ docker rm CONTAINER_ID`|
+* 查詢版本、組態 `$ docker info`
+* ~~modify "Docker Root Dir: /var/lib/docker" to somewhere else~~ `$ rsync -aXS --progress /var/lib/docker/. /new/path/to/docker/.`<br>modify /etc/default/docker:<br> `# User DOCKER_OPTS to modify the daemon startup options`<br>`#DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"`<br>`DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 -g /new/path/to/docker"`<br> reference: [link](https://bobcares.com/blog/how-to-change-docker-directory/)<br>
+* 查詢指令 `$ docker COMMAND --help`
+* 用字串搜尋映像檔 `$ docker search NAME` 
+* 按前十名搜尋 `$ docker search -s 10 NAME` <br>例如：搜尋i386<br>`$ docker search i386/ubuntu` <br> `$ docker search 32bit/ubuntu`
+* search tags for a given image __*TODO*__ log in https://hub.docker.com|and search
+* 下載映像檔 `$ docker pull NAME:TAG`<br>例 `$ docker pull i386/ubuntu:trusty #14.04`
+* 列出電腦上已有的映像檔 `$ docker images`
+* 移除電腦上的映像檔 `$ docker rmi IMAGE`
+* 利用 Dockerfile 全新建立映像檔 `$ docker build --no-cache -t="REPOSITORY:TAG" .`
+* 利用 Dockerfile 建立映像檔，使用 cache 加速。（注意，套件更新可能會造成問題） `$ docker build -t="REPOSITORY:TAG" .`
+* 列出所有容器 `$ docker ps -a`
+* 新建、啟動容器、並掛載host volume<br>在容器中下 exit 命令來退出終端時，所建立的容器立刻終止。 `$ docker run -v HOST_DIRECTORY:GUEST_DIRECTORY -t -i REPOSITORY:TAG /bin/bash`
+* 新建並啟動容器 `$ docker run -t -i REPOSITORY:TAG /bin/bash`
+* 若Dockerfile先寫好使用者，則新建、啟動容器、並掛載host volume，可用一般使用者而非root `$ docker run -v HOST_DIRECTORY:GUEST_DIRECTORY -u <name|UID>[:<group|GID>] -w /home/<name|UID> -ti REPOSITORY:TAG /bin/bash`
+* 用一般使用者login: 先用root啟動一個容器，執行<br>`# useradd <name>`<br>`# mkdir -p /home/<name>`<br>`# cp /root/* /home/<name>/ #copy.bashrc .profile`<br>`# chown -R <name>:<group>`<br>`# usermod -a -G sudo <name>`<br>再開另一個視窗用使用者login `$ docker exec -u <name|UID> -it CONTAINER_ID /bin/bash`
+* Log in a started container|`$ docker exec -it CONTAINER_ID /bin/bash`
+* 停止一個容器 `$ docker stop CONTAINER_ID`
+* 啟動執行一個已經終止的容器 `$ docker start -ia CONTAINER_ID`
+* 移除電腦上的容器 `$ docker rm CONTAINER_ID`
 
 
 ## DOCKERFILE EXAMPLES
