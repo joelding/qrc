@@ -1,4 +1,5 @@
-﻿# FLASH MEMORY AND EMBEDDED FILE SYSTEMS
+# FILE SYSTEMS
+
 2018年12月，SE5820板子陸續發生檔案系統毀損的現象。先前使用JFFS2時，就發生過問題。當時沒搞清楚問題所在。當必須面對問題時，發現認識不夠清楚。希望藉著這份筆記，釐清基本常識。
 
 ## Outline
@@ -61,9 +62,7 @@ size: specified in bytes
 type: s[tatic] or d[ynamic] (default=dynamic)
 ```
 
----
-## References
-[^1]: UBIFS User Guide, 2018-05-20, HISILICON
+
 
 ## Temp
 2/20
@@ -329,25 +328,67 @@ $ sudo mkfs.vfat -n 'TRANSCEND' -I /dev/sdc
 mkfs.fat 3.0.26 (2014-03-07)
 
 ```
----------------------------------------------------------------------------
-# KM 講稿 2019H1 2019/04/10
 
-## REVIEW C285 KOCHA
+***
+
+# KM 2019H1 逐字講稿
+- 主標題：SE5820的檔案系統
+- 次標題：閃存檔案系統：UBIFS設定、測試與除錯；外接檔案系統：偵測熱插拔、掛載、修復 、掛載、修復**[TODO]**
+- scheduled presentation: 2019/04/10
+
+### Outline
+1. 閃存檔案系統：UBIFS設定、測試與除錯
+	1. [Introduction to UBIFS](#Introduction to UBIFS)
+	1. [Verify Flash Hardware and Drivers with mtd-utils](#Verify Flash Hardware and Drivers with mtd-utils) 
+	1. [Encountered Issues](#Encountered Issues) 
+1. 外接檔案系統：偵測熱插拔、掛載與修復
+	1. [A Short Review of C285 KOCHA](#A Short Review of C285 KOCHA)
+	1. [SE5820's Method](#SE5820's Method) 
+	1. 
+
+### Introduction to UBIFS
+
+UBIFS的全名是Unsorted Block Images File Systems。
+
+為什麼要採用UBIFS？SE5820開始的時候，是跟著EC530B用JFFS2。（EC530B使用NOR FLASH）換到SE5820上NAND FLASH以後，開始發生檔案系統崩潰，接著就死機、系統再也無法成功開機。以為換成海思文件推薦的檔案系統可以解決問題，後來發現並非採用哪一種檔案系統的問題。
+
+### Verify Flash Hardware and Drivers with mtd-utils
+測試程式可以是應用程式的形式、也可以是驅動的形式。應用程式的形式，可以直接從板子的console去執行；驅動的形式，則使用insmod (insert module)，載入驅動即執行測試。若執行成功，則驅動會載入核心。想要再次測試，需要移除驅動。若執行成功，則會驅動載入失敗。
+`Device Drivers" -> "Memory Technology Device (MTD) support" -> "MTD tests support"`
+
+
+
+參考資料：[MTD tests](http://www.linux-mtd.infradead.org/doc/general.html#L_mtd_tests) 
+
+### Encountered Issues
+
+### A Short Review of C285 KOCHA
 
 C285 磁碟偵測系統命名為 Kocha。命名由來是當時的經理 Mr Stylon Wang 說，他曾經到日本旅行，行經一地名叫 Kocha。日文 Kocha 也是紅茶的意思。後來幾位同事 Mr Williams Chang、Mr Dave Shau、Mr Leo Lin 等可能都修改維護過這套系統。以上是記憶中的印象。目前留下來的 KM，撰寫人 是Mr Williams Chang。
 
 C285使用mdev，即busybox自帶、一個簡化版的udev。當裝置插拔時，daemon(常駐程式) mdev 從 config (組態)檔 mdev.conf得知呼叫 script(腳本)檔 mdev_mount2.sh 來處理插入的裝置。
 
-當裝置插入時，mdev_mount2.sh 將資訊`Add@/dev/sd[a..][1..]`印列在 `/tmp/my_fifo`檔裡。拔出時，則是`Remove@/dev/sd[a..][1..]`。`my_fifo` 只是一個暫時的文字檔，當作FIFO使用。另外一個 thread運行 `kocha_main_thread()` ，等著看 `my_fifo` 有無資料。一旦有新的資料，就取出資料，放在一個大小為 513 bytes 的 buffer (暫存區)，再進行處理。
+當裝置插入時，mdev\_mount2.sh 將資訊`Add@/dev/sd[a..][1..]`印列在 `/tmp/my_fifo`檔裡。拔出時，則是`Remove@/dev/sd[a..][1..]`。`my_fifo` 只是一個暫時的文字檔，當作FIFO使用。另外一個 thread運行 `kocha_main_thread()` ，等著看 `my_fifo` 有無資料。一旦有新的資料，就取出資料，放在一個大小為 513 bytes 的 buffer (暫存區)，再進行處理。
 
-當裝置插入，mdev_mount2.sh 試著使用 "fdisk -l" 得知檔案系統是 NTFS 抑或是 FAT32。若是 NTFS，則檢查 NTFS 裝置是否曾經不正常移除。檢查 NTFS 的方法，是呼叫 `fsutil dirty query /dev/sd[a..][1..]`。修復 NTFS，則呼叫 chkntfs。若是 FAT，則不檢查，直接呼叫 fsck.vfat 檢查修復。fsck.vfat 則連接到 dosfsck 。
+當裝置插入，mdev\_mount2.sh 試著使用 "fdisk -l" 得知檔案系統是 NTFS 抑或是 FAT32。若是 NTFS，則檢查 NTFS 裝置是否曾經不正常移除。檢查 NTFS 的方法，是呼叫 `fsutil dirty query /dev/sd[a..][1..]`。修復 NTFS，則呼叫 chkntfs。若是 FAT，則不檢查，直接呼叫 fsck.vfat 檢查修復。fsck.vfat 則連接到 dosfsck 。
 
 mdev_mount2.sh 的工作止於檢查、修復檔案系統，其餘的工作全部交給 kocha 處理，包括偵測、mount/umount 、取得詳細資訊。
 
 Kocha 把 `kocha_main_thread()`放在 pthread 裡啟動。這個 pthread 的用途，是從 `/tmp/my_fifo`取出資訊，寫入buffer，然後處理。
 
-其他有許多細節，可能很難逐一讀清楚。但所有操作的目的，不外乎把操作系統寫在`/proc`的資訊取出。所以很大量的代碼，都在parse字串。這些代碼到另外一個平台上是否能繼續沿用，取決於`/proc`的資訊是否格式仍舊相同。
+其他有許多細節，可能很難逐一讀清楚。但所有操作的目的，不外乎把內核寫在`/proc`的資訊取出。所以很大量的代碼，都在parse字串。原因是mdev是用戶空間程序，處理熱插拔，基於uevent\_helper機制。uevent\_helper機制就是把插拔後的資訊，寫入`/proc`底下的檔案。
 
----------------------------------------------------------------------------
+一個可能的簡化方法，是直接省去mdev熱插拔的處理，在`kocha_main_thread()`監聽netlink上的信息。當發生熱插拔的時候，自行處理事件即可。亦即：自己寫等同mdev功能的代碼。至於磁碟的資訊，包括先前使用是否有不正常插拔等等，也可以自行處理，無須呼叫fdisk之類的工具程式，關鍵在於：檔案系統的資訊、錯誤，就在磁碟這個存儲裝置上。讀取磁碟本身，就足夠獲取所有一手資訊。
 
-> Written with [StackEdit](https://stackedit.io/).
+參考資料：[udev和mdev hotplug事件](https://blog.csdn.net/shell_albert/article/details/46924299) 
+
+摘要：
+>udev和mdev是兩個使用uevent機制處理熱插拔問題的用戶空間程序，兩者的實現機理不同。udev是基於netlink機制的，它在系統啟動時運行了一個deamon程序udevd，通過監聽內核發送的uevent來執行相應的熱拔插動作，包括創建/刪除設備節點，加載/卸載驅動模塊等等。mdev是基於uevent\_helper機制的，它在系統啟動時修改了內核中的uevnet\_helper變量（通過寫`proc/sys/kernel/hotplug`，值為`/sbin/mdev`。這樣內核產生uevent 時會調用uevent\_helper所指的用戶級程序，也就是mdev，來執行相應的熱拔插動作。 udev 使用的netlink機制在有大量uevent的場合效率高，適合用在PC機上；而mdev使用的uevent\_helper機制實現簡單，適合用在嵌入式系統中。另外要說明的一點是,uevent\_helper 的初始值在內核編譯時時可配置的，默認值為`/sbin/hotplug`。如果想修改它的值，寫`/proc/sys/kernel/hotplug`文件就可以了，例如：`echo “/sbin/mdev” > /proc/sys/kernel/hotplug`
+
+>補充一點：如果使用的是udevd,那麼uevent\_helper變量應為空，即`echo “ ” > /proc/sys/kernel/hotplug`
+
+>這段內容總結的很好，我也看了linux內核有關uevent的代碼，的確是這樣，這樣看來簡單的將mdev看做udev的簡化版也就不准確了。這樣在做嵌入式的文件系統就要注意了，一般只會使用mdev，目前我還不確定能不能只用udev，理論上是可以的，當然兩種一起用也是可以的，也就是mdev + udev ，但是這時要注意了，寫規則時一定要注意，避免讓它們重複執行。也就是說udev執行過的，mdev不要再執行了。其實udev最大的特點就是使用了netlink，實質上是一個scoket，這個特別的scoket用來監測uevent，當然，我們也可以自己寫一個函數用來監測任何uevent事件。
+
+### SE5820's Method
+
+SE5820使用udev

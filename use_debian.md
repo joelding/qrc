@@ -84,8 +84,9 @@ $ su
 [*] zh_TW.UTF-i UTF-8
 ```
 * 中文輸入法框架有很多種，如 ibus, uim, scim, fctix 。`$ sudo apt-get install ibus ibus-chewing im-config` 
-* 似乎沒有安裝字型的需要
-* Reboot or log out the user.  
+* 似乎沒有安裝額外字型的需要。若需要安裝以下：fonts-arphic-bkai00mp, fonts-arphic-bsmi00lp, fonts-arphic-gbsn00lp, fonts-arphic-gkai00mp, (optional) xfonts-intl-chinese, (optional) xfonts-intl-chinese-big
+* im-setup 加入輸入法
+* Reboot or log out the user
 
 reference: [link](https://wiki.debian.org/gnome-chinese-input)
 
