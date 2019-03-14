@@ -1,5 +1,18 @@
-﻿# VIDEO DEMYSTIFIED
+# VIDEO DEMYSTIFIED
 溫習、筆記、2018/11/01起
+
+---
+2019/3/13, 14看了溢色問題 (color crossing???)，明白自己有很多需要學習。
+
+也想寫寫看工具程式，轉換image files格式、在螢幕上呈現畫面的軟體，當作測試校正用。
+
+參考以下工具:
+http://www.yuvplayer.com
+http://www.sunrayimage.com
+https://www.offminor.de/ vooya - Raw YUV/RGB Video Player
+http://www.fourcc.org/
+
+---
 
 ## SDI
 - Ken Chih presented on 2018/11/28 KM
@@ -174,4 +187,4 @@ References
  2. Digital Video and HD: Algorithms and Interfaces (The Morgan Kaufmann Series in Computer Graphics) 2nd Edition by Charles Poynton, Morgan Kaufmann (February 7, 2012)
  3. Encyclopedia of Graphics File Formats, by James Murray [link](https://resources.oreilly.com/examples/9781565920583/tree/beb34c319e422d01ee485c5d423aad3bc8a69ce0)
 
-> Written with [StackEdit](https://stackedit.io/).
+
