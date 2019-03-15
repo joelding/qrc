@@ -1,6 +1,10 @@
 # VIDEO DEMYSTIFIED
 溫習、筆記、2018/11/01起
 
+## BT.1120
+* a digital interface standard for HDTV
+* published by ITU
+* Oct 2017: BT.1120-8
 ---
 2019/3/13, 14看了溢色問題 (color crossing???)，明白自己有很多需要學習。
 
