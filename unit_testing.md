@@ -7,10 +7,14 @@ About this topic, I felt interested because I thought unit testing is a part of 
 
 ## The three core skills of successful TDD
 1. knowing how to write good tests
+
   * Manning, the art of unit testing, e/2, 2014
 1. writing them test-first
+
   * Beck, Test-Driven Development: by Example, 2002
+
 1. designing them well
+
   * Freeman, Growing Object-Oriented Software, Guided by Tests, 2009
   * Martin, Clean Code, 2008
   
