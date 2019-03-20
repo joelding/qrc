@@ -6,17 +6,9 @@ About this topic, I felt interested because I thought unit testing is a part of 
 3. Style and Steve worked on this topic. What had they achieved? How did they feel about their progress? Why not follow their steps and continue what they were doing?
 
 ## The three core skills of successful TDD
-1. knowing how to write good tests
-
-  * Manning, the art of unit testing, e/2, 2014
-1. writing them test-first
-
-  * Beck, Test-Driven Development: by Example, 2002
-
-1. designing them well
-
-  * Freeman, Growing Object-Oriented Software, Guided by Tests, 2009
-  * Martin, Clean Code, 2008
+1. knowing how to write good tests *Manning, the art of unit testing, e/2, 2014*
+1. writing them test-first *Beck, Test-Driven Development: by Example, 2002*
+1. designing them well  *Freeman, Growing Object-Oriented Software, Guided by Tests, 2009* *Martin, Clean Code, 2008*
   
   
   
