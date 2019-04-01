@@ -1,5 +1,9 @@
-# VIDEO DEMYSTIFIED
-溫習、筆記、2018/11/01起
+# VIDEO/AUDIO DEMYSTIFIED
+
+__history:__
+
+* 2018/11/01 起溫習、筆記
+* 2019/03/26 加audio
 
 ## BT.1120
 * a digital interface standard for HDTV
