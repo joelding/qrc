@@ -5,6 +5,10 @@ About this topic, I felt interested because I thought unit testing is a part of 
 2. What should I program to proceed a unit testing?
 3. Style and Steve worked on this topic. What had they achieved? How did they feel about their progress? Why not follow their steps and continue what they were doing?
 
+### What Is a *Unit*?
+* _a unit of work_, _a use case_
+* sum of actions
+
 ### The three core skills of successful TDD
 1. knowing how to write good tests
     - *Manning, the art of unit testing, e/2, 2014*
