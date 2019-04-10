@@ -346,6 +346,26 @@ mkfs.fat 3.0.26 (2014-03-07)
 	1. [SE5820's Method](#SE5820's Method) 
 	1. 
 
+### 閃存原理
+1. NOR Flash
+  * Intel於1988年發表
+  * 支援隨機存取，讀資料的方式跟RAM接近，給address，data就能讀出。NOR的特點是原地執行(XIP, eXecute In Place)，這樣應用程序可以直接在flash memory內運行，不必再把資料讀到系統RAM中
+  * 每次寫入/擦除都是以1 block為單位;1 block = 16~128 KBytes
+  * 小容量(1~4MB)時具有很高的成本效益，但是很低的寫入和擦除速度大大影響了它的性能
+  * NOR flash佔據了容量為1～16MB閃存市場的大部分，因隨機存取快，應用在手機中
+  * NOR的擦寫週期壽命是一萬~十萬次
+  * 適合用於儲存不需經常更新的程式，例如BIOS或韌體
+1. NAND Flash
+  * Toshiba於1989年發表
+  * 適用於大容量，更低的寫入和擦除時間，高密度(單元尺寸是NOR Flash的一半)，高壽命(10倍左右)，低製造成本
+  * I/O pin只有8個，只允許連續讀取，所以不適合用於電腦主記憶體(不支援隨機存取)
+  * 讀寫操作以1 page為單位，擦除(Erase)以1 block為單位
+  * 1 block = 32 pages;每個block的單位依照廠商製造的不同有區別，介於8~32 KBytes之間
+  * NAND擦除單元更小，因此擦除速度(4ms)比NOR的(5s)快
+  * 適合於資料儲存，例如:MMC、固態硬碟(SSD)、USB 3.0隨身碟、手機、數位相機
+  * 甚至手機、MP3撥放器用NAND Flash當作存放多媒體檔案的媒介，原因在於成本、空間、還有寫入資料的速度
+  * NAND閃存中每個區塊的最大擦寫次數是一百萬次
+
 ### Introduction to UBIFS
 
 UBIFS的全名是Unsorted Block Images File Systems。
