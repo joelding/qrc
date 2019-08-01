@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # C/C++
 
 This document collects ideas to improve the source code.
@@ -97,3 +98,35 @@ sizeof(struct _struct_t *) = 8
 sizeof(state_t) = 1
 sizeof(struct_t) = 14
 ```
+=======
+# C++
+
+---
+references:
+
+---
+
+## Data Types
+- bool
+- char
+- int, short, long
+- float, double, long double
+## Literal Constant
+
+## Arithmetic operators
+- +, -, *, /, %
+- implicit type conversion
+- explicit type conversion `static_case<type>(variable)`
+```
+int number = 10;
+cout << static_cast<double><number) / 3;
+printf("%f", (double)number / 3);
+```
+
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNzQwOTQ2ODA3XX0=
+-->
+
+>>>>>>> stackedit/master

@@ -1,5 +1,6 @@
 # TEMP FILE
 
+<<<<<<< HEAD
 ## TODO
 1. SIKULI
 2. WINDOWS PROGRAMMING
@@ -25,6 +26,282 @@
 #export GST_DEBUG=2 #print both errors and warnings
 ```
 #### Building from source using Cerbero [link](https://gstreamer.freedesktop.org/documentation/installing/building-from-source-using-cerbero.html)
+=======
+
+## MTD SUBSYSTEM
+**JFFS2**
+* Journalling Flash File System Version 2
+* developer: Redhat
+* init with supporting NOR Flash only
+	* version >= 2.6 supporting NAND Flash
+* support _wear leveling_
+* actually resides on the Flash device and allows the user to read/write data to Flash
+* not stored on the Flash device and then copied into RAM during boot (i.e. ramdisk)
+
+Memory Technology Devices
+
+
+At least three file systems have been developed as JFFS2 replacements: LogFS, UBIFS, and YAFFS.
+
+On AM335x, JFFS2 support has been super-seeded by UBIFS.
+Reasons for disabling JFFS2 support
+
+**MTD Utilities**
+* flash_* family
+* built as cross-compiled user space code
+* list MTD partitions `# cat /proc/mtd`
+* erase `# flash_erase /dev/mtd1`
+* write `# flashcp /workspace/coyote-40-zImage /dev/mtd1`
+
+**UBIFS**
+* unsorted block image file system
+* origin: NOKIA and University of Szeged
+* considered as successor to JFFS2
+* benefit
+  *   shorted mount time over JFFS2
+* work on top of raw flash instead of block devices
+
+**references**
+1. official site [link](http://www.linux-mtd.infradead.org/doc/ubifs.html)
+2. Hallinan, Embedded Linux Primer, 2e, 2011 Pearson Education Inc
+3. An Introduction to SPI-NOR Subsystem [link](http://events17.linuxfoundation.org/sites/events/files/slides/An%20Introduction%20to%20SPI-NOR%20Subsystem%20-%20v3_0.pdf)
+
+
+## 2018/11/16/FRI
+|廠牌|容量  |總線標誌|Speed Class標示法|UHS Speed Class標示法|Video Speed Class標示法 |檔案格式|配置單位大小|
+|--|--|--|--|--|--|--|--|--|--|
+|PQI|32GB | I |C10|U1|N/A |NTFS|預設配置大小|
+
+
+## 2018/11/12
+```
+# cat /proc/fs/ufsd/version 
+NTFSJ support included
+Build_for__AverMedia_T533C_k3.18.20_2018-11-08_lke_9.6.3_b7
+ Evaluation copy - not for resale! 
+$Id: ufsdvfs.c 325982 2018-09-17 10:29:23Z zaytsev2 $
+driver (UFSD_HEAD lke_9.6.3_b7, paragon, acl, ioctl, sd2(5), tr, car) loaded at 
+bf010000, sizeof(inode)=368
+Kernel .config hash: original 0x52183c0c, current can't check.
+```
+* Underneath the file system files are represented by inodes. 
+* A file in the file system is basically a link to an inode. 
+* When you delete a file it removes one link to the underlying inode. The inode is only deleted (or deletable/over-writable) when all links to the inode have been deleted.
+ 
+|hard link|symbolic link|
+|--|--|
+| an additional name for an existing file |a special kind of file that points to another file, much like a shortcut  |
+|cannot be created for directories, cannot cross filesystem boundaries or span across partitions|can link to directories, or to files on remote computers networked through NFS|
+|preserve the contents of the file; deleting a target file for a symbolic link makes that link useless |does not contain the data in the target file; deleting a target file for a symbolic link makes that link useless|
+|`$ ln filename hardlink`|`$ ln -s filename softlink`|
+
+```
+$ touch test; ls -l
+-rw-rw-r-- 1 a003257 a003257    0 Nov 12 14:00 test
+```
+Note: creating a file forms a hard link to the underlying inode.
+```
+$ ln test test2; ls -l
+-rw-rw-r-- 2 a003257 a003257    0 Nov 12 14:00 test
+-rw-rw-r-- 2 a003257 a003257    0 Nov 12 14:00 test2
+```
+Note: Now 2 hard links exist after creating a hard link to the previous file
+```
+$ ln test test3; ls -l
+-rw-rw-r-- 3 a003257 a003257    0 Nov 12 14:00 test
+-rw-rw-r-- 3 a003257 a003257    0 Nov 12 14:00 test2
+-rw-rw-r-- 3 a003257 a003257    0 Nov 12 14:00 test3
+```
+Note: Now 3 hard links exist after creating a hard link to the previous file
+```
+-rw-rw-r-- 1 a003257 a003257   10 Nov 12 14:10 test
+lrwxrwxrwx 1 a003257 a003257    4 Nov 12 14:11 test2 -> test
+```
+## TODO
+ - [MUST READ IT SOON](#must-read-it-soon)
+ - SIKULI
+ - WINDOWS PROGRAMMING
+ - [KOCHA and UDEV](#kocha-and-udev)
+ - [MTD SUBSYSTEM](#mtd-subsystem)
+ - [SOP for SE5820 DEMO BOARDS](#sop-for-se5820-demo-boards)
+ - [HI3519V101 SPI PORT](#hi3519v101-spi-port)
+ - [MEMORY LEAK](#memory-leak)
+ - [時間管理黃金法則](#時間管理黃金法則) 呂宗昕 商周出版 2008
+ - [GSTREAMER BASIC TUTORIAL](#gstreamer-basic-tutorial)
+ - [BIBLE STUDY](#bible-study)
+ - [HOW TO GET SD CARD MODE](#how-to-get-sd-card-mode)
+ - [UPGRADE EMBEDDED LINUX](#upgrade-embedded-linux) WITHOUT USING MTD UTILITLIES
+ - [SYSTEM SOFTWARE](#system-software)
+ - [COMMON LINUX COMMANDS](#common-linux-commands)
+ - [HOW TO PROPERLY HANDLE JFFS2](#how-to-properly-handle-jffs2)
+
+
+## PHYTOOL
+- official site [link](https://github.com/wkz/phytool)
+- Linux MDIO register access
+- tested ok on hi3519v101 platform
+- cross compile `$ CC=arm-hisiv500-linux-gcc make`
+- history
+- 2018/10/25 init 
+
+
+## ETHTOOL
+ - official site [link](https://mirrors.edge.kernel.org/pub/software/network/ethtool/)
+ - standard Linux utility for controlling network drivers and hardware, particularly for wired Ethernet devices
+ - cross compile `$ ./configure --host=arm-hisiv500-linux`
+ - history
+   - 2018/10/25 init
+
+## HOW TO PROPERLY HANDLE JFFS2
+* recording date: 2018/10/02
+```
+Registering SWP/SWPB emulation handler
+jffs2: CLEANMARKER node found at 0x00000000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00020000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00040000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00060000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00080000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x000a0000 has totlen 0xc != normal 0x0
+usb 3-1.4: new full-speed USB device number 3 using ehci-platform
+jffs2: CLEANMARKER node found at 0x000c0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x000e0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00100000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00120000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00140000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00160000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00180000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x001a0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x001c0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x001e0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00200000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00220000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00240000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00260000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00280000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x002a0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x002c0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x002e0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00300000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00320000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00340000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00360000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00380000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x003a0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x003c0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x003e0000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00400000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00420000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00440000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00460000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x00480000 has totlen 0xc != normal 0x0
+jffs2: CLEANMARKER node found at 0x004a0000 has totlen 0xc != normal 0x0
+VFS: Mounted root (jffs2 filesystem) on device 31:2.
+devtmpfs: mounted
+
+```
+```
+jffs2: notice: (54) check_node_data: wrong data CRC in data node at 0x004b4728: 
+read 0xd6f8555a, calculated 0x79d7fa74.
+jffs2: notice: (54) check_node_data: wrong data CRC in data node at 0x004b3a78: 
+read 0x917ea828, calculated 0x4b7b0c28.
+jffs2: notice: (54) check_node_data: wrong data CRC in data node at 0x004b33c4: 
+read 0xd7b5c656, calculated 0xb6fe25c9.
+```
+
+## COMMON LINUX COMMANDS
+* dd
+	* verbose: `$ dd if=/media/sdb1/somefile.img of=/dev/sdc count=100MB status=progress`
+	* with unblocked device to generate a random content file of 16Mbytes size: `$ dd bs=1024 count=16384 </dev/urandom >/somepath/output.bin`
+* hexdump
+	* `$ hexdump -C somefile.bin`
+mmcblk0p1
+
+## SYSTEM SOFTWARE
+**history**
+* 2018/09/25 init
+
+Q: How to read dependencies of an executable file?
+A: arm-hisiv500-linux-readelf -d [an application program]
+
+Q: How to copy a file while keeping all its attributes?
+A: cp -pa [files] [destination directory]
+
+**references**
+1. Beck, System Software: An Introduction to Systems Programming, 3e, Pearson 1996
+2. 系統程式，陳鍾誠，旗標出版社 ISBN：978-957-442-827-4
+
+## MUST READ IT SOON
+1. Introduction to Computer OrganizationARM Assembly Language Using the Raspberry Pi - by Plantz [link](http://bob.cs.sonoma.edu/IntroCompOrg-RPi/intro-co-rpi.html)
+
+
+
+## UPGRADE EMBEDDED LINUX WITHOUT USING MTD UTILITLIES
+* Is it possible to write the other half of the flash chip without using mtd utilities? 2018-09-21
+* 
+## HOW TO GET SD CARD MODE
+2018/09/14 SE5820 under SI test. Bill asked.
+
+* **hdparm**
+  * implemented by busybox, available on hi3519v101 sdk 
+  * get/set hard disk parameters
+```
+# hdparm -t /dev/xx
+```
+**SD/SDIO 的傳輸模式有以下 3 種** 
+-   SPI mode（required）
+-   1-bit mode
+-   4-bit mode
+
+**Linux支援**
+-  2.6.17 正式加入 SD/MMC 驅動程式
+- 只能在 ARM 平臺上使用
+- Open source 的實作即是 SD-MMC 的驅動程式。
+- Core API 「可以做到」支援 SD/SPI mode only
+- 因為有辦法做到支援 SPI mode，當然 1-bit mode 也可以做出來。，網路上有人將 1-bit mode 擴充至 4-bit mode，有版權問題。
+- 完整的 SD stack 要付費，SD Card Association product license agreement 不允許 open source 的驅動程式實作。
+
+On hi3519 platform, when an SD card was inserted, the following message showed up on the console:
+```
+himci: card connected!
+mmc1: cannot verify signal voltage switch
+himci: turning mmc1: valid phase shift [2, 13] Final Phase 7
+mmc1: new ultra high speed SDR104 SDXC card at address 0007
+mmcblk0: mmc1:0007 SD512 477 GiB
+ mmcblk0: p1
+```
+
+
+
+**references**
+1. wiki SD卡 [link](https://zh.wikipedia.org/wiki/SD%E5%8D%A1)
+2. SD/eMMC: new speed modes and their support in Linux [youtube](https://youtu.be/mxdKXlANup4) [handout](https://bootlin.com/pub/conferences/2017/elce/clement-sd-mmc-high-speed-support-in-linux/clement-sd-mmc-high-speed-support-in-linux-kernel.pdf)
+3. TI, Linux MMC/SD Driver Guide [link](http://processors.wiki.ti.com/index.php/Linux_Core_MMC/SD_User%27s_Guide)
+
+## BIBLE STUDY
+09/17 -   歷代志上 第二十一章
+大衛在耶布斯人阿珥楠的禾場為耶和華築壇，獻燔祭和平安祭。耶和華應允，火從天降在燔祭壇上。耶和華的帳幕和燔祭壇在基遍的高處； 大衛不敢前去求問神，因為懼怕。 大衛說：這就是耶和華神的殿，為以色列人獻燔祭的壇。
+意即，要以阿珥楠的禾場為基地建殿。
+***哪裡怪怪的？***
+
+
+
+
+
+
+
+__Cross compile with buildroot__
+12. Download buildroot [link](https://buildroot.org/download.html) or `$ git clone git://git.buildroot.net/buildroot`
+13. Decompress
+14. Target options
+```
+Target Architecture (ARM (little endian))  --->
+Target Binary Format (ELF)  --->
+Target Architecture Variant (cortex-A17/A7 big.LITTLE)  --->
+Target ABI (EABIhf)  --->
+Floating point strategy (NEON)  --->
+ARM instruction set (ARM)  ---> 
+```
+>>>>>>> stackedit/master
 
 
 ## 時間管理黃金法則
@@ -33,6 +310,7 @@
 2. 上班族的三大時間策略—郭台銘的鴻海帝國
 3. 不疾而速的時間法則—李嘉誠的四句箴言
 4. 時間管理的迷思與陷阱—彼得．杜拉克的時間管理
+<<<<<<< HEAD
    * 杜拉克將時間管理的基本，整理成簡明的三個步驟： (1) 記錄並分析時間 (2) 管理時間 (3) 整合時間
    * Time is the scarcest resource and unless it is managed nothing else can be managed. Peter Drucker
 6. 追求正值的休閒時間成長率—打敗負利率時代
@@ -46,6 +324,23 @@
 10同心圓的N字型法則—半導體業新人的四怕
 11時間管理的四P與四C理念—企管行銷的四P與四C
 12時間管理的微分與積分法則—何飛鵬的快速工作祕訣
+=======
+	* 杜拉克將時間管理的基本，整理成簡明的三個步驟： (1) 記錄並分析時間 (2) 管理時間 (3) 整合時間
+	* Time is the scarcest resource and unless it is managed nothing else can be managed. Peter Drucker
+5. 追求正值的休閒時間成長率—打敗負利率時代
+6. 成功上班族必備的三大能力—銀行理專的九宮格
+1．掌握時間，增加財富的通關測驗
+
+第二章 時間管理策略
+7. 三抓三放，簡化工作—熱愛時間的比爾蓋茲
+8. 時間管理的微笑曲線—施振榮的微笑曲線
+9. 重要與緊急的四象限圖—巴菲特的投資哲學
+10. 同心圓的N字型法則—半導體業新人的四怕
+	* X軸重要、Y軸緊急
+	* 
+12. 時間管理的四P與四C理念—企管行銷的四P與四C
+13. 時間管理的微分與積分法則—何飛鵬的快速工作祕訣
+>>>>>>> stackedit/master
 ．時間管理策略的通關測驗
 
 第三章 提升工作效率
@@ -84,6 +379,10 @@
 
 ## MEMORY LEAK
 * history: 2018/09/11 ~
+<<<<<<< HEAD
+=======
+* OOM
+>>>>>>> stackedit/master
 
 ### references
 1. wiki [link](https://en.wikipedia.org/wiki/Memory_leak)
@@ -182,6 +481,7 @@ kocha_main_thread()
 * history: 2018/09/13 In SI test, Bill asked which SD card mode he was testing and observing on oscilloscope. hi3519v101 supports several. But which one 
 
 
+<<<<<<< HEAD
 ## SOP for SE5820 DEMO BOARDS
 
 * Hi3519v101 soc
@@ -298,6 +598,9 @@ export GST_DEBUG=2
 ./sample_demo 1 0 N N rtmp N
 ./sample_demo 1 0 tcp N N N 
 ./sample_demo 1 0 mp4 ... N mp4 ... N 
+=======
+
+>>>>>>> stackedit/master
 
 
 
@@ -318,9 +621,12 @@ http://sikulix.com/
 setenv bootargs mem=256M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 rw mtdparts=hinand:1M(boot),4M(kernel),123M(rootfs) init=/sbin/init.sh ip=dhcp
 
 
+<<<<<<< HEAD
 cd /root/ko_se5820v0; ./loadse5820v0 -i 
 insmod hi3519v101_rtc.ko
 cd /root; ./sample_demo 0 0
+=======
+>>>>>>> stackedit/master
 
 
 ```````````````````````````````````````````````````````````````````````````
@@ -472,6 +778,7 @@ index cbc8124..54b8dac 100755
         INC_FLAGS += -I$(SDK_PATH)/$(EXTDRV)/gyro_invensense
 
 
+<<<<<<< HEAD
 ````````````````````````````````````````````````````````````````````````
 ````````````````````````````````````````````````````````````````````````
 2018/08/25 (SAT)
@@ -615,6 +922,16 @@ Reasons for disabling JFFS2 support
     UBIFS file system is recommended for NAND File system over JFFS2 as it is seen as JFFS2 successor with significant improvements in scalability and NAND support.
 
 ````````````````````````````````````````````````````````````````````````
+=======
+
+
+
+
+
+
+
+
+>>>>>>> stackedit/master
 2018/08/24 (FRI)
 
 [mount mtdblock3]
@@ -935,10 +1252,14 @@ irtx/main.c : Not working for now 11:52
 
 ````````````````````````````````````````````````````````````````````````
 <!--stackedit_data:
+<<<<<<< HEAD
 eyJoaXN0b3J5IjpbLTEyMzkxMjQ3OTgsODA3NjE4MTY1LDE0MD
 AxNTEzODgsOTMzODEyMjI2LC0yNzA3NjQ2OSwtMzg3NzM2NzQz
 LC0xNDg2OTgzMTkzLDE4MzgwNTQwMDUsMTk1MDcyMTcyMiwtMT
 c1MDI1ODk5OSwtNzQxODc0Nzk2LDU3MzM3NDU0OSwxNDY2OTc4
 ODQzLC0xMzg3NjcwNTE4LC04ODEyNTczNDksLTEyOTcxNzEyMC
 wtMTI5NzE3MTIwXX0=
+=======
+eyJoaXN0b3J5IjpbMTM2NjY2NjgxNF19
+>>>>>>> stackedit/master
 -->

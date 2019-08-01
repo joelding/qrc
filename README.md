@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # qrc
 quick reference cards
 
@@ -43,3 +44,6 @@ environment settings, for example in "include/configs/amcc-common.h"
 ip=${ipaddr}:${serverip}:${gatewayip}:${netmask}:${hostname}:${netdev}:off
 ````````````````````````````````````````````````
 >>>>>>> keynote/master
+=======
+# stackedt
+>>>>>>> stackedit/master
