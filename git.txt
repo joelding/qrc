@@ -61,3 +61,43 @@ $ mv *.path patch/
 $ cd <dest dir>
 $ git am --abort
 $ git am patch/*.patch
+<<<<<<< HEAD
+=======
+
+///////////////////////////////////////////////////////////////////////////
+
+# 提交检出均不转换
+git config --global core.autocrlf false
+
+# 提交时转换为LF，检出时转换为CRLF
+git config --global core.autocrlf true
+
+# 提交时转换为LF，检出时不转换
+git config --global core.autocrlf input
+
+# 拒绝提交包含混合换行符的文件
+git config --global core.safecrlf true
+
+# 允许提交包含混合换行符的文件
+git config --global core.safecrlf false
+
+# 提交包含混合换行符的文件时给出警告
+git config --global core.safecrlf warn
+
+
+如果把 autocrlf 设置为 false 时，那另一个配置项 safecrlf 最好设置为 ture。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> keynote/master

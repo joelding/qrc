@@ -1,4 +1,24 @@
+<<<<<<< HEAD
 CYPRESS FX2/FX3
+=======
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+             ██████╗██╗   ██╗██╗   ██╗███████╗██████╗         
+            ██╔════╝╚██╗ ██╔╝██║   ██║██╔════╝██╔══██╗        
+            ██║      ╚████╔╝ ██║   ██║███████╗██████╔╝        
+            ██║       ╚██╔╝  ██║   ██║╚════██║██╔══██╗        
+            ╚██████╗   ██║   ╚██████╔╝███████║██████╔╝        
+             ╚═════╝   ╚═╝    ╚═════╝ ╚══════╝╚═════╝         
+                                                              
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+>>>>>>> keynote/master
 
 Having longed to learn how to program USB MIDI devices. 2017/11/21 due to a
 call to debug GC550, here comes a chance to.
@@ -14,6 +34,7 @@ History
 References
 
 1. EZ-USB FX3 Software Development Kit 
+<<<<<<< HEAD
 [link](http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit)
 
 2. EZ-USB FX3™ SuperSpeed USB 3.0 peripheral controller
@@ -27,6 +48,61 @@ In incremental aspects, this book describes what is needed to know rather than e
 
 4. EZ-USB FX2LP™  (CY7C68013A/14/15/16A) 
 [link](http://www.cypress.com/products/ez-usb-fx2lp)
+=======
+http://www.cypress.com/documentation/software-and-drivers/ez-usb-fx3-software-development-kit
+
+2. EZ-USB FX3™ SuperSpeed USB 3.0 peripheral controller
+http://www.cypress.com/fx3
+
+3. John Hyde, SuperSpeed Device Design by Example - USB Design by Example, 2014
+https://www.amazon.com/SuperSpeed-Device-Design-Example-John-ebook/dp/B00N823NO2/ref=sr_1_1?ie=UTF8&qid=1511402242&sr=8-1&keywords=usb+john+hyde
+SuperSpeed Design Examples v1.2
+http://www.cypress.com/file/200861
+In incremental aspects, this book describes what is needed to know rather than everything that FX3 can do.
+
+4. EZ-USB FX2LP™  (CY7C68013A/14/15/16A) 
+http://www.cypress.com/products/ez-usb-fx2lp
+
+///////////////////////////////////////////////////////////////////////////
+
+Hyde, SuperSpeed Device Design by Example
+
+Table of Contents 
+
+Chapter 1: SuperSpeed USB is More Than Just Higher Speed. 1 Dual bus architecture. 1 Review of USB 2.0 operation. 1 USB 3.0 enhancements 1 USB 3.0 power management 1 
+
+Chapter 2: A SuperSpeed Device Hardware Platform.. 1 SuperSpeed Explorer Board. 1 
+
+Chapter 3 A Robust Software Base. 1 Multi-threading RTOS 101. 1 Operation from RESET. 1 API Overview. 1 Key ThreadX features 1 Thread communication. 1 Thread communications using a Queue. 1 DMA Programming Model 1 Power Aware Programming. 1 FX3 Power Mode Handling. 1 
+
+ThreadX version 5.1 from Express Logic Inc.
+Codes using flow charts or state machines lead to spaghetti codes. Codes using RTOS are compartmentalized into threads - smaller pieces each does only one job.
+Event: inter-thread communication machines; operations of events: create, set, and get.
+ThreadX allows prioritizing among threads.
+
+RESET
+compiler start code
+main(); config CPU clock; config CPU caches; config io matrix; start RTOS
+OS threads run
+CyFxApplicationDefine; Application threads run
+
+
+Chapter 4 FX3 Firmware Development 1 Project Template. 1 Adding Console_In. 1 Adding Paramter Input 1 Display Program Threads 1 Display Stack Usage. 1 Adding an Error Indicator 1 Adding RTOS Visibility. 1 
+
+Change one of the Eclipse default settings: navigate to Windows > Preferences > General > Workspace and select "Save automatically before build". Click OK.
+
+
+
+Chapter 5 Exploring the FX3 Low Speed Peripherals 1 Connecting the CPLD board. 1 Dual Console Project 1 SPI Example. 1 
+Chapter 6 SuperSpeed USB communications Keyboard Example. 1 CDC Example. 1 Debug Console Over USB. 1 Cypress USB examples 1 BulkLoop Firmware. 1 Streamer firmware. 1 Low speed IO examples 1 Other examples 1 
+Chapter 7 PC Host Software Development 1 CollectData. 1 Cypress PC Utilities 1 BulkLoop Utility. 1 Streamer utility. 1 USB Control Center 1 Commercial USB Port Tester 1 
+Chapter 8 FX3 Throughput Benchmark. 1 How Benchmark works 1 The Producer/ Consumer model 1 The Low Level unmanaged C + + level 1 Producers 1 Consumers 1 OverlappedIO. 1 Mid-level Managed C + + layer 1 USB Engine. 1 
+Chapter 9 Getting Started With High-Speed IO. 1 First GPIF Project 1 Setting up GPIF II 1 Setting up a DMA Channel 1 Design Stage 1. 1 Design stage 2. 1 Design stage 3. 1 Completed Design – a Logic Analyzer
+Chapter 10 Moving Real Data, Part 1. 1 
+Chapter 11 Moving Real Data, Part 2. 1 Slave FIFO Design. 1 Third Party Products 1 FIFO Master Design. 1 Combined master read and write. 1 Master FX3 FIFO connected to a Slave FX3 FIFO. 1 Load and Run. 1 Programming the CPLD. 1 How the CPLD Programmer Works 1 Developing your own CPLD Code. 1 Introduction To Verilog. 1 FX3 Lite (Boot) Firmware Library. 1 Building an I2C Debug Console. 1 FX3 Family Members 1 FX3S designed for storage application. 1 CX3 designed for video capture applications
+
+
+>>>>>>> keynote/master
 
 ///////////////////////////////////////////////////////////////////////////////
 

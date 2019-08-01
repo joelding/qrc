@@ -1,0 +1,61 @@
+
+USE DEBIAN LINUX
+
+///////////////////////////////////////////////////////////////////////////
+
+HISTORY
+
+	2018/06/16	init
+
+///////////////////////////////////////////////////////////////////////////
+
+安裝 
+$ su
+# apt-get install vim git gitk ctags cscope build-essential fonts-inconsolata curl
+
+# vim /etc/apt/sources.list/joel.list/joel
+
+# deb http://download.virtualbox.org/virtualbox/debian stretch contrib
+# wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
+# apt-key add oracle_vbox_2016.asc
+# apt-get update
+# apt-get install virtualbox-5.2
+Version 5.2.12 r122591
+
+
+deb http://debian.csie.ntu.edu.tw/debian stretch-backports main
+deb http://debian.csie.ntu.edu.tw/debian stretch-backports contrib
+# apt-get update
+# apt-get install virtualbox
+??? CANNOT FIND EXTERNSION 5.2.10r121806
+
+Shortcut for gnome-terminal
+Application Screen (top-left corner) > Settings > Keyboard 
+Press + to add a custom shortcut
+Name: Terminal/Command: gnome-terminal/ Ctrl+Alt+T
+
+Partitioning/Home/Moving
+https://help.ubuntu.com/community/Partitioning/Home/Moving
+$ su
+### Find the uuid of the Partition ###
+# blkid >> partition.log 
+### Setup Fstab ###
+# cp /etc/fstab /etc/fstab.$(date +%Y-%m-%d) 
+# vim /etc/fstab
+# (identifier)  (location, eg sda5)   (format, eg ext3 or ext4)      (some settings) 
+UUID=????????   /media/home    ext4          defaults       0       2 
+# mkdir /media/home
+# mount -a
+###  Copy /home to the New Partition ###
+# rsync -aXS --progress --exclude='/*/.gvfs' /home/. /media/home/.
+### Check Copying Worked ###
+# diff -r /home /media/home -x ".gvfs/*"
+### Preparing fstab for the switch ###
+# vim /etc/fstab
+# (identifier)  (location, eg sda5)   (format, eg ext3 or ext4)      (some settings) 
+UUID=????????   /home    ext4          defaults       0       2 
+
+Chinese input 
+# dpkg-reconfigure locales
+choose en_US.UTF-8, zh_TW.UTF-8, zh_CN.UTF-8
+## TODO ##

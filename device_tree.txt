@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 DTSpec
 
 1 Introduction 3
@@ -69,3 +70,251 @@ i4 Device Bindings 32
 6 Devicetree Source Format (version 1) 43
 6.1 Node and property deﬁnitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
 6.2 File layout . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+=======
+############################################################################
+
+				DEVICE TREE
+
+############################################################################
+
+target:
+	want to upgrade my knowledge of linux kernel after 2.6
+
+############################################################################
+
+history:
+	2018/05/01	re-init
+
+############################################################################
+
+references:
+
+1. Newbies should read this first: https://elinux.org/Device_Tree_Usage.
+This page starts from a most basic device tree. Thus it is easy to follow.
+
+2. Device Tree Reference on Embedded Linux Wiki https://elinux.org/Device_Tree_Reference
+
+3. https://elinux.org/images/0/0c/Rowand--devicetree_kernel_internals.pdf
+
+4. https://github.com/RobertCNelson/dtc/blob/master/Documentation/dts-format.txt
+
+5. Booting ARM Linux by Russell King 18 May 2002 https://www.kernel.org/doc/Documentation/arm/Booting
+
+############################################################################
+
+TODOs:::
+
+
+
+
+
+TODO: How to modify a gpio so that this gpio can act as an interrupt?
+
+
+############################################################################
+
+ePAPR: embedded Power Architecture Platform Reference https://en.wikipedia.org/wiki/Power_Architecture_Platform_Reference
+
+"/": a single root node
+
+properties: key-value pairs
+
+value/text strings: string-propertiy = "a string";
+value/cell, 32-bit unsigned integers: cell-property = <0xbeef 123 0xabcd1234>;
+value/binary data: binary-property = [0x01 0x23 0x45 0x67];
+value/mixed: mixed-property = "a string", [0x01 0x23 0x45 0x67], <0x12345678>;
+value/string list: string-list = "red fish", "blue fish";
+
+compatible: the name of the system
+compatible = "<manufacturer>,<model>"
+
+the bare minimum structure:
+/dts-v1/;
+/ {
+	compatible = "acme,coyotes-revenge";
+};
+
+container node "cpus"
+node name <name>@<unit-address>
+name: based on representing what kind of device. use eth0 instead of 3com509 
+unit-address: the primary address; also listed in reg
+
+reg = <address1 length1 [address2 length2] [address3 length3] ...>
+
+
+Q: Arguments in bootloader will get passed to kernel or arguments in the "chosen" node?
+A: bootloader
+
+example of chosen node:
+
+chosen {
+	bootargs = "console=ttyAMA0,115200 early_printk
+	root=/dev/mtdblock2 rootfstype=jffs2 mtdparts=hi_sfc:1M(boot),4M(kernel),11M(rootfs)";
+};
+
+The chosen node doesn't represent a real device, but serves as a place for passing data between firmware and the operating system, like boot arguments. Data in the chosen node does not represent the hardware. Typically the chosen node is left empty in .dts source files and populated at boot time. 
+
+"Being able to provide a kernel command line in the DT (or in the
+static kernel configuration) is only really useful with stupid boot
+loaders that cannot pass boot arguments.
+
+With U-Boot, I have never seen any use for encoding this information
+in the device tree."
+
+Wolfgang Denk
+
+"Correct; the purpose of the 'chosen' node is to pass configuration
+information from boot firmware to the kernel.  You can put properties
+int the /chosen node in your .dts files, but they are merely a
+suggestion when firmware is devicetree aware." Grant Likely
+
+https://lists.linaro.org/pipermail/linaro-dev/2011-February/002853.html 
+https://lists.linaro.org/pipermail/linaro-dev/2011-February/002860.html
+https://lists.linaro.org/pipermail/linaro-dev/2011-February/002863.html
+
+comment: old ANSI C like comment /* */
+C++-style comment //
+
+Q: How did we boot a kernel in v2.6?
+A: Before the Device Tree, the Linux kernel contained all of the information about the hardware, such as memory locations, interrupts, on chip peripherals and many other things, of every supported platform. It depends on the bootloader to tell the kernel which platform is activated via “machine type”.  
+
+Q: Why was it bad that the kernel was hard-coded with info about the boards?
+A: The kernel contained tens of thousands lines of codes irrelevant to how the operating system worked. OK to support a few platforms; not OK to support a proliferating number of small microcontroller boards. They caused name space pollution. The Linux kernel is centrally maintained. (The mainline is centrally maintained.) The maintainers had a hard time keeping up with the proliferating number of ARM processors and boards – each with their own set of hardware. It got harder to maintain thousands of board files.
+
+Q: What about other embedded processors? Had they also adopted this device tree?
+Specific to ARM Linux, all machine types, or say board ids, are generated at arch/arm/tools/mach-types by ARM kernel maintainers. Different from standard hardware layout like x86/ACPI BIOS, ARM CPU connects to peripherals via memory-mapped way or non-probable buses. Other embedded processors have adopted PowerPC architecture.
+
+Q: What is the difference between platform using or not using dtb?
+
+before: machine type + ATAGS, ATAGS contains info such as memory size and location, kernel command line, etc; passed to the kernel as an address stored in r2.
+after: DTB contains the description of the hardware; passed to the kernel as an address stored in r2.
+
+Q: I don’t see a machine type/id in u-boot with printenv command. Where is it?
+A: In c285, u-boot was hard-coded to boot a dm365 platform. u-boot command “bdinfo” should show this data structure. Also see codes in board_init(). A machine type davinci dm365 evm was specified.
+
+before: bootm <kernel img address>
+after: bootm <kernel img addr> - <dtb addr>
+(bootm for uImage; bootz for zImage)
+
+Q: How uImage and zImage differ?
+A: uImage is an image loaded by u-boot. A 64-byte header is added to an zImage to make a uImage.
+
+Q: Where are the dts source files in the kernel?
+A: source in arch/arm/boot/dts
+.dts: board-level definitions
+.dtsi : include files
+By checking the makefile in in arch/arm/boot/dts, it can be determined which dts is used.
+When the kernel executes, the folder at /sys/firmware/devicetree/base represents the devicetree structure.
+
+Q: How did Hi3519v101 use dts? hisi-hi3519v101-hmp-demb.dts or hisi-hi3519v101-demb.dts?
+A: hisi-hi3519v101-hmp-demb.dts
+
+Q: Where are the specifications for the device tree?
+A: Most current specifications are published at devicetree.org 0.1/0.2 on 20th Dec 2017. Prior to that,  ePAPR 1.0 on 23th July 2008; 1.1 on 7th March 2011 for PowerPC architecture.
+
+CONFIG_USE_OF:
+Include support for flattened device tree machine descriptions.
+
+CONFIG_ATAGS: Support for the traditional ATAGS boot data passing
+
+CONFIG_ZBOOT_ROM_TEXT: Compressed ROM boot loader base address
+
+CONFIG_ZBOOT_ROM_BSS: Compressed ROM boot loader BSS address
+
+CONFIG_ARM_APPENDED_DTB:
+Since old boot loaders are not “compatible” with (do not support) the device tree, the kernel can grab dtb itself from the back of its own image without any help from the boot loader. This is why we cannot see in t533c as in ec530b.
+
+With this option, the boot code will look for a device tree binary (DTB) appended to zImage (e.g. cat zImage <filename>.dtb > zImage_w_dtb).
+
+This is meant as a backward compatibility convenience for those systems with a bootloader that can't be upgraded to accommodate the documented boot protocol using a device tree.
+
+Beware that there is very little in terms of protection against this option being confused by leftover garbage in memory that might look like a DTB header after a reboot if no actual DTB is appended to zImage. Do not leave this option active in a production kernel if you don't intend to always append a DTB. Proper passing of the location into r2 of a bootloader provided DTB is always preferable to this option.
+
+CONFIG_ARM_ATAG_DTB_COMPAT : 
+tell the kernel to read the ATAGS information from the bootloader, and update the DT using them.
+
+Some old bootloaders can't be updated to a DTB capable one, yet they provide ATAGs with memory configuration, the ramdisk address, the kernel cmdline string, etc. Such information is dynamically provided by the bootloader and can't always be stored in a static DTB. To allow a device tree enabled kernel to be used with such bootloaders, this option allows zImage to extract the information from the ATAG list and store it at run time into the appended DTB.
+
+CONFIG_ARM_ATAG_DTB_COMPAT _CMDLINE_FROM_BOOTLOADER: Use the command-line options passed by the boot loader instead of the device tree bootargs property. If the boot loader doesn’t provide any, the device tree bootargs property will be used.
+
+CONFIG_AUTO_ZRELADDR: Auto calculation of the decompressed kernel image address
+
+Q: How to make a dtb-attached zImage?
+A: By "cat". Refer to osdrv/opensource/kernel/linux-3.18.y/arch/arm/boot/Makefile
+cat zImage hisi-hi3519v101-hmp-demb.dtb > zImage-dtb
+mkimage –d zImage-dtb uImage # the difference is that uImage has an extra 64-byte header compared to zImage.
+
+
+disassemble a dtb file: 
+scripts/dtc/dtc –I dtb –O dts –o xxx.dts arch/arm/boot/dts/xxx.dtb
+
+
+	interrupt-controller@10300000 {
+		compatible = "arm,cortex-a7-gic";
+		#interrupt-cells = <0x3>;
+		#address-cells = <0x0>;
+		interrupt-controller;
+		reg = <0x10301000 0x1000 0x10302000 0x1000>;
+		linux,phandle = <0x1>;
+		phandle = <0x1>;
+	};
+
+interrupt-controller - An empty property declaring a node as a device that receives interrupt signals
+
+#interrupt-cells - This is a property of the interrupt controller node. It states how many cells are in an interrupt specifier for this interrupt controller (Similar to #address-cells and #size-cells).
+
+interrupt-parent - A property of a device node containing a phandle to the interrupt controller that it is attached to. Nodes that do not have an interrupt-parent property can also inherit the property from their parent node.
+
+interrupts - A property of a device node containing a list of interrupt specifiers, one for each interrupt output signal on the device.
+
+
+			gpio_chip0: gpio_chip@12140000 {
+				compatible = "arm,pl061", "arm,primecell";
+				reg = <0x12140000 0x1000>;
+				interrupts = <0 43 4>;
+				clocks = <&clock HI3519_SYSAPB_CLK>;
+				clock-names = "apb_pclk";
+				#gpio-cells = <2>;
+				status = "disabled";
+			};
+
+, where interrupts = <0 43 4>;
+
+43 = [75] - 32 since 0~31 are cpu internal interrupts, 75 is the "interrupt bit" for GPIO0-7. Refer to data sheet of Hi3519V101.
+
+ARM PL061 GPIO controller: Documentation/devicetree/bindings/gpio/pl061-gpio.txt
+
+/????????? The following code is NOT CONFIRMED OK yet ?????????/
+
+diff --git a/osdrv/opensource/kernel/linux-3.18.y/arch/arm/boot/dts/hisi-hi3519v101-hmp-demb.dts b/osdrv/opensource/kernel/linux-3.18.y/arch/arm/boot/dt
+index b957c43..14aee83 100644
+--- a/osdrv/opensource/kernel/linux-3.18.y/arch/arm/boot/dts/hisi-hi3519v101-hmp-demb.dts
++++ b/osdrv/opensource/kernel/linux-3.18.y/arch/arm/boot/dts/hisi-hi3519v101-hmp-demb.dts
+@@ -125,6 +125,15 @@ root=/dev/mtdblock2 rootfstype=jffs2 mtdparts=hi_sfc:1M(boot),
+ 
+ &i2c_bus0 {
+        status = "okay";
++       #address-cells = <1>;
++       #size-cells = <0>;
++
++       nuc100: nuc100@6c {
++               compatible = "avermedia,nuc100";
++               reg = <0x6c>;
++               interrupt-parent = <&gpio_chip0>;
++               interrupts = <2 0>;
++       };
+ };
+ 
+ &i2c_bus1 {
+@@ -247,6 +256,8 @@ root=/dev/mtdblock2 rootfstype=jffs2 mtdparts=hi_sfc:1M(boot),
+ 
+ &gpio_chip0 {
+        status = "okay";
++       interrupt-controller;
++       interrup-parent = <&gic>;       
+ };
+ 
+ &gpio_chip1 {
+
+/??????????????????/
+>>>>>>> keynote/master
